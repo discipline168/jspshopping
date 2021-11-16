@@ -59,9 +59,11 @@
     <link rel='stylesheet'  href='resources/css/style.css' type='text/css' media='all' />
 
     <script>
+
+        var limit=${size};
+        var flag=0;
         //更新购物车数量
         function quantityChange(id) {
-            jQuery("[name=iname]").val(),
             jQuery.ajax({
                 url: "/cartservlet?method=changeQuantity",
                 data: {
@@ -93,6 +95,7 @@
                     if(data=="success"){
                         console.log('删除购物车信息 id-'+id+'成功');
                         jQuery("[id='cart-item-"+id+"']").slideUp(500);
+                        flagAdd();
                     }
                     else{
                         alert(data);
@@ -104,6 +107,11 @@
         }
 
 
+        function flagAdd() {
+            if(++flag==limt){
+                window.location.reload()
+            }
+        }
     </script>
 
 

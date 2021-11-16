@@ -9,8 +9,7 @@
     <ul>
         <li
                 class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard is-active">
-            <a
-                    href="https://demo.shrimpthemes.com/1/parlo/my-account/">总览</a>
+            <a href="/account.jsp">总览</a>
         </li>
         <li
                 class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders">
@@ -20,8 +19,7 @@
 
         <li
                 class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--edit-address">
-            <a
-                    href="https://demo.shrimpthemes.com/1/parlo/my-account/edit-address/">地址</a>
+            <a href="/addressservlet?method=list">地址</a>
         </li>
         <li
                 class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--edit-account">
@@ -30,8 +28,7 @@
         </li>
         <li
                 class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--customer-logout">
-            <a
-                    href="https://demo.shrimpthemes.com/1/parlo/my-account/customer-logout/?_wpnonce=5856b37b55">登出</a>
+            <a  href="/userservlet?method=logout">登出</a>
         </li>
     </ul>
 </nav>

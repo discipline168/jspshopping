@@ -66,8 +66,10 @@ public class CartServlet extends BaseServlet {
         if(user==null)
             return "redirect:/login.jsp";
         List<Cart> cartList = cartService.getCartList(user.getId());
-        if (cartList!=null||cartList.size()>0)
-            request.setAttribute("cartList",cartList);
+        if (cartList!=null||cartList.size()>0) {
+            request.setAttribute("cartList", cartList);
+            request.setAttribute("size", cartList.size());
+        }
 
         System.out.println("cart list: " +cartList);
         return "forward:/cart.jsp";
