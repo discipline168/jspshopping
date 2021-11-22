@@ -55,4 +55,19 @@ public class UserDaoImpl implements UserDao {
                 "DELETE FROM tb_user  WHERE email = ? AND flag = 0",
                 email);
     }
+
+    @Override
+    public int updateBalance(int uid,double balance) throws SQLException {
+        return queryRunner.update(DruidUtils.getConnection(),
+                "UPDATE tb_user SET balance =  ? WHERE id = ?",
+                balance,
+                uid);
+    }
+
+    @Override
+    public int applyCoupon(int uid) throws SQLException {
+        return queryRunner.update(DruidUtils.getConnection(),
+                "UPDATE tb_user SET balance =  balance + 666 WHERE id = ?",
+                uid);
+    }
 }

@@ -150,7 +150,7 @@
 
                             <div class="woocommerce-notices-wrapper msg-hide" name="cartSuccess">
                                 <div class="woocommerce-message" role="alert">
-                                    <a href="https://demo.shrimpthemes.com/1/parlo/cart/" tabindex="1"
+                                    <a href="/cartservlet?method=list" tabindex="1"
                                        class="button wc-forward">查看购物车</a> ${goods.name} 已加入您的购物车 </div>
                             </div>
 

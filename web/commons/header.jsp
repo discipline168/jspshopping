@@ -49,10 +49,9 @@
 
                 <div class="ht-col-md-2">
                     <div class="site-branding">
-                        <a href="https://demo.shrimpthemes.com/1/parlo/" class="custom-logo-link" rel="home"
-                           aria-current="page"><img width="116" height="28"
-                                                    src="https://demo.shrimpthemes.com/1/parlo/wp-content/uploads/2019/03/logo.png"
-                                                    class="custom-logo" alt="Parlo" /></a> </div><!-- .site-branding -->
+                        <a href="/" class="custom-logo-link" rel="home"
+                           aria-current="page"><img src="resources/images/logo.png"
+                                                    class="custom-logo" alt="disciplinepro" /></a> </div><!-- .site-branding -->
                 </div>
 
                 <div class="ht-col-md-7 ht-center-xs">
@@ -97,8 +96,11 @@
                                                 <a href="${pageContext.request.contextPath}/account.jsp"
                                                    class=""><span>我的</span> </a></li>
                                             <li class="menu-item menu-item-type-post_type menu-item-object-page ">
-                                                <a href="https://demo.shrimpthemes.com/1/parlo/shop/"
+                                                <a href="/orderservlet?method=list"
                                                    class=""><span>订单</span> </a></li>
+                                            <li class="menu-item menu-item-type-post_type menu-item-object-page ">
+                                                <a href="/addressservlet?method=list"
+                                                   class=""><span>地址</span> </a></li>
                                             <li class="menu-item menu-item-type-custom menu-item-object-custom ">
                                                 <a href="/cartservlet?method=list"
                                                    class=""><span>购物车</span> </a></li>
@@ -128,6 +130,8 @@
                     </div>
                 </div>
 
+
+
                 <div class="ht-col-md-3 ht-d-flex ht-end-sm">
                     <div class="header-right-content">
                         <ul>
@@ -146,6 +150,7 @@
                                             </span>
                                         </span>
                                     </a>
+                                    <!-- 购物车信息-->
                                     <div class="minicart-page-area parlo-dropdown-menu" style="width: 400px">
                                         <h3>购物车</h3>
                                         <span class="mini-cart-close parlo-dropdown-close">
@@ -184,10 +189,10 @@
                                                 </p>
 
 
-                                                <p class="woocommerce-mini-cart__buttons buttons"><a
-                                                        href="/cartservlet?method=list"
-                                                        class="button wc-forward">查看购物车</a><a
-                                                        href="https://demo.shrimpthemes.com/1/parlo/checkout/"
+                                                <p class="woocommerce-mini-cart__buttons buttons">
+                                                    <a href="/cartservlet?method=list"
+                                                        class="button wc-forward">查看购物车</a>
+                                                    <a href="/orderservlet?method=checkout"
                                                         class="button checkout wc-forward">结算</a></p>
 
 
@@ -208,20 +213,19 @@
                                         <div class="menu-account-container">
                                             <ul id="menu-account" class="menu">
                                                 <li lass="menu-item menu-item-type-post_type menu-item-object-page menu-item-234">
-                                                    <a
-                                                            href="https://demo.shrimpthemes.com/1/parlo/my-account/">我的</a>
+                                                    <a href="/account.jsp">我的</a>
                                                 </li>
                                                 <li lass="menu-item menu-item-type-post_type menu-item-object-page menu-item-235">
-                                                    <a
-                                                            href="https://demo.shrimpthemes.com/1/parlo/checkout/">订单</a>
-                                                </li>
-                                                <li lass="menu-item menu-item-type-post_type menu-item-object-page menu-item-700">
-                                                    <a
-                                                            href="https://demo.shrimpthemes.com/1/parlo/wishlist/">心愿单</a>
+                                                    <a href="/orderservlet?method=list">订单</a>
                                                 </li>
                                                 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-236">
-                                                    <a
-                                                            href="https://demo.shrimpthemes.com/1/parlo/cart/">购物车</a>
+                                                    <a href="/cartservlet?method=list">购物车</a>
+                                                </li>
+                                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-236">
+                                                    <a href="/addressservlet?method=list">地址</a>
+                                                </li>
+                                                <li lass="menu-item menu-item-type-post_type menu-item-object-page menu-item-235">
+                                                    <a href="/userservlet?method=logout">登出</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -240,16 +244,15 @@
     </div>
 
 
-    <!-- 移动端适配-->
+    <!-- 移动端适配 header-->
     <div class="header-small-mobile">
         <div class="ht-container">
             <div class="ht-row">
                 <div class="ht-col-md-6 ht-col-xs-6">
                     <div class="mobile-logo">
                         <a href="/" class="custom-logo-link" rel="home"
-                           aria-current="page"><img width="116" height="28"
-                                                    src="https://demo.shrimpthemes.com/1/parlo/wp-content/uploads/2019/03/logo.png"
-                                                    class="custom-logo" alt="Parlo" /></a> </div>
+                           aria-current="page"><img src="resources/images/logo.png"
+                                                    class="custom-logo" alt="disciplinepro" /></a> </div>
                 </div>
                 <div class="ht-col-md-6 ht-col-xs-6 ht-d-flex ht-end-xs">
                     <div class="header-right-wrap">
@@ -326,152 +329,73 @@
         </div>
     </div>
 
-    <!--=======  offcanvas mobile menu  =======-->
+    <!--移动端适配 menu -->
     <div class="offcanvas-mobile-menu" id="offcanvas-mobile-menu">
         <a href="javascript:void(0)" class="offcanvas-menu-close" id="offcanvas-menu-close-trigger">
-            <i class="sli sli-close"></i>
+            <img src="resources/images/delete.png" style="width: 20px;">
         </a>
 
         <div class="offcanvas-wrapper">
             <div class="offcanvas-inner-content">
-                <div class="offcanvas-mobile-search-area">
-                    <form action="https://demo.shrimpthemes.com/1/parlo/">
-                        <input type="text" name="s" placeholder="Search..." value="">
-                        <input type="hidden" name="post_type" value="product" />
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-
-                <%-- 手机适配 --%>
                 <nav class="offcanvas-navigation">
                     <ul id="primary-menu" class="menu">
-                        <li id="menu-item-434"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-11 current_page_item menu-item-has-children menu-item-434">
-                            <a href="https://demo.shrimpthemes.com/1/parlo/" aria-current="page">Home</a>
-                            <ul class="sub-menu">
-                                <li id="menu-item-504"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-504">
-                                    <a href="http://demo.shrimpthemes.com/1/parlo/home-two/?footerlayout=1">Home
-                                        Two (Pro)</a></li>
-                                <li id="menu-item-505"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-505">
-                                    <a href="http://demo.shrimpthemes.com/1/parlo/home-three/?footerlayout=1">Home
-                                        Three (Pro)</a></li>
-                            </ul>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-11 current_page_item menu-item-has-children menu-item-434">
+                            <a href="/" aria-current="page">主页</a>
                         </li>
-                        <li id="menu-item-672"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-672">
-                            <a href="https://demo.shrimpthemes.com/1/parlo/shop/">Shop</a>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-672">
+                            <a href="/goodsservlet?method=shop">商城</a>
                             <ul class="sub-menu">
-                                <li id="menu-item-257"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-257">
-                                    <a href="https://demo.shrimpthemes.com/1/parlo/shop/">Shop</a>
-                                    <ul class="sub-menu">
-                                        <li id="menu-item-711"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-711">
-                                            <a
-                                                    href="http://demo.shrimpthemes.com/1/parlo/shop/?shoplayout=right">Shop
-                                                Right Sidebar</a></li>
-                                        <li id="menu-item-713"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-713">
-                                            <a href="https://demo.shrimpthemes.com/1/parlo/shop/">Shop Left
-                                                Sidebar</a></li>
-                                        <li id="menu-item-712"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-712">
-                                            <a
-                                                    href="http://demo.shrimpthemes.com/1/parlo/shop/?shoplayout=full">Shop
-                                                Full Width</a></li>
-                                    </ul>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                                    <a href="/goodsservlet?method=shop&categoryid=1">运动服饰</a></li>
                                 </li>
-                                <li id="menu-item-245"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-245">
-                                    <a href="https://demo.shrimpthemes.com/1/parlo/my-account/">My account</a>
-                                    <ul class="sub-menu">
-                                        <li id="menu-item-248"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-248">
-                                            <a href="https://demo.shrimpthemes.com/1/parlo/my-account/">My
-                                                account</a></li>
-                                        <li id="menu-item-249"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-249">
-                                            <a
-                                                    href="https://demo.shrimpthemes.com/1/parlo/checkout/">Checkout</a>
-                                        </li>
-                                        <li id="menu-item-250"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-250">
-                                            <a href="https://demo.shrimpthemes.com/1/parlo/cart/">Cart</a></li>
-                                    </ul>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                                    <a href="/goodsservlet?method=shop&categoryid=2">运动装备</a></li>
+
                                 </li>
-                                <li id="menu-item-714"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-714">
-                                    <a href="#">Product Details Page</a>
-                                    <ul class="sub-menu">
-                                        <li id="menu-item-715"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-715">
-                                            <a
-                                                    href="http://demo.shrimpthemes.com/1/parlo/product/nulla-nibh-sagittis-augue/?prodetaillayout=left">Product
-                                                Left Sidebar</a></li>
-                                        <li id="menu-item-716"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-716">
-                                            <a
-                                                    href="http://demo.shrimpthemes.com/1/parlo/product/nulla-nibh-sagittis-augue/?prodetaillayout=right">Product
-                                                Right Sidebar</a></li>
-                                        <li id="menu-item-717"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-717">
-                                            <a
-                                                    href="http://demo.shrimpthemes.com/1/parlo/product/nulla-nibh-sagittis-augue/?prodetaillayout=full">Product
-                                                Full Width</a></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-718"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-718">
-                                    <a href="#">Pages</a>
-                                    <ul class="sub-menu">
-                                        <li id="menu-item-247"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-247">
-                                            <a href="https://demo.shrimpthemes.com/1/parlo/cart/">Cart</a></li>
-                                        <li id="menu-item-719"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-719">
-                                            <a
-                                                    href="https://demo.shrimpthemes.com/1/parlo/wishlist/">Wishlist</a>
-                                        </li>
-                                        <li id="menu-item-720"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-720">
-                                            <a
-                                                    href="https://demo.shrimpthemes.com/1/parlo/checkout/">Checkout</a>
-                                        </li>
-                                    </ul>
+                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                                    <a href="/goodsservlet?method=shop&categoryid=3">运动补给</a></li>
                                 </li>
                             </ul>
                         </li>
-                        <li id="menu-item-673"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-673">
-                            <a href="https://demo.shrimpthemes.com/1/parlo/blog/">Blog</a>
+
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-672">
+                            <a href="/account.jsp">我的</a>
                             <ul class="sub-menu">
-                                <li id="menu-item-724"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-724">
-                                    <a href="http://demo.shrimpthemes.com/1/parlo/blog/?bloglayout=full">Blog
-                                        Full Width</a></li>
-                                <li id="menu-item-721"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-721">
-                                    <a href="https://demo.shrimpthemes.com/1/parlo/blog/">Blog Right Sidebar</a>
-                                </li>
-                                <li id="menu-item-723"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-723">
-                                    <a href="http://demo.shrimpthemes.com/1/parlo/blog/?bloglayout=left">Blog
-                                        Left Sidebar</a></li>
+                                <c:if test="${not empty user}">
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                                        <a href="/account.jsp">我的</a></li>
+                                    </li>
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                                        <a href="/orderservlet?method=list">订单</a></li>
+
+                                    </li>
+                                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                                        <a href="/addressservlet?method=list">地址</a></li>
+                                    </li>
+                                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                                        <a href="/userservlet?method=logout">登出</a></li>
+                                    </li>
+                                </c:if>
+                                <c:if test="${empty user}">
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                                        <a href="/login.jsp">登入</a></li>
+
+                                    </li>
+                                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                                        <a href="/register.jsp">注册</a></li>
+                                    </li>
+                                </c:if>
                             </ul>
                         </li>
-                        <li id="menu-item-670"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-670"><a
-                                href="https://demo.shrimpthemes.com/1/parlo/about-us/">About Us</a></li>
-                        <li id="menu-item-671"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-671"><a
-                                href="https://demo.shrimpthemes.com/1/parlo/contact-us/">Contact us</a></li>
+
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-672">
+                            <a href="/about.jsp">关于</a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
         </div>
     </div>
-    <!--=======  End of offcanvas mobile menu  =======-->
 
 </header>

@@ -149,7 +149,7 @@ public class UserServlet extends BaseServlet {
 
 
         if (disciplinepro != null) {
-            Cookie cookie = new Cookie("disciplinepro", user.getUsername() + "#" + user.getPassword());
+            Cookie cookie = new Cookie("disciplinepro", user.getEmail() + "#" + user.getPassword());
             //设置cookie生命周期为7天
             cookie.setMaxAge(60 * 60 * 24 * 7);
             response.addCookie(cookie);
@@ -171,6 +171,36 @@ public class UserServlet extends BaseServlet {
 
         return "redirect:/";
     }
+
+    //使用代金券
+    public String coupon(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        User user = (User) request.getSession().getAttribute("user");
+        response.setContentType("text/html;charset=UTF-8");
+
+        if(user==null||StringUtils.isEmpty(request.getParameter("code"))) {
+            response.getWriter().write("请求参数有误");
+        }
+        else{
+            if(!"discipline".equalsIgnoreCase(request.getParameter("code"))){
+                response.getWriter().write("代金券代码有误");
+            }else{
+                int result = userService.applyCoupon(user.getId());
+                //更新用户信息
+                request.getSession().setAttribute("user",userService.getUser(user.getEmail(),user.getPassword()));
+                if(result>0) {
+                    response.getWriter().write("success");
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+
+
+
+
 }
 
 

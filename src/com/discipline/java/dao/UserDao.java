@@ -15,4 +15,9 @@ public interface UserDao {
 
     //删除数据库里相同email的未激活的数据
     int deleteDuplicateEmails(String email) throws SQLException;
+
+    int updateBalance(int uid,double balance) throws SQLException;
+
+    int applyCoupon(int uid)throws SQLException;
+
 }

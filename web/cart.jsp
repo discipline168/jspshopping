@@ -241,8 +241,8 @@
                                                                </td>
 
 
-                                                               <td class="product-remove">
-                                                                   <a href="https://demo.shrimpthemes.com/1/parlo/cart/?remove_item=093f65e080a295f8076b1c5722a46aa2&#038;_wpnonce=702001be9e"
+                                                               <td>
+                                                                   <a href="/orderservlet?method=checkout&cid=${cart.id}"
                                                                       data-product_id="59"
                                                                       data-product_sku="woo-sunglasses">
                                                                        <img style="width: 30px;"
@@ -291,8 +291,7 @@
                                                                        href="https://demo.shrimpthemes.com/1/parlo/shop/">继续购物</a>
                                                            </div>
                                                            <div class="cart-clear">
-                                                               <a
-                                                                       href="https://demo.shrimpthemes.com/1/parlo/cart/?clear-cart">清空购物车</a>
+                                                               <a href="/orderservlet?method=checkout">清空购物车</a>
                                                            </div>
                                                        </div>
                                                    </div>

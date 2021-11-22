@@ -47,6 +47,8 @@ public class DruidUtils {
     }
     public static void endTx() throws SQLException {
         Connection connection = getConnection();
+        //避免 "java.sql.SQLException: Can't call commit when autocommit=true" 报错
+        connection.setAutoCommit(false);
         connection.commit();
         connection.close();
         TL.remove();

@@ -31,6 +31,9 @@
 
     <link rel='stylesheet' id='elementor-post-11-css' href='resources/css/post-11.css' type='text/css' media='all' />
 
+    <script type='text/javascript' src='resources/js/jquery.min.js' id='jquery-core-js'></script>
+
+
     <style>
         .aDisabled{
             pointer-events: none;

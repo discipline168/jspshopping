@@ -14,5 +14,10 @@ public interface UserService {
 
     int activeUser(String email, String code) throws SQLException;
 
+    int pay(User user,double total) throws SQLException;
+
+    int updateBalance(int uid,double balance) throws SQLException;
+
+    int applyCoupon(int uid)throws SQLException;
 
 }

@@ -7,6 +7,7 @@ import com.discipline.java.service.UserService;
 import com.discipline.java.utils.Base64Utils;
 import com.discipline.java.utils.DruidUtils;
 import com.discipline.java.utils.EmailUtils;
+import com.discipline.java.utils.Md5Utils;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -59,6 +60,36 @@ public class UserServiceImpl implements UserService {
         }
         DruidUtils.endTx();
         //base64解密
+        return result;
+    }
+
+    @Override
+    public int pay(User user, double total) throws SQLException {
+        user = userDao.getUser(user.getEmail(), user.getPassword());
+        if(user==null)
+            return 0;
+        if(total>user.getBalance())
+            return 0;
+        return userDao.updateBalance(user.getId(), (user.getBalance() - total));
+
+    }
+
+    @Override
+    public int updateBalance(int uid, double balance) throws SQLException {
+        return userDao.updateBalance(uid,balance);
+    }
+
+    @Override
+    public int applyCoupon(int uid) throws SQLException {
+        int result = 0;
+        DruidUtils.startTX();
+        try {
+            result=userDao.applyCoupon(uid);
+        }catch (SQLException e){
+            e.printStackTrace();
+            DruidUtils.rollbackTX();
+        }
+        DruidUtils.endTx();
         return result;
     }
 }

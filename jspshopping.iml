@@ -22,12 +22,12 @@
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.471" level="application_server_libraries" />
     <orderEntry type="module-library">
       <library name="lib1">
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/out/artifacts/jspshopping_war_exploded/WEB-INF/lib" />
-        </CLASSES>
+        <CLASSES />
         <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/out/artifacts/jspshopping_war_exploded/WEB-INF/lib" recursive="false" />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/web/WEB-INF/lib" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/web/WEB-INF/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
     <orderEntry type="module-library">

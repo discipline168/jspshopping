@@ -13,7 +13,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
     <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
     <title>我的</title>
     <meta name='robots' content='noindex, nofollow' />
@@ -39,6 +38,28 @@
     <link rel='stylesheet' id='woocommerce-layout-css' href='resources/css/woocommerce-layout.css' type='text/css'
           media='all' />
 
+
+    <script>
+        //使用代金券
+        function applyCoupon() {
+            jQuery.ajax({
+                url: "/userservlet?method=coupon",
+                data: {
+                    "code": jQuery("[id='coupon_code']").val(),
+                },
+                type: "POST",
+                success: function (data) {
+                    if(data=="success"){
+                        window.location.reload();
+                    }
+                    else{
+                        alert(data);
+                    }
+
+                }
+            })
+        }
+    </script>
 
 </head>
 <script type='text/javascript'
@@ -103,7 +124,13 @@
                                             <div class="woocommerce-notices-wrapper"></div>
                                             <p>
                                                 Hello <strong>${user.username}</strong> (并不是 <strong>${user.username}</strong>?
-                                                <a href="/userservlet?method=logout">点此登出</a>)</p>
+                                                <a href="/userservlet?method=logout">点此登出</a>)
+                                            </p>
+                                            <p>钱包余额：<strong>&#165;${user.balance}</strong></p>
+                                            <div class="coupon">
+                                                <input type="text" id="coupon_code" class="input-text"  placeholder="代金券代码" style="width: 50%;margin-top: 10px;">
+                                                <button type="button" class="button" onclick="applyCoupon()">使用代金券</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div><!-- .entry-content -->

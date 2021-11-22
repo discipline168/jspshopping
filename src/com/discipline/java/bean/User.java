@@ -16,6 +16,7 @@ public class User {
     private int flag;
     private int role;
     private String  code;
+    private double balance;
 
     public User(String username, String password) {
         this.username = username;

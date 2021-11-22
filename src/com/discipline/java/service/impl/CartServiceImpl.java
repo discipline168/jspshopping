@@ -58,7 +58,11 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart getCartById(int id) throws SQLException {
-        return cartDao.getCartById(id);
+        Cart cart = cartDao.getCartById(id);
+        Goods goods = goodsDao.getGoodsById(cart.getGid());
+        if(goods!=null)
+            cart.setGoods(goods);
+        return cart;
     }
 
     @Override

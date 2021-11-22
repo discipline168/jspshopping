@@ -113,7 +113,7 @@
           <div class="mask">
 
             <div class="main">
-              <div class="logo"><img src="resources/images/logo.png" alt="Video poster"></div>
+              <div class="logo"><img src="resources/images/logo_white.png" alt="Video poster"></div>
               <div class="slogan">改变就现在</div>
 
 

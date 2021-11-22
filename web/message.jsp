@@ -40,58 +40,13 @@
             src='resources/js/jquery.min.js'></script>
 
     <script type='text/javascript'>
-        jQuery(function () {
-
-
-            //更新验证码
-            jQuery("#validatecode").click(function () {
-                jQuery("#validatecode").attr("src","userservlet?method=code&num=" + Math.random());
-            });
-
-
-            //验证邮箱唯一性
-            jQuery("#email").blur(function(){
-                jQuery.get('/userservlet?method=checkEmailUnique',"email="+this.value,function(data){
-                    console.log(data)
-                    if(data=="false"){
-                        jQuery('#emailMsg').text("此邮箱已被注册激活 ❌").css("color","red");
-                        jQuery('#register_btn').attr("disabled",true);
-                    }else{
-                        jQuery('#emailMsg').text("邮箱地址 ✔").css("color","green");
-                        jQuery('#register_btn').attr("disabled",false);
-                    }
-                })
-            });
-
-
-
-
-        });
-
-        //注册
-        // function register_verify(){
-        //
-        //     jQuery.ajax({
-        //         url: "/userservlet?method=register",
-        //         data: {
-        //             "username": jQuery("[name='username']").val(),
-        //             "email": jQuery("[name='email']").val(),
-        //             "password": jQuery("[name='password']").val(),
-        //             "validatecode": jQuery("[name='validatecode']").val(),
-        //         },
-        //         type: "POST",
-        //         success: function (data) {
-        //             if(data=="success"){
-        //                 jQuery(location).attr('href', '/account.jsp');
-        //             }else{
-        //                 msg.text(data);
-        //                 return false;
-        //             }
-        //
-        //
-        //         }
-        //     })
-        // };
+        //定时跳转
+        var jump='${jump}';
+        if(jump!=""){
+            setInterval(function () {
+                jQuery(location).attr('href', jump)
+            },2000)
+        }
     </script>
 
 </head>
