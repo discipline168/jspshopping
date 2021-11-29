@@ -10,17 +10,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
-    <title>Parlo &#8211; WooCommerce WordPress Theme</title>
+    <title>discipl!ne pro &#8211; 订单明细</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -81,7 +79,7 @@
         }
 
         function pay() {
-            jQuery(location).attr('href', '/orderservlet?method=confirm&oid=${order.id}')
+            jQuery(location).attr('href', 'orderservlet?method=confirm&oid=${order.id}')
         }
 
     </script>
@@ -103,9 +101,9 @@
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="/">主页</a></li>
-                            <li><a href="/account.jsp">我的</a></li>
-                            <li><a href="/orderservlet?method=list">订单</a></li>
+                            <li><a href="${pageContext.request.contextPath}/">主页</a></li>
+                            <li><a href="account.jsp">我的</a></li>
+                            <li><a href="orderservlet?method=list">订单</a></li>
                             <li>订单详情</li>
                         </ul>
                     </div>
@@ -195,7 +193,7 @@
                                                                 <tr class="woocommerce-table__line-item order_item">
 
                                                                     <td class="woocommerce-table__product-name product-name">
-                                                                        <a href="/goodsservlet?method=detail&id=${orderDetail.gid}" >${orderDetail.name}</a> <strong
+                                                                        <a href="goodsservlet?method=detail&id=${orderDetail.gid}" >${orderDetail.name}</a> <strong
                                                                             class="product-quantity">&times;&nbsp;${orderDetail.quantity}</strong>
                                                                     </td>
 
@@ -266,14 +264,6 @@
     <%@include file="commons/footer.jsp"%>
 </div><!-- #page -->
 
-<div class="woocommerce" id="htwlquick-viewmodal">
-    <div class="htwl-modal-dialog product">
-        <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-                class="sli sli-close"></span></button>
-            <div class="htwl-modal-body"></div>
-        </div>
-    </div>
-</div>
 
 <script type='text/javascript' src='resources/js/main.js'></script>
 

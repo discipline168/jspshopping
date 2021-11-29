@@ -4,10 +4,7 @@ import com.discipline.java.bean.User;
 import com.discipline.java.dao.UserDao;
 import com.discipline.java.dao.impl.UserDaoImpl;
 import com.discipline.java.service.UserService;
-import com.discipline.java.utils.Base64Utils;
-import com.discipline.java.utils.DruidUtils;
-import com.discipline.java.utils.EmailUtils;
-import com.discipline.java.utils.Md5Utils;
+import com.discipline.java.utils.*;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -29,7 +26,7 @@ public class UserServiceImpl implements UserService {
     public int insertUser(User user) throws SQLException {
         //开启事务
         DruidUtils.startTX();
-        user.setFlag(0);
+        user.setFlag(Constant.USER_NO_ACTIVATED);
         user.setCode(UUID.randomUUID().toString());
 
         int result = 0;

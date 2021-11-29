@@ -23,6 +23,14 @@ public class EmailUtils {
         props.setProperty("mail.transport.protocol","smtp");
         props.setProperty("mail.smtp.host","smtp.qq.com");
         props.setProperty("mail.smtp.auth","true");
+
+        props.setProperty("mail.smtp.timeout", "200000");//设置链接超时
+        props.setProperty("mail.smtp.port", Integer.toString(25));//设置端口
+        props.setProperty("mail.smtp.socketFactory.port", Integer.toString(465));//设置ssl端口 (不开SLL部署至linux会报错)
+        props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+
+
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);
         try {
@@ -31,7 +39,7 @@ public class EmailUtils {
 
             Transport transport = session.getTransport();
             //设置邮件用户名和授权码
-            transport.connect("discipline168@foxmail.com","tjelqbfcgjgsbfjc");
+            transport.connect("你的邮箱地址","你的授权码");
 
             transport.sendMessage(message,message.getAllRecipients());
             transport.close();
@@ -46,19 +54,32 @@ public class EmailUtils {
 
         MimeMessage message = new MimeMessage(session);
 
-        message.setFrom(new InternetAddress("discipline168@foxmail.com","disciplinepro","UTF-8"));
+        message.setFrom(new InternetAddress("你的邮箱地址","disciplinepro","UTF-8"));
 
         message.setRecipients(Message.RecipientType.TO,user.getEmail());
 
         message.setSubject("激活您的电子邮件地址");
 
-        String url = "http://127.0.0.1:8080/userservlet?method=active&email=" + Base64Utils.encode(user.getEmail()) + "&code=" + Base64Utils.encode(user.getCode());
-        System.out.println(url);
+        //本地测试
+/*        String url = "http://127.0.0.1:8080/userservlet?method=active&email=" +
+                Base64Utils.encode(user.getEmail()) + "&code=" + Base64Utils.encode(user.getCode());
 
         message.setContent(buildContent(user.getEmail(),
                 "localhost:8080/userservlet?method=active&email="
                         +Base64Utils.encode(user.getEmail())+"&code="
+                        +Base64Utils.encode(user.getCode())),"text/html;charset=UTF-8");*/
+
+        //云端部署
+        String url = "http://discipline168.cn/jspshop/userservlet?method=active&email=" +
+                Base64Utils.encode(user.getEmail()) + "&code=" + Base64Utils.encode(user.getCode());
+        //System.out.println(url);
+
+        message.setContent(buildContent(user.getEmail(),
+                "http://discipline168.cn/jspshop/userservlet?method=active&email="
+                        +Base64Utils.encode(user.getEmail())+"&code="
                         +Base64Utils.encode(user.getCode())),"text/html;charset=UTF-8");
+
+
 
         message.setSentDate(new Date());
 
@@ -71,7 +92,12 @@ public class EmailUtils {
     public static String buildContent(String email,String activehHref) throws IOException {
 
         //加载邮件html模板
-        InputStream inputStream = new FileInputStream("E:\\Projects\\java-projects\\jspshopping\\web\\commons\\HtmlEmailTemplate.html");
+        //本地(绝对路径 E:\Projects\java-projects\jspshopping 为项目所在路径)
+        InputStream inputStream = new FileInputStream("E:\\Projects\\java-projects\\jspshopping\\src\\HtmlEmailTemplate.html");
+
+        //linux
+        //InputStream inputStream = new FileInputStream("../webapps/jspshop/WEB-INF/classes/HtmlEmailTemplate.html");
+
         System.out.println(inputStream);
         BufferedReader fileReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         StringBuffer buffer = new StringBuffer();
@@ -88,7 +114,7 @@ public class EmailUtils {
         }
 
         //填充html模板中的参数
-        String htmlText = MessageFormat.format(buffer.toString(), email, "<a href='http://"+activehHref+"'>"+activehHref+"</a>");
+        String htmlText = MessageFormat.format(buffer.toString(), email, "<a href='"+activehHref+"'>"+activehHref+"</a>");
 
         return htmlText;
     }

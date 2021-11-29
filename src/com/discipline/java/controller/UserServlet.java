@@ -4,6 +4,7 @@ import cn.dsna.util.images.ValidateCode;
 import com.discipline.java.bean.User;
 import com.discipline.java.service.UserService;
 import com.discipline.java.service.impl.UserServiceImpl;
+import com.discipline.java.utils.Constant;
 import com.discipline.java.utils.Md5Utils;
 import org.apache.commons.lang3.StringUtils;
 import javax.servlet.annotation.WebServlet;
@@ -28,12 +29,12 @@ public class UserServlet extends BaseServlet {
         int result = userService.activeUser(email, code);
 
         if (result > 0) {
-            request.setAttribute("msg", "激活成功，<a href='/login.jsp'>点此登录</a>");
+            request.setAttribute("msg", "激活成功，<a href='login.jsp'>点此登录</a>");
         } else {
             request.setAttribute("msg", "激活失败");
         }
 
-        return "forward:/message.jsp";
+        return "forward:message.jsp";
     }
 
     //验证码校验
@@ -79,14 +80,14 @@ public class UserServlet extends BaseServlet {
         String vcode= request.getParameter("vcode");
         if (StringUtils.isEmpty(vcode) || !vcode.equalsIgnoreCase((String) request.getSession().getAttribute("vcode"))) {
             request.setAttribute("registerMsg", "验证码有误");
-            return "forward:/register.jsp";
+            return "forward:register.jsp";
         }
 
 
         //后端判断邮箱唯一性
         if(userService.getUserByEmail(request.getParameter("email"))!=null){
             request.setAttribute("registerMsg", "注册失败");
-            return "forward:/register.jsp";
+            return "forward:register.jsp";
         }
         User  user = new User();
         user.setEmail(request.getParameter("email"));
@@ -96,7 +97,7 @@ public class UserServlet extends BaseServlet {
 
         if(StringUtils.isEmpty(user.getEmail())||StringUtils.isEmpty(user.getUsername())||StringUtils.isEmpty(user.getPassword())){
             request.setAttribute("registerMsg", "请确保注册信息完整");
-            return "forward:/register.jsp";
+            return "forward:register.jsp";
         }
 
 
@@ -110,11 +111,11 @@ public class UserServlet extends BaseServlet {
 
         if (result <= 0) {
             request.setAttribute("registerMsg", "注册失败");
-            return "forward:/register.jsp";
+            return "forward:register.jsp";
         }
 
         request.setAttribute("msg", "注册成功，请前往邮箱进行验证");
-        return "forward:/message.jsp";
+        return "forward:message.jsp";
     }
 
     //登录
@@ -123,7 +124,7 @@ public class UserServlet extends BaseServlet {
         String vcode= request.getParameter("vcode");
         if (StringUtils.isEmpty(vcode) || !vcode.equalsIgnoreCase((String) request.getSession().getAttribute("vcode"))) {
             request.setAttribute("loginMsg", "验证码有误");
-            return "forward:/login.jsp";
+            return "forward:login.jsp";
         }
 
         User user = null;
@@ -136,11 +137,11 @@ public class UserServlet extends BaseServlet {
 
         if (user == null) {
             request.getSession().setAttribute("loginMsg", "邮箱或密码错误");
-            return "forward:/login.jsp";
+            return "forward:login.jsp";
         }
         if(user.getFlag()==0){
             request.getSession().setAttribute("loginMsg", "此邮箱尚未激活，请前往邮箱进行激活");
-            return "forward:/login.jsp";
+            return "forward:login.jsp";
         }
         request.getSession().setAttribute("user", user);
 
@@ -155,7 +156,7 @@ public class UserServlet extends BaseServlet {
             response.addCookie(cookie);
         }
 
-        return "redirect:/account.jsp";
+        return "redirect:account.jsp";
     }
 
 
@@ -169,7 +170,8 @@ public class UserServlet extends BaseServlet {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        return "redirect:/";
+
+        return "redirect:index.jsp";
     }
 
     //使用代金券
@@ -178,7 +180,7 @@ public class UserServlet extends BaseServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         if(user==null||StringUtils.isEmpty(request.getParameter("code"))) {
-            response.getWriter().write("请求参数有误");
+            response.getWriter().write(Constant.REQUEST_PARAMETER_ERROR);
         }
         else{
             if(!"discipline".equalsIgnoreCase(request.getParameter("code"))){

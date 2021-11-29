@@ -11,16 +11,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    <title>登录</title>
+    <title>discipl!ne pro &#8211; 登录</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -106,7 +105,7 @@
 
 
                                             <form method="post"
-                                                  action="/userservlet?method=login"
+                                                  action="userservlet?method=login"
                                                   class="woocommerce-form woocommerce-form-register register">
 
 
@@ -136,7 +135,7 @@
                                                             class="woocommerce-Input woocommerce-Input--text input-text"
                                                             type="text" name="vcode"
                                                             autocomplete="current-password" style="width: 60%; float: left"/>
-                                                    <a><img src="/userservlet?method=code" style="margin-left: 6px;" id="validatecode" ></a>
+                                                    <a><img src="userservlet?method=code" style="margin-left: 6px;" id="validatecode" ></a>
                                                 </p>
 
 
@@ -147,11 +146,11 @@
                                                 </p>
 
                                                 <div class="woocommerce-privacy-policy-text">
-                                                    <p>尚未注册账号？<a href="/register.jsp">点此注册</a></p>
+                                                    <p>尚未注册账号？<a href="register.jsp">点此注册</a></p>
                                                 </div>
                                                 <p class="woocommerce-form-row form-row">
 
-                                                    <label
+                                                    <label style="margin-bottom: 20px;"
                                                             class="woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme">
                                                         <input
                                                                 class="woocommerce-form__input woocommerce-form__input-checkbox"
@@ -159,11 +158,6 @@
                                                                 value="forever" /> <span>记住我</span>
                                                     </label>
 
-
-                                                    <input type="hidden" id="woocommerce-register-nonce"
-                                                           name="woocommerce-register-nonce"
-                                                           value="e2aaece555" /><input type="hidden"
-                                                                                       name="_wp_http_referer" value="/1/parlo/my-account/" />
                                                     <button
                                                             class="woocommerce-Button woocommerce-button button"
                                                             name="register" value="Register"  id="register_btn">登录</button>
@@ -199,14 +193,6 @@
     <%@include file="commons/footer.jsp"%>
 </div><!-- #page -->
 
-<div class="woocommerce" id="htwlquick-viewmodal">
-    <div class="htwl-modal-dialog product">
-        <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-                class="sli sli-close"></span></button>
-            <div class="htwl-modal-body"></div>
-        </div>
-    </div>
-</div>
 
 <script type='text/javascript' src='resources/js/main.js'></script>
 

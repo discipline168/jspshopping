@@ -1820,7 +1820,8 @@ h3.collection-title {
 
 /* Footer area two */
 .footer_area_two{
-  background: #effafa;
+	background: #f7f7f7;
+	margin-top: 50px;
 }
 .footer_area_two a:hover{
   color: #ff3535;

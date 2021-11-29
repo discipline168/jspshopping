@@ -12,14 +12,14 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <title>discipl!ne pro &#8211; 商城</title>
     <meta name='robots' content='noindex, nofollow' />
     
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -59,8 +59,8 @@
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="/">主页</a></li>
-                            <li><a href="/goodsservlet?method=shop">商城</a></li>
+                            <li><a href="${pageContext.request.contextPath}/">主页</a></li>
+                            <li><a href="goodsservlet?method=shop">商城</a></li>
                             <c:if test="${not empty category}">
                                 <li>${category.name}</li>
                             </c:if>
@@ -84,7 +84,7 @@
 
                                             <div class="ht-product-image-wrap">
                                                 <div class="ht-product-image">
-                                                    <a href="/goodsservlet?method=detail&id=${goods.id}">
+                                                    <a href="goodsservlet?method=detail&id=${goods.id}">
                                                         <img width="300" height="300"
                                                              src="${goods.picture}"
                                                              class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
@@ -95,46 +95,6 @@
                                                 </div>
 
 
-                                                <div class="ht-product-action">
-                                                    <ul class="woolentor-action-btn-area">
-                                                        <li>
-                                                            <a href="javascript:void(0);"
-                                                               class="woolentorquickview"
-                                                               data-quick-id="73">
-                                                                <i
-                                                                        class="sli sli-magnifier"></i>
-                                                                <span
-                                                                        class="ht-product-action-tooltip">查看</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <div
-                                                                    class=" wishlist button-default yith-wcwl-add-to-wishlist add-to-wishlist-73">
-                                                                <div
-                                                                        class="yith-wcwl-add-button show">
-                                                                    <a href="https://demo.shrimpthemes.com/1/parlo/wishlist/"
-                                                                       data-product-id="73"
-                                                                       data-product-type="simple"
-                                                                       class="add_to_wishlist"><i
-                                                                            class="sli sli-heart"></i><span
-                                                                            class="ht-product-action-tooltip">Add
-                                                                                                        to
-                                                                                                        Wishlist</span></a><i
-                                                                        class="fa fa-spinner fa-pulse ajax-loading"
-                                                                        style="visibility:hidden"></i>
-                                                                </div>
-                                                                <div class="yith-wcwl-wishlistaddedbrowse hide"
-                                                                     style="display:none;">
-                                                                    <a class=""
-                                                                       href="https://demo.shrimpthemes.com/1/parlo/wishlist/"><i
-                                                                            class="sli sli-heart"></i><span
-                                                                            class="ht-product-action-tooltip">Browse
-                                                                                                        Wishlist</span></a>
-                                                                </div>
-                                                            </div>
-                                                    </ul>
-                                                </div>
-
                                             </div>
 
 
@@ -143,7 +103,7 @@
                                                     <div class="ht-product-categories">
                                                         <a >${goods.category.name}</a>
                                                     </div>
-                                                    <h4 class="ht-product-title"><a href="/goodsservlet?method=detail&id=${goods.id}">${goods.name}</a>
+                                                    <h4 class="ht-product-title"><a href="goodsservlet?method=detail&id=${goods.id}">${goods.name}</a>
                                                     </h4>
                                                     <div class="ht-product-price">
 
@@ -203,13 +163,13 @@
                             <c:if test="${currentpPage>1}">
 
                             <li><a class="page-numbers"
-                                   href="/goodsservlet?method=shop&categoryid=${category.id!=null?category.id:0}&page=${currentpPage-1}"><</a></li>
+                                   href="goodsservlet?method=shop&categoryid=${category.id!=null?category.id:0}&page=${currentpPage-1}"><</a></li>
                             </c:if>
                             <li><span aria-current="page" class="page-numbers current">${currentpPage}</span></li>
 
                             <c:if test="${currentpPage<pages}">
                             <li><a class="next page-numbers"
-                                   href="/goodsservlet?method=shop&categoryid=${category.id!=null?category.id:0}&page=${currentpPage+1}">><i
+                                   href="goodsservlet?method=shop&categoryid=${category.id!=null?category.id:0}&page=${currentpPage+1}">><i
                                     class="fa fa-angle-right"></i></a></li>
                             </c:if>
 
@@ -229,14 +189,6 @@
     <%@include file="commons/footer.jsp"%>
 </div><!-- #page -->
 
-<div class="woocommerce" id="htwlquick-viewmodal">
-    <div class="htwl-modal-dialog product">
-        <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-                class="sli sli-close"></span></button>
-            <div class="htwl-modal-body"></div>
-        </div>
-    </div>
-</div>
 
 
 <script type='text/javascript' src='resources/js/main.js'></script>

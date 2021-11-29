@@ -11,17 +11,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
-    <title>Parlo &#8211; WooCommerce WordPress Theme</title>
+    <title>discipl!ne pro &#8211; 订单</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -43,6 +41,9 @@
 
     <script type='text/javascript' src='resources/js/jquery.min.js' id='jquery-core-js'></script>
 
+    <link rel="stylesheet" id="woocommerce-smallscreen-css"
+          href="resources/css/woocommerce-smallscreen.css"
+          type="text/css" media="only screen and (max-width: 768px)">
 
 
     <style id='woocommerce-inline-inline-css' type='text/css'>
@@ -73,8 +74,8 @@
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="/">主页</a></li>
-                            <li><a href="/account.jsp">我的</a></li>
+                            <li><a href="${pageContext.request.contextPath}/">主页</a></li>
+                            <li><a href="account.jsp">我的</a></li>
                             <li>订单</li>
                         </ul>
                     </div>
@@ -91,7 +92,6 @@
 
 
                             <article id="post-50" class="post-50 page type-page status-publish hentry">
-                                <h1 class="entry-title">Orders</h1>
 
                                 <div class="entry-content">
                                     <div class="woocommerce">
@@ -110,7 +110,7 @@
                                             <c:if test="${empty orderList}">
                                                 <div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">
                                                     <a class="woocommerce-Button button"
-                                                       href="/goodsservlet?method=shop">去浏览商品</a>
+                                                       href="goodsservlet?method=shop">去浏览商品</a>
                                                     您目前暂时没有任何订单信息
                                                 </div>
                                             </c:if>
@@ -141,15 +141,15 @@
 
                                                     <c:forEach items="${orderList}" var="order">
                                                         <tr class="woocommerce-orders-table__row woocommerce-orders-table__row--status-on-hold order">
-                                                            <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number">
+                                                            <td data-title="订单号" class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number">
                                                                 <a href="#"> ${order.id}</a>
 
                                                             </td>
-                                                            <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-date">
+                                                            <td data-title="下单时间" class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-date">
                                                                 <time>${order.otime} </time>
 
                                                             </td>
-                                                            <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status">
+                                                            <td data-title="状态" class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status">
                                                                 <c:if test="${order.status==0}"> 未支付 </c:if>
                                                                 <c:if test="${order.status==1}"> 待发货 </c:if>
                                                                 <c:if test="${order.status==2}"> 已发货 </c:if>
@@ -157,12 +157,12 @@
                                                                 <c:if test="${order.status==4}"> 已退款 </c:if>
                                                                 <c:if test="${order.status==5}"> 已逾期 </c:if>
                                                             </td>
-                                                            <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total">
+                                                            <td data-title="总价"  class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total">
 																<span class="woocommerce-Price-amount amount"><span
                                                                         class="woocommerce-Price-currencySymbol">&#165;</span>${order.total}</span>
                                                             </td>
-                                                            <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-actions">
-                                                                <a href="/orderservlet?method=detail&oid=${order.id}" class="woocommerce-button button view">
+                                                            <td class="product-remove">
+                                                                <a href="orderservlet?method=detail&oid=${order.id}" class="woocommerce-button button view">
                                                                     <c:if test="${order.status==0}">前往支付</c:if>
                                                                     <c:if test="${order.status!=0}">查看详情</c:if>
                                                                 </a>
@@ -196,14 +196,6 @@
     <%@include file="commons/footer.jsp"%>
 </div><!-- #page -->
 
-<div class="woocommerce" id="htwlquick-viewmodal">
-    <div class="htwl-modal-dialog product">
-        <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-                class="sli sli-close"></span></button>
-            <div class="htwl-modal-body"></div>
-        </div>
-    </div>
-</div>
 <script type='text/javascript' src='resources/js/main.js'></script>
 
 </body>

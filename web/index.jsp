@@ -13,17 +13,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="profile" href="https://gmpg.org/xfn/11">
-  <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
-  <title>Parlo &#8211; WooCommerce WordPress Theme</title>
+  <title>discipl!ne pro &#8211; 专业的运动用品商城</title>
   <meta name='robots' content='noindex, nofollow' />
 
 
-  <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+  <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
         media='all' />
 
-  <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+  <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
         media='all' />
 
 
@@ -77,6 +75,12 @@
       text-align: center;
       font-size: 2rem;
       opacity: 0.7
+    }
+
+    @media all and (max-width: 640px) {
+      video.bg {
+        display: none;
+      }
     }
   </style>
 
@@ -148,11 +152,11 @@
                       <div class="elementor-widget-container">
                         <div class="product-tab-list ht-text-center">
                           <ul class="ht-tab-menus">
-                            <li><a class="htactive" href="#woolentortabf13b12b1">
+                            <li><a class="htactive" href="#disciplineClothes">
                               运动服饰 </a></li>
-                            <li><a class="" href="#woolentortabf13b12b2">
+                            <li><a class="" href="#disciplineEquitment">
                               运动装备 </a></li>
-                            <li><a class="" href="#woolentortabf13b12b3">
+                            <li><a class="" href="#disciplineSupplements">
                               运动补给 </a></li>
                           </ul>
                         </div>
@@ -161,7 +165,7 @@
 
 
                           <!-- 运动服饰 -->
-                          <div class="ht-tab-pane htactive" id="woolentortabf13b12b1">
+                          <div class="ht-tab-pane htactive" id="disciplineClothes">
                             <div class="ht-row">
 
                               <c:forEach items="${indexClothes}" var="goods" >
@@ -173,7 +177,7 @@
                                     <span
                                             class="ht-product-label ht-product-label-right">Sale!</span>
                                     <div class="ht-product-image">
-                                      <a href="/goodsservlet?method=detail&id=${goods.id}">
+                                      <a href="goodsservlet?method=detail&id=${goods.id}">
                                         <img width="300" height="300"
                                              src="${goods.picture}"
                                              class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
@@ -184,44 +188,6 @@
                                     </div>
 
 
-                                    <div class="ht-product-action">
-                                      <ul class="woolentor-action-btn-area">
-                                        <li>
-                                          <a href="javascript:void(0);"
-                                             class="woolentorquickview"
-                                             data-quick-id="73">
-                                            <i
-                                                    class="sli sli-magnifier"></i>
-                                            <span
-                                                    class="ht-product-action-tooltip">查看</span>
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <div
-                                                  class=" wishlist button-default yith-wcwl-add-to-wishlist add-to-wishlist-73">
-                                            <div
-                                                    class="yith-wcwl-add-button show">
-                                              <a
-                                                 data-product-id="73"
-                                                 data-product-type="simple"
-                                                 class="add_to_wishlist"><i
-                                                      class="sli sli-heart"></i><span
-                                                      class="ht-product-action-tooltip">Add
-                                                                                                        to
-                                                                                                        Wishlist</span></a><i
-                                                    class="fa fa-spinner fa-pulse ajax-loading"
-                                                    style="visibility:hidden"></i>
-                                            </div>
-                                            <div class="yith-wcwl-wishlistaddedbrowse hide"
-                                                 style="display:none;">
-                                              <a ><i
-                                                      class="sli sli-heart"></i><span
-                                                      class="ht-product-action-tooltip">Browse
-                                                                                                        Wishlist</span></a>
-                                            </div>
-                                          </div>
-                                      </ul>
-                                    </div>
 
                                   </div>
 
@@ -229,9 +195,9 @@
                                   <div class="ht-product-content">
                                     <div class="ht-product-content-inner">
                                       <div class="ht-product-categories">
-                                        <a href="/goodsservlet?method=shop&categoryid=1">运动服饰</a>
+                                        <a href="goodsservlet?method=shop&categoryid=1">运动服饰</a>
                                       </div>
-                                      <h4 class="ht-product-title"><a href="/goodsservlet?method=detail&id=${goods.id}">${goods.name}</a>
+                                      <h4 class="ht-product-title"><a href="goodsservlet?method=detail&id=${goods.id}">${goods.name}</a>
                                       </h4>
                                       <div class="ht-product-price">
 
@@ -278,7 +244,7 @@
 
                           <!-- 运动装备 -->
 
-                          <div class="ht-tab-pane " id="woolentortabf13b12b2">
+                          <div class="ht-tab-pane" id="disciplineEquitment">
                             <div class="ht-row">
 
 
@@ -291,7 +257,7 @@
                                     <span
                                             class="ht-product-label ht-product-label-right">Sale!</span>
                                       <div class="ht-product-image">
-                                        <a href="/goodsservlet?method=detail&id=${goods.id}">
+                                        <a href="goodsservlet?method=detail&id=${goods.id}">
                                           <img width="300" height="300"
                                                src="${goods.picture}"
                                                class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
@@ -302,55 +268,15 @@
                                       </div>
 
 
-                                      <div class="ht-product-action">
-                                        <ul class="woolentor-action-btn-area">
-                                          <li>
-                                            <a href="javascript:void(0);"
-                                               class="woolentorquickview"
-                                               data-quick-id="73">
-                                              <i
-                                                      class="sli sli-magnifier"></i>
-                                              <span
-                                                      class="ht-product-action-tooltip">查看</span>
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <div
-                                                    class=" wishlist button-default yith-wcwl-add-to-wishlist add-to-wishlist-73">
-                                              <div
-                                                      class="yith-wcwl-add-button show">
-                                                <a href="https://demo.shrimpthemes.com/1/parlo/wishlist/"
-                                                   data-product-id="73"
-                                                   data-product-type="simple"
-                                                   class="add_to_wishlist"><i
-                                                        class="sli sli-heart"></i><span
-                                                        class="ht-product-action-tooltip">Add
-                                                                                                        to
-                                                                                                        Wishlist</span></a><i
-                                                      class="fa fa-spinner fa-pulse ajax-loading"
-                                                      style="visibility:hidden"></i>
-                                              </div>
-                                              <div class="yith-wcwl-wishlistaddedbrowse hide"
-                                                   style="display:none;">
-                                                <a class=""
-                                                   href="https://demo.shrimpthemes.com/1/parlo/wishlist/"><i
-                                                        class="sli sli-heart"></i><span
-                                                        class="ht-product-action-tooltip">Browse
-                                                                                                        Wishlist</span></a>
-                                              </div>
-                                            </div>
-                                        </ul>
-                                      </div>
-
                                     </div>
 
 
                                     <div class="ht-product-content">
                                       <div class="ht-product-content-inner">
                                         <div class="ht-product-categories">
-                                          <a href="/goodsservlet?method=shop&categoryid=1">运动服饰</a>
+                                          <a href="goodsservlet?method=shop&categoryid=1">运动服饰</a>
                                         </div>
-                                        <h4 class="ht-product-title"><a href="/goodsservlet?method=detail&id=${goods.id}">${goods.name}</a>
+                                        <h4 class="ht-product-title"><a href="goodsservlet?method=detail&id=${goods.id}">${goods.name}</a>
                                         </h4>
                                         <div class="ht-product-price">
 
@@ -399,7 +325,7 @@
                           <!-- 运动补给 -->
 
 
-                          <div class="ht-tab-pane " id="woolentortabf13b12b3">
+                          <div class="ht-tab-pane " id="disciplineSupplements">
                             <div class="ht-row">
 
                               <c:forEach items="${indexSupplements}" var="goods" >
@@ -411,7 +337,7 @@
                                     <span
                                             class="ht-product-label ht-product-label-right">Sale!</span>
                                       <div class="ht-product-image">
-                                        <a href="/goodsservlet?method=detail&id=${goods.id}">
+                                        <a href="goodsservlet?method=detail&id=${goods.id}">
                                           <img width="300" height="300"
                                                src="${goods.picture}"
                                                class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
@@ -422,54 +348,15 @@
                                       </div>
 
 
-                                      <div class="ht-product-action">
-                                        <ul class="woolentor-action-btn-area">
-                                          <li>
-                                            <a href="javascript:void(0);"
-                                               class="woolentorquickview"
-                                               data-quick-id="73">
-                                              <i
-                                                      class="sli sli-magnifier"></i>
-                                              <span
-                                                      class="ht-product-action-tooltip">查看</span>
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <div
-                                                    class=" wishlist button-default yith-wcwl-add-to-wishlist add-to-wishlist-73">
-                                              <div
-                                                      class="yith-wcwl-add-button show">
-                                                <a
-                                                        data-product-id="73"
-                                                        data-product-type="simple"
-                                                        class="add_to_wishlist"><i
-                                                        class="sli sli-heart"></i><span
-                                                        class="ht-product-action-tooltip">Add
-                                                                                                        to
-                                                                                                        Wishlist</span></a><i
-                                                      class="fa fa-spinner fa-pulse ajax-loading"
-                                                      style="visibility:hidden"></i>
-                                              </div>
-                                              <div class="yith-wcwl-wishlistaddedbrowse hide"
-                                                   style="display:none;">
-                                                <a ><i
-                                                        class="sli sli-heart"></i><span
-                                                        class="ht-product-action-tooltip">Browse
-                                                                                                        Wishlist</span></a>
-                                              </div>
-                                            </div>
-                                        </ul>
-                                      </div>
-
                                     </div>
 
 
                                     <div class="ht-product-content">
                                       <div class="ht-product-content-inner">
                                         <div class="ht-product-categories">
-                                          <a href="/goodsservlet?method=shop&categoryid=3">运动补给</a>
+                                          <a href="goodsservlet?method=shop&categoryid=3">运动补给</a>
                                         </div>
-                                        <h4 class="ht-product-title"><a href="/goodsservlet?method=detail&id=${goods.id}">${goods.name}</a>
+                                        <h4 class="ht-product-title"><a href="goodsservlet?method=detail&id=${goods.id}">${goods.name}</a>
                                         </h4>
                                         <div class="ht-product-price">
 
@@ -593,10 +480,10 @@
                                                  width="63" height="73">
                                           </div>
                                           <div class="service-content">
-                                            <h4>Secure Payment</h4>
+                                            <h4>支付安全</h4>
                                             <span></span>
-                                            <p>Most Secure Payment<br>
-                                              for customer.</p>
+                                            <p>在线安全支付保障<br>
+                                              只为顾客</p>
                                           </div>
                                         </div>
                                       </div>
@@ -632,14 +519,6 @@
 <!-- #colophon -->
 </div><!-- #page -->
 
-<div class="woocommerce" id="htwlquick-viewmodal">
-  <div class="htwl-modal-dialog product">
-    <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-            class="sli sli-close"></span></button>
-      <div class="htwl-modal-body"></div>
-    </div>
-  </div>
-</div>
 
 
 

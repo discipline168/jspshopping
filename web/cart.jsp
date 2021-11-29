@@ -11,17 +11,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
-    <title>Parlo &#8211; WooCommerce WordPress Theme</title>
+    <title>discipl!ne pro &#8211; 购物车</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -65,7 +63,7 @@
         //更新购物车数量
         function quantityChange(id) {
             jQuery.ajax({
-                url: "/cartservlet?method=changeQuantity",
+                url: "cartservlet?method=changeQuantity",
                 data: {
                     "id": id,
                     "quantity": jQuery("[id='quantity-"+id+"']").val(),
@@ -86,7 +84,7 @@
         //移除购物车信息
         function removeItem(id) {
             jQuery.ajax({
-                url: "/cartservlet?method=deleteFromCart",
+                url: "cartservlet?method=deleteFromCart",
                 data: {
                     "id": id,
                 },
@@ -108,7 +106,7 @@
 
 
         function flagAdd() {
-            if(++flag==limt){
+            if(++flag==limit){
                 window.location.reload()
             }
         }
@@ -135,8 +133,8 @@
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="/">主页</a></li>
-                            <li><a href="/account.jsp">我的</a></li>
+                            <li><a href="${pageContext.request.contextPath}/">主页</a></li>
+                            <li><a href="account.jsp">我的</a></li>
                             <li>购物车</li>
                         </ul>
                     </div>
@@ -163,7 +161,7 @@
                                             <p class="cart-empty woocommerce-info">您还没有往购物车里添加商品</p>
                                             <p class="return-to-shop">
                                                 <a class="button wc-backward"
-                                                   href="/goodsservlet?method=shop">
+                                                   href="goodsservlet?method=shop">
                                                     去购物 </a>
                                             </p>
                                         </div>
@@ -205,30 +203,31 @@
                                                                    <a class="remove" aria-label="Remove this item"
                                                                       onclick="removeItem(${cart.id})">
                                                                        <img style="width: 30px;"
-                                                                            src="/resources/images/delete.png" />
+                                                                            src="resources/images/delete.png" />
                                                                    </a> </td>
 
                                                                <td class="product-thumbnail"
                                                                    data-title="Product Image"><a
-                                                                       href="/goodsservlet?method=detail&id=${cart.gid}"><img
+                                                                       href="goodsservlet?method=detail&id=${cart.gid}"><img
                                                                        width="300" height="300"
+                                                                       style="background: #f0f0f0;"
                                                                        src="${cart.goods.picture}"
                                                                        class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
                                                                        alt="" loading="lazy"
                                                                        sizes="(max-width: 300px) 100vw, 300px" /></a>
                                                                </td>
 
-                                                               <td class="product-name" data-title="Product"><a
-                                                                       href="/goodsservlet?method=detail&id=${cart.gid}">${cart.goods.name}</a></td>
+                                                               <td class="product-name" data-title="商品"><a
+                                                                       href="goodsservlet?method=detail&id=${cart.gid}">${cart.goods.name}</a></td>
 
-                                                               <td class="product-price" data-title="Price">
+                                                               <td class="product-price" data-title="价格">
 																	<span class="woocommerce-Price-amount amount"><bdi><span
                                                                             class="woocommerce-Price-currencySymbol">&#165;</span>${cart.goods.price*cart.goods.discount}</bdi></span>
                                                                </td>
 
-                                                               <td >${cart.size}</td>
+                                                               <td  data-title="尺码/规格">${cart.size}</td>
 
-                                                               <td class="product-quantity" data-title="Quantity">
+                                                               <td class="product-quantity" data-title="数量">
                                                                    <div class="quantity">
                                                                        <input type="number"
                                                                               onchange="quantityChange(${cart.id})"
@@ -241,43 +240,18 @@
                                                                </td>
 
 
-                                                               <td>
-                                                                   <a href="/orderservlet?method=checkout&cid=${cart.id}"
+                                                               <td  data-title="支付">
+                                                                   <a href="orderservlet?method=checkout&cid=${cart.id}"
                                                                       data-product_id="59"
                                                                       data-product_sku="woo-sunglasses">
                                                                        <img style="width: 30px;"
-                                                                            src="/resources/images/pay.png" >
+                                                                            src="resources/images/pay.png" >
                                                                    </a>
                                                                </td>
                                                            </tr>
                                                        </c:forEach>
 
 
-
-                                                       <tr>
-                                                           <td colspan="6" class="actions">
-
-                                                               <div class="coupon">
-                                                                   <label for="coupon_code">Coupon:</label> <input
-                                                                       type="text" name="coupon_code"
-                                                                       class="input-text" id="coupon_code" value=""
-                                                                       placeholder="优惠券代码" /> <button type="submit"
-                                                                                                      class="button" name="apply_coupon"
-                                                                                                      value="Apply coupon">使用优惠券</button>
-                                                               </div>
-
-                                                               <button type="submit" class="button"
-                                                                       name="update_cart"
-                                                                       value="Update cart">更新购物车</button>
-
-
-                                                               <input type="hidden" id="woocommerce-cart-nonce"
-                                                                      name="woocommerce-cart-nonce"
-                                                                      value="702001be9e" /><input type="hidden"
-                                                                                                  name="_wp_http_referer"
-                                                                                                  value="/1/parlo/cart/" />
-                                                           </td>
-                                                       </tr>
 
                                                        </tbody>
                                                    </table>
@@ -287,11 +261,10 @@
                                                    <div class="col-lg-12">
                                                        <div class="cart-shiping-update-wrapper">
                                                            <div class="cart-shiping-update">
-                                                               <a
-                                                                       href="https://demo.shrimpthemes.com/1/parlo/shop/">继续购物</a>
+                                                               <a href="goodsservlet?method=shop">继续购物</a>
                                                            </div>
                                                            <div class="cart-clear">
-                                                               <a href="/orderservlet?method=checkout">清空购物车</a>
+                                                               <a href="orderservlet?method=checkout">清空购物车</a>
                                                            </div>
                                                        </div>
                                                    </div>
@@ -299,110 +272,6 @@
 
                                            </form>
 
-                                           <div class="cart-collaterals">
-                                               <div class="cart_totals ">
-
-
-                                                   <h2>购物车总和</h2>
-
-                                                   <table cellspacing="0" class="shop_table shop_table_responsive">
-
-                                                       <tr class="cart-subtotal">
-                                                           <th>总价</th>
-                                                           <td data-title="Subtotal"><span
-                                                                   class="woocommerce-Price-amount amount"><bdi><span
-                                                                   class="woocommerce-Price-currencySymbol">&pound;</span>196.00</bdi></span>
-                                                           </td>
-                                                       </tr>
-
-
-
-
-                                                       <tr class="woocommerce-shipping-totals shipping">
-                                                           <th>邮费</th>
-                                                           <td data-title="Shipping">
-                                                               <ul id="shipping_method"
-                                                                   class="woocommerce-shipping-methods">
-                                                                   <li>
-                                                                       <input type="hidden" name="shipping_method[0]"
-                                                                              data-index="0"
-                                                                              id="shipping_method_0_free_shipping2"
-                                                                              value="free_shipping:2"
-                                                                              class="shipping_method" /><label
-                                                                           for="shipping_method_0_free_shipping2">免邮费</label>
-                                                                   </li>
-                                                               </ul>
-                                                               <p class="woocommerce-shipping-destination">
-                                                                   寄给 <strong>兔橘长啊</strong>. </p>
-
-
-
-                                                               <form class="woocommerce-shipping-calculator"
-                                                                     action="https://demo.shrimpthemes.com/1/parlo/cart/"
-                                                                     method="post">
-
-                                                                   <a href="#" >修改收货地址</a>
-                                                                   <img style="width: 30px;"	src="/resources/images/address.png">
-
-
-
-                                                                       <p class="form-row form-row-wide"
-                                                                          id="calc_shipping_city_field">
-                                                                           <input type="text" class="input-text"
-                                                                                  value="" placeholder="城市"
-                                                                                  name="calc_shipping_city"
-                                                                                  id="calc_shipping_city" />
-                                                                       </p>
-
-                                                                       <p class="form-row form-row-wide"
-                                                                          id="calc_shipping_postcode_field">
-                                                                           <input type="text" class="input-text"
-                                                                                  value="" placeholder="具体地址"
-                                                                                  name="calc_shipping_postcode"
-                                                                                  id="calc_shipping_postcode" />
-                                                                       </p>
-
-                                                                       <p><button type="submit" name="calc_shipping"
-                                                                                  value="1" class="button">更新</button>
-                                                                       </p>
-                                                                       <input type="hidden"
-                                                                              id="woocommerce-shipping-calculator-nonce"
-                                                                              name="woocommerce-shipping-calculator-nonce"
-                                                                              value="3b3e644f90" /><input type="hidden"
-                                                                                                          name="_wp_http_referer"
-                                                                                                          value="/1/parlo/cart/" />
-                                                                   </section>
-                                                               </form>
-
-                                                           </td>
-                                                       </tr>
-
-
-
-
-
-
-                                                       <tr class="order-total">
-                                                           <th>Total</th>
-                                                           <td data-title="Total"><strong><span
-                                                                   class="woocommerce-Price-amount amount"><bdi><span
-                                                                   class="woocommerce-Price-currencySymbol">&pound;</span>196.00</bdi></span></strong>
-                                                           </td>
-                                                       </tr>
-
-
-                                                   </table>
-
-                                                   <div class="wc-proceed-to-checkout">
-
-                                                       <a href="https://demo.shrimpthemes.com/1/parlo/checkout/"
-                                                          class="checkout-button button alt wc-forward">
-                                                           支付</a>
-                                                   </div>
-
-
-                                               </div>
-                                           </div>
 
                                        </div>
                                    </div>

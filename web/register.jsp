@@ -11,16 +11,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    <title>注册</title>
+    <title>discipl!ne pro &#8211; 注册</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -50,16 +49,17 @@
 
             //验证邮箱唯一性
             jQuery("#email").blur(function(){
-                jQuery.get('/userservlet?method=checkEmailUnique',"email="+this.value,function(data){
-                    console.log(data)
-                    if(data=="false"){
-                        jQuery('#emailMsg').text("此邮箱已被注册激活 ×").css("color","red");
-                        jQuery('#register_btn').attr("disabled","true");
-                    }else{
-                        jQuery('#emailMsg').text("邮箱地址 ✔").css("color","green");
-                        jQuery('#register_btn').attr("disabled","false");
-                    }
-                })
+                if(this.value!=""){
+                    jQuery.get('userservlet?method=checkEmailUnique',"email="+this.value,function(data){
+                        console.log(data)
+                        if(data=="false"){
+                            jQuery('#emailMsg').text("此邮箱已被注册激活 ×").css("color","red");
+                        }else{
+                            jQuery('#emailMsg').text("邮箱地址 ✔").css("color","green");
+                        }
+                    });
+                }
+
             });
 
 
@@ -147,7 +147,7 @@
 
 
                                                 <form method="post"
-                                                      action="/userservlet?method=register"
+                                                      action="userservlet?method=register"
                                                       class="woocommerce-form woocommerce-form-register register">
 
 
@@ -186,7 +186,7 @@
                                                                 class="woocommerce-Input woocommerce-Input--text input-text"
                                                                 type="text" name="vcode"
                                                                 autocomplete="current-password" style="width: 60%; float: left" required/>
-                                                        <a><img src="/userservlet?method=code" style="margin-left: 6px;" id="validatecode" ></a>
+                                                        <a><img src="userservlet?method=code" style="margin-left: 6px;" id="validatecode" ></a>
                                                     </p>
 
 
@@ -201,13 +201,12 @@
                                                                 href="#"
                                                                 class="woocommerce-privacy-policy-link"
                                                                 target="_blank">隐私政策</a>.</p>
-                                                        <p>已有账号？<a href="/login.jsp">点此登录</a></p>
+                                                        <p>已有账号？<a href="login.jsp">点此登录</a></p>
                                                     </div>
                                                     <p class="woocommerce-form-row form-row">
                                                         <input type="hidden" id="woocommerce-register-nonce"
-                                                               name="woocommerce-register-nonce"
-                                                               value="e2aaece555" /><input type="hidden"
-                                                                                           name="_wp_http_referer" value="/1/parlo/my-account/" />
+                                                               name="woocommerce-register-nonce" />
+                                                        <input type="hidden" name="_wp_http_referer" />
                                                         <button
                                                                 class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit"
                                                                 name="register" value="Register"  id="register_btn">注册</button>
@@ -243,14 +242,6 @@
     <%@include file="commons/footer.jsp"%>
 </div><!-- #page -->
 
-<div class="woocommerce" id="htwlquick-viewmodal">
-    <div class="htwl-modal-dialog product">
-        <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-                class="sli sli-close"></span></button>
-            <div class="htwl-modal-body"></div>
-        </div>
-    </div>
-</div>
 
 <script type='text/javascript' src='resources/js/main.js'></script>
 

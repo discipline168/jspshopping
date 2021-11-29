@@ -11,17 +11,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
-    <title>Parlo &#8211; WooCommerce WordPress Theme</title>
+    <title>discipl!ne pro &#8211; 地址</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
     <link rel='stylesheet' id='elementor-frontend-legacy-css' href='resources/css/frontend-legacy.min.css'
@@ -62,11 +60,11 @@
         var limit=${size};
         var flag=0;
 
-        console.log('flag:'+flag)
+        console.log('limit:'+limit)
         //移除地址信息
         function removeItem(id) {
             jQuery.ajax({
-                url: "/addressservlet?method=delete",
+                url: "addressservlet?method=delete",
                 data: {
                     "id": id,
                 },
@@ -110,8 +108,8 @@
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="/">主页</a></li>
-                            <li><a href="/account.jsp">我的</a></li>
+                            <li><a href="/${pageContext.request.contextPath}">主页</a></li>
+                            <li><a href="account.jsp">我的</a></li>
                             <li>地址</li>
                         </ul>
                     </div>
@@ -147,7 +145,7 @@
                                             <c:if test="${empty addressList}">
                                                 <div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">
                                                     <a class="woocommerce-Button button"
-                                                       href="/addressservlet?method=operate&type=insert">去添加</a>
+                                                       href="addressservlet?method=operate&type=insert">去添加</a>
                                                     您还未添加任何地址信息
                                                 </div>
                                             </c:if>
@@ -163,7 +161,7 @@
                                                             <span class="nobr">收件人</span></th>
                                                         <th
                                                                 class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
-                                                            <span class="nobr">号码</span></th>
+                                                            <span class="nobr">手机号码</span></th>
                                                         <th
                                                                 class="woocommerce-orders-table__header woocommerce-orders-table__header-order-status">
                                                             <span class="nobr">地区</span></th>
@@ -180,28 +178,28 @@
                                                         <c:forEach items="${addressList}" var="address">
                                                             <tr id="address-item-${address.id}"
                                                                     class="woocommerce-orders-table__row woocommerce-orders-table__row--status-on-hold order">
-                                                                <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" >
+                                                                <td class="product-remove" >
                                                                     <a style="margin: auto;" class="remove" aria-label="Remove this item" onclick="removeItem(${address.id})">
-                                                                        <img style="width: 30px;" src="/resources/images/delete.png">
+                                                                        <img style="width: 30px;" src="resources/images/delete.png">
                                                                     </a>
                                                                 </td>
-                                                                <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" >
+                                                                <td  data-title="收件人" class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" >
                                                                     <a> ${address.name} </a>
                                                                     <c:if test="${address.level==1}">
                                                                         <button style="background-color: white;border: 1px solid orange;color: orange;">默认</button>
                                                                     </c:if>
                                                                 </td>
-                                                                <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-date" >
+                                                                <td data-title="手机号码" class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-date" >
                                                                      ${address.phone}
                                                                 </td>
-                                                                <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" >
+                                                                <td data-title="地区" class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" >
                                                                     ${address.region}
                                                                 </td>
-                                                                <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total" >
+                                                                <td data-title="具体地址" class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total" >
                                                                     ${address.detail}
                                                                 </td>
-                                                                <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-actions" >
-                                                                    <a href="/addressservlet?method=operate&type=update&id=${address.id}"
+                                                                <td class="product-remove" >
+                                                                    <a href="addressservlet?method=operate&type=update&id=${address.id}"
                                                                        class="woocommerce-button button view">修改</a>
                                                                 </td>
                                                             </tr>
@@ -210,7 +208,7 @@
                                                 </table>
 
                                                 <c:if test="${size<3}">
-                                                    <a href="/addressservlet?method=operate&type=insert" class="woocommerce-button button view" style="margin-top: 30px;">新增</a>
+                                                    <a href="addressservlet?method=operate&type=insert" class="woocommerce-button button view" style="margin-top: 30px;">新增</a>
                                                 </c:if>
 
 
@@ -238,14 +236,7 @@
     <%@include file="commons/footer.jsp"%>
 </div><!-- #page -->
 
-<div class="woocommerce" id="htwlquick-viewmodal">
-    <div class="htwl-modal-dialog product">
-        <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-                class="sli sli-close"></span></button>
-            <div class="htwl-modal-body"></div>
-        </div>
-    </div>
-</div>
+
 <script type='text/javascript' src='resources/js/main.js'></script>
 
 </body>

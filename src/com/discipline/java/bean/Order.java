@@ -49,7 +49,6 @@ public class Order implements Delayed {
     //获得延迟时间
     @Override
     public long getDelay(TimeUnit unit) {
-        long start=System.currentTimeMillis();
         return unit.convert((start+delay) - System.currentTimeMillis(),TimeUnit.MILLISECONDS);
     }
 

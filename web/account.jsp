@@ -7,22 +7,23 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.discipline.java.bean.User" %>
+
 <!doctype html>
 <html lang="en-US">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
-    <title>我的</title>
+    <title>discipl!ne pro &#8211; 我的</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -43,7 +44,7 @@
         //使用代金券
         function applyCoupon() {
             jQuery.ajax({
-                url: "/userservlet?method=coupon",
+                url: "userservlet?method=coupon",
                 data: {
                     "code": jQuery("[id='coupon_code']").val(),
                 },
@@ -121,16 +122,27 @@
 
 
                                         <div class="woocommerce-MyAccount-content">
-                                            <div class="woocommerce-notices-wrapper"></div>
-                                            <p>
-                                                Hello <strong>${user.username}</strong> (并不是 <strong>${user.username}</strong>?
-                                                <a href="/userservlet?method=logout">点此登出</a>)
-                                            </p>
-                                            <p>钱包余额：<strong>&#165;${user.balance}</strong></p>
-                                            <div class="coupon">
-                                                <input type="text" id="coupon_code" class="input-text"  placeholder="代金券代码" style="width: 50%;margin-top: 10px;">
-                                                <button type="button" class="button" onclick="applyCoupon()">使用代金券</button>
-                                            </div>
+
+                                            <c:if test="${empty user}">
+                                                <p>
+                                                    尚未登入
+                                                    <a href="login.jsp">点此登入</a>)
+                                                </p>
+                                            </c:if>
+
+                                            <c:if test="${not empty user}">
+                                                <p>
+                                                    Hello <strong>${user.username}</strong> (并不是 <strong>${user.username}</strong>?
+                                                    <a href="userservlet?method=logout">点此登出</a>)
+                                                </p>
+                                                <p>钱包余额：<strong>&#165;${user.balance}</strong></p>
+                                                <div class="coupon">
+                                                    <input type="text" id="coupon_code" class="input-text"  placeholder="代金券代码" style="width: 50%;margin-top: 10px;">
+                                                    <button type="button" class="button" onclick="applyCoupon()">使用代金券</button>
+                                                </div>
+                                            </c:if>
+                                            
+
                                         </div>
                                     </div>
                                 </div><!-- .entry-content -->
@@ -158,14 +170,7 @@
     <%@include file="commons/footer.jsp"%>
 </div><!-- #page -->
 
-<div class="woocommerce" id="htwlquick-viewmodal">
-    <div class="htwl-modal-dialog product">
-        <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-                class="sli sli-close"></span></button>
-            <div class="htwl-modal-body"></div>
-        </div>
-    </div>
-</div>
+
 
 <script type='text/javascript' src='resources/js/main.js'></script>
 

@@ -23,7 +23,7 @@
 			search: null,
 			prompt: '- 请选择 -',
 			loading: '加载中...',
-			dataUrl: '/resources/json/',
+			dataUrl: 'resources/json/',
 			onchange: function(){}
 		};
 

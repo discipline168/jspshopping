@@ -11,17 +11,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
-    <title>Parlo &#8211; WooCommerce WordPress Theme</title>
+    <title>discipl!ne pro &#8211; 地址设置</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -88,7 +86,7 @@
             //新增
             if (id == null) {
                 jQuery.ajax({
-                    url: "/addressservlet?method=insert",
+                    url: "addressservlet?method=insert",
                     data: {
                         "name": name,
                         "phone": phone,
@@ -100,7 +98,7 @@
                     success: function (data) {
                         if (data == "success") {
                             console.log('新增地址信息成功');
-                            jQuery(location).attr('href', '/addressservlet?method=list')
+                            jQuery(location).attr('href', 'addressservlet?method=list')
                         }
                         else if(data=="nouser"){
                             jQuery(location).attr('href', '/login.jsp')
@@ -115,7 +113,7 @@
             //修改
             else{
                 jQuery.ajax({
-                    url: "/addressservlet?method=update",
+                    url: "addressservlet?method=update",
                     data: {
                         "id":id,
                         "name": name,
@@ -128,7 +126,7 @@
                     success: function (data) {
                         if (data == "success") {
                             console.log('修改地址信息id-'+id+'成功');
-                            jQuery(location).attr('href', '/addressservlet?method=list')
+                            jQuery(location).attr('href', 'addressservlet?method=list')
                         }
                         else {
                             alert(data);
@@ -164,7 +162,7 @@
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="/">主页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/">主页</a></li>
                             <li><a href="/account.jsp">我的</a></li>
                             <li>地址</li>
                         </ul>
@@ -313,10 +311,8 @@
 </div>
 <script type='text/javascript' src='resources/js/main.js'></script>
 
-
-
-
 <script src="resources/js/city_select.js"></script>
+
 <script>
 
     var type='${type}';

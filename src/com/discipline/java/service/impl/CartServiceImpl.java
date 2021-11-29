@@ -33,6 +33,17 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public int deleteFromCart(List<Cart> cartList) throws SQLException {
+        int result=1;
+        for(Cart cart:cartList){
+            result=cartDao.deleteFromCart(cart.getId());
+            if(result==0)
+                break;
+        }
+        return result;
+    }
+
+    @Override
     public int updateCart(Cart cart) throws SQLException {
         return cartDao.updateCart(cart);
     }
@@ -59,9 +70,11 @@ public class CartServiceImpl implements CartService {
     @Override
     public Cart getCartById(int id) throws SQLException {
         Cart cart = cartDao.getCartById(id);
-        Goods goods = goodsDao.getGoodsById(cart.getGid());
-        if(goods!=null)
-            cart.setGoods(goods);
+        if(cart!=null){
+            Goods goods = goodsDao.getGoodsById(cart.getGid());
+            if(goods!=null)
+                cart.setGoods(goods);
+        }
         return cart;
     }
 

@@ -11,17 +11,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
-    <title>Parlo &#8211; WooCommerce WordPress Theme</title>
+    <title>discipl!ne pro &#8211; 订单预览</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -75,7 +73,7 @@
         function pay() {
             var aid=jQuery("[name='level']").val();
             var cid=jQuery("[name='cid']").text();
-            jQuery(location).attr('href', '/orderservlet?method=confirm&aid='+aid+(cid==""?"":("&cid="+cid)))
+            jQuery(location).attr('href', 'orderservlet?method=confirm&aid='+aid+(cid==""?"":("&cid="+cid)))
         }
 
 
@@ -102,7 +100,7 @@
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="/">主页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/">主页</a></li>
                             <li>预览支付信息</li>
                         </ul>
                     </div>
@@ -148,7 +146,7 @@
                                                                 <tr class="woocommerce-table__line-item order_item">
 
                                                                     <td class="woocommerce-table__product-name product-name">
-                                                                        <a href="/goodsservlet?method=detail&id=${check.gid}" >${check.goods.name} </a> <strong
+                                                                        <a href="goodsservlet?method=detail&id=${check.gid}" >${check.goods.name} </a> <strong
                                                                             class="product-quantity">&times;&nbsp;${check.quantity}</strong>
                                                                     </td>
 
@@ -227,9 +225,6 @@
 
                                     </div>
                                 </div><!-- .entry-content -->
-
-
-
 
                             </article><!-- #post-49 -->
 

@@ -7,13 +7,13 @@ import com.discipline.java.service.CategoryService;
 import com.discipline.java.service.GoodsService;
 import com.discipline.java.service.impl.CategoryServiceImpl;
 import com.discipline.java.service.impl.GoodsServiceImpl;
+import com.discipline.java.utils.Constant;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,16 +28,20 @@ public class GoodsServlet extends BaseServlet {
     //查看商品详情
     public String detail(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id;
 
-        if(id==0){
-            request.setAttribute("msg","访问错误");
-            return "forward:/message.jsp";
+        try{
+            id = Integer.parseInt(request.getParameter("id"));
+        }catch(NumberFormatException e){
+            e.printStackTrace();
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+            return "forward:message.jsp";
         }
+
         Goods goods = goodsService.getGoodsById(id);
         if(goods==null){
-            request.setAttribute("msg","查无此资源");
-            return "forward:/message.jsp";
+            request.setAttribute("msg", Constant.REQUEST_RESOURCES_NOT_EXIT);
+            return "forward:message.jsp";
         }
         //获取其他介绍图片地址
         if(StringUtils.isNotEmpty(goods.getOthers())){
@@ -61,7 +65,7 @@ public class GoodsServlet extends BaseServlet {
         request.setAttribute("recommended",goodsService.getRecommendedGoodsList(id,goods.getCategoryid()));
 
 
-        return "forward:/detail.jsp";
+        return "forward:detail.jsp";
     }
 
 
@@ -73,7 +77,15 @@ public class GoodsServlet extends BaseServlet {
         if(request.getParameter("page")==null){
             page=1;
         }else{
-            page = Integer.parseInt(request.getParameter("page"));
+
+            try{
+                page = Integer.parseInt(request.getParameter("page"));
+            }catch(NumberFormatException e){
+                e.printStackTrace();
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
+            }
+
             if(page==0)
                 page=1;
         }
@@ -81,8 +93,22 @@ public class GoodsServlet extends BaseServlet {
         if(request.getParameter("categoryid")==null){
             categoryid=0;
         }else{
-            categoryid = Integer.parseInt(request.getParameter("categoryid"));
+            try {
+                categoryid = Integer.parseInt(request.getParameter("categoryid"));
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
+            }
+
             Category category = categoryService.getCategoryById(categoryid);
+
+
+            if(category==null&&categoryid!=0){
+                request.setAttribute("msg", Constant.REQUEST_RESOURCES_NOT_EXIT);
+                return "forward:message.jsp";
+            }
+
             request.setAttribute("category",category);
         }
 
@@ -106,8 +132,8 @@ public class GoodsServlet extends BaseServlet {
         System.out.println(shopGoods);
 
         if(shopGoods.size()==0||shopGoods==null){
-            request.setAttribute("msg","访问的资源不存在");
-            return "forward:/message.jsp";
+            request.setAttribute("msg", Constant.REQUEST_RESOURCES_NOT_EXIT);
+            return "forward:message.jsp";
         }
 
 
@@ -120,6 +146,6 @@ public class GoodsServlet extends BaseServlet {
         request.setAttribute("pages",sum/8+(sum%8==0?0:1));
 
 
-        return "forward:/shop.jsp";
+        return "forward:shop.jsp";
     }
 }

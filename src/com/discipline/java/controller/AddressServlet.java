@@ -4,6 +4,7 @@ import com.discipline.java.bean.Address;
 import com.discipline.java.bean.User;
 import com.discipline.java.service.AddressService;
 import com.discipline.java.service.impl.AddressServiceImpl;
+import com.discipline.java.utils.Constant;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.annotation.WebServlet;
@@ -20,60 +21,60 @@ public class AddressServlet extends BaseServlet {
     public String list(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         User user = (User) request.getSession().getAttribute("user");
         if(user==null)
-            return "redirect:/login.jsp";
+            return "redirect: login.jsp";
         List<Address> addressList = addressService.getAddressList(user.getId());
         if(addressList.size()>0) {
             request.setAttribute("addressList", addressList);
             request.setAttribute("size",addressList.size());
         }
         //System.out.println(addressList);
-        return "forward:/addresses.jsp";
+        return "forward:addresses.jsp";
     }
 
     public String operate(HttpServletRequest request,HttpServletResponse response) throws SQLException {
 
         User user = (User) request.getSession().getAttribute("user");
         if(user==null)
-            return "redirect:/login.jsp";
+            return "redirect: login.jsp";
 
         if(StringUtils.isEmpty(request.getParameter("type"))||
                 (!"insert".equals(request.getParameter("type"))&&!"update".equals(request.getParameter("type")))){
-            request.setAttribute("msg","请求参数有误");
-            return "forward:/message.jsp";
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+            return "forward:message.jsp";
         }
         String type = request.getParameter("type");
         request.setAttribute("type",type);
 
-
+        //更新操作
         if("update".equals(type)){
 
             if(StringUtils.isEmpty(request.getParameter("id"))){
-                request.setAttribute("msg","请求参数不存在");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_INCOMPLETE);
+                return "forward:message.jsp";
             }
             int id;
             try{
                 id = Integer.parseInt(request.getParameter("id"));
             }catch(NumberFormatException e){
-                request.setAttribute("msg","请求参数有误");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
             }
 
-
+            //非法修改他人地址信息
             Address address = addressService.getAddress(id);
             if(address==null){
-                request.setAttribute("msg","请求参数不存在");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", Constant.REQUEST_RESOURCES_NOT_EXIT);
+                return "forward:message.jsp";
             }
             if(address.getUid()!=user.getId()){
-                request.setAttribute("msg","违规操作");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", Constant.REQUEST_VIOLATE);
+                return "forward:message.jsp";
             }
             request.setAttribute("address",address);
         }
 
 
-        return "forward:/address.jsp";
+        return "forward:address.jsp";
     }
 
     public String update(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
@@ -81,30 +82,30 @@ public class AddressServlet extends BaseServlet {
         int id,level;
         User user = (User) request.getSession().getAttribute("user");
         if(user==null)
-            return "redirect:/login.jsp";
+            return "redirect: login.jsp";
         if(StringUtils.isEmpty(request.getParameter("id"))||StringUtils.isEmpty(request.getParameter("region"))
                 ||StringUtils.isEmpty(request.getParameter("detail"))
                 ||StringUtils.isEmpty(request.getParameter("phone"))||StringUtils.isEmpty(request.getParameter("name"))
                 ||StringUtils.isEmpty(request.getParameter("level"))){
 
-            response.getWriter().write("请求参数不完整");
+            response.getWriter().write(Constant.REQUEST_PARAMETER_INCOMPLETE);
             return null;
         }
         try {
             id = Integer.parseInt(request.getParameter("id"));
             level = Integer.parseInt(request.getParameter("level"));
         }catch (NumberFormatException e){
-            response.getWriter().write("请求参数错误");
+            response.getWriter().write(Constant.REQUEST_PARAMETER_ERROR);
             return null;
         }
         Address address = addressService.getAddress(id);
         if(address==null){
-            response.getWriter().write("请求信息不存在");
+            response.getWriter().write(Constant.REQUEST_RESOURCES_NOT_EXIT);
             return null;
         }
 
         if(user.getId()!=address.getUid()){
-            response.getWriter().write("违规操作");
+            response.getWriter().write(Constant.REQUEST_VIOLATE);
             return null;
         }
         address.setName(request.getParameter("name"));
@@ -134,13 +135,13 @@ public class AddressServlet extends BaseServlet {
                 ||StringUtils.isEmpty(request.getParameter("phone"))||StringUtils.isEmpty(request.getParameter("name"))
                 ||StringUtils.isEmpty(request.getParameter("level"))){
 
-            response.getWriter().write("请求参数不完整");
+            response.getWriter().write(Constant.REQUEST_PARAMETER_INCOMPLETE);
             return null;
         }
         try {
             level = Integer.parseInt(request.getParameter("level"));
         }catch (NumberFormatException e){
-            response.getWriter().write("请求参数错误");
+            response.getWriter().write(Constant.REQUEST_PARAMETER_ERROR);
             return null;
         }
 
@@ -169,14 +170,24 @@ public class AddressServlet extends BaseServlet {
             response.getWriter().write("nouser");
             return null;
         }
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id;
+
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+            return "forward:message.jsp";
+        }
+
+
         Address address = addressService.getAddress(id);
         if(address==null){
-            response.getWriter().write("请求信息不存在");
+            response.getWriter().write(Constant.REQUEST_RESOURCES_NOT_EXIT);
             return null;
         }
         if(address.getUid()!=user.getId()){
-            response.getWriter().write("违规操作");
+            response.getWriter().write(Constant.REQUEST_VIOLATE);
             return null;
         }
         int result = addressService.deleteAddress(id);

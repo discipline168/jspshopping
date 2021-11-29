@@ -11,17 +11,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    <script>document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
-    <title>Parlo &#8211; WooCommerce WordPress Theme</title>
+    <title>discipl!ne pro &#8211; ${goods.name}</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='/resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='/resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='/resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
@@ -73,7 +71,7 @@
         function addToCart() {
             jQuery("[name='cartSuccess']").hide(0);
             jQuery.ajax({
-                url: "/cartservlet?method=addToCart",
+                url: "cartservlet?method=addToCart",
                 data: {
                     "gid": jQuery("[name='gid']").val(),
                     "quantity": jQuery("[name='quantity']").val(),
@@ -90,7 +88,7 @@
                         jQuery("[name='cartSuccess']").delay(3000).slideUp(500);
 
                     }else if(data=="nouser"){
-                        jQuery(location).attr('href', '/login.jsp')
+                        jQuery(location).attr('href', 'login.jsp')
                     }
                     else{
                         alert(data);
@@ -127,11 +125,10 @@
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="/">主页</a></li>
-                            <li><a href="/goodsservlet?method=shop">商城</a>
+                            <li><a href="${pageContext.request.contextPath}/">主页</a></li>
+                            <li><a href="goodsservlet?method=shop">商城</a>
                             </li>
-                            <li><a
-                                    href="/goodsservlet?method=shop&categoryid=${goods.category.id}">${goods.category.name}</a>
+                            <li><a href="goodsservlet?method=shop&categoryid=${goods.category.id}">${goods.category.name}</a>
                             </li>
                             <li>${goods.name}</li>
                         </ul>
@@ -150,7 +147,7 @@
 
                             <div class="woocommerce-notices-wrapper msg-hide" name="cartSuccess">
                                 <div class="woocommerce-message" role="alert">
-                                    <a href="/cartservlet?method=list" tabindex="1"
+                                    <a href="cartservlet?method=list" tabindex="1"
                                        class="button wc-forward">查看购物车</a> ${goods.name} 已加入您的购物车 </div>
                             </div>
 
@@ -227,8 +224,7 @@
                                                 </c:if>
 
                                                 <div class="quantity">
-                                                    <label class="screen-reader-text"
-                                                           for="quantity_6187a5057e2a0">${goods.name}</label>
+                                                    <label class="screen-reader-text">${goods.name}</label>
                                                     <input type="number" id="quantity_6187a5057e2a0"
                                                            class="input-text qty text" step="1" min="1" max="99"
                                                            name="quantity" value="1" title="Qty" size="4"
@@ -242,22 +238,6 @@
 
                                             </form>
 
-
-
-                                            <a href="https://demo.shrimpthemes.com/1/parlo?action=yith-woocompare-add-product&id=59"
-                                               class="compare button" data-product_id="59" rel="nofollow"><i
-                                                    class="fa fa-refresh"></i></a>
-                                            <div class="product_meta">
-
-
-
-                                                <span class="sku_wrapper">目前库存数量: <span class="sku">${goods.quantity}</span></span>
-
-
-
-
-
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -306,44 +286,13 @@
                                                     <div class="ht-product-image-wrap">
 															<span
                                                                     class="ht-product-label ht-product-label-right">Sale!</span>
-                                                        <a href="/goodsservlet?method=detail&id=${recommend.id}"
+                                                        <a href="goodsservlet?method=detail&id=${recommend.id}"
                                                            class="ht-product-image">
                                                             <img width="300" height="300"
                                                                  src="${recommend.picture}"
                                                                  class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
                                                                  alt="" loading="lazy"
                                                                  sizes="(max-width: 300px) 100vw, 300px" /> </a>
-
-                                                        <div class="ht-product-action">
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="javascript:void(0);" class="quickview"
-                                                                       data-toggle="modal"
-                                                                       data-target="#ht-quick-viewmodal"
-                                                                       data-quick-id="73">
-                                                                        <i class="sli sli-magnifier"></i>
-                                                                        <span
-                                                                                class="ht-product-action-tooltip">详情</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <div
-                                                                            class=" wishlist button-default yith-wcwl-add-to-wishlist add-to-wishlist-73">
-                                                                        <div class="yith-wcwl-add-button show"><a
-                                                                                href="https://demo.shrimpthemes.com/1/parlo/wishlist/"
-                                                                                data-product-id="73"
-                                                                                data-product-type="simple"
-                                                                                class="add_to_wishlist"><i
-                                                                                class="sli sli-heart"></i><span
-                                                                                class="ht-product-action-tooltip">Add
-																						to Wishlist</span></a><i
-                                                                                class="fa fa-spinner fa-pulse ajax-loading"
-                                                                                style="visibility:hidden"></i></div>
-
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
 
                                                     </div>
 
@@ -352,10 +301,10 @@
                                                     <div class="ht-product-content">
                                                         <div class="ht-product-content-inner">
                                                             <div class="ht-product-categories"><a
-                                                                    href="/goodsservlet?method=shop&categoryid=${goods.category.id}">${goods.category.name}</a>
+                                                                    href="goodsservlet?method=shop&categoryid=${goods.category.id}">${goods.category.name}</a>
                                                             </div>
                                                             <h4 class="ht-product-title"><a
-                                                                    href="/goodsservlet?method=detail&id=${recommend.id}">${recommend.name}</a>
+                                                                    href="goodsservlet?method=detail&id=${recommend.id}">${recommend.name}</a>
                                                             </h4>
                                                             <div class="ht-product-price">
 
@@ -412,14 +361,6 @@
     <%@include file="commons/footer.jsp"%>
 </div><!-- #page -->
 
-<div class="woocommerce" id="htwlquick-viewmodal">
-    <div class="htwl-modal-dialog product">
-        <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-                class="sli sli-close"></span></button>
-            <div class="htwl-modal-body"></div>
-        </div>
-    </div>
-</div>
 <script
         type="application/ld+json">{"@context":"https:\/\/schema.org\/","@graph":[{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"name":"Home","@id":"https:\/\/demo.shrimpthemes.com\/1\/parlo"}},{"@type":"ListItem","position":2,"item":{"name":"Clothing","@id":"https:\/\/demo.shrimpthemes.com\/1\/parlo\/product-category\/clothing\/"}},{"@type":"ListItem","position":3,"item":{"name":"Accessories","@id":"https:\/\/demo.shrimpthemes.com\/1\/parlo\/product-category\/clothing\/accessories\/"}},{"@type":"ListItem","position":4,"item":{"name":"Vivamus et massa massa","@id":"https:\/\/demo.shrimpthemes.com\/1\/parlo\/product\/vivamus-et-massa-massa\/"}}]},{"@context":"https:\/\/schema.org\/","@type":"Product","@id":"https:\/\/demo.shrimpthemes.com\/1\/parlo\/product\/vivamus-et-massa-massa\/#product","name":"Vivamus et massa massa","url":"https:\/\/demo.shrimpthemes.com\/1\/parlo\/product\/vivamus-et-massa-massa\/","description":"Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.","image":"https:\/\/demo.shrimpthemes.com\/1\/parlo\/wp-content\/uploads\/2019\/03\/product_11.png","sku":"woo-sunglasses","offers":[{"@type":"Offer","price":"90.00","priceValidUntil":"2022-12-31","priceSpecification":{"price":"90.00","priceCurrency":"GBP","valueAddedTaxIncluded":"false"},"priceCurrency":"GBP","availability":"http:\/\/schema.org\/InStock","url":"https:\/\/demo.shrimpthemes.com\/1\/parlo\/product\/vivamus-et-massa-massa\/","seller":{"@type":"Organization","name":"Parlo","url":"https:\/\/demo.shrimpthemes.com\/1\/parlo"}}]}]}</script>
 

@@ -4,6 +4,7 @@ import com.alipay.service.schema.util.StringUtil;
 import com.discipline.java.bean.*;
 import com.discipline.java.service.*;
 import com.discipline.java.service.impl.*;
+import com.discipline.java.utils.Constant;
 import com.discipline.java.utils.DruidUtils;
 import com.discipline.java.utils.OrderUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -12,12 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.DelayQueue;
-import java.util.concurrent.TimeUnit;
 
 @WebServlet("/orderservlet")
 public class OrderServlet extends  BaseServlet{
@@ -36,36 +34,43 @@ public class OrderServlet extends  BaseServlet{
     public String checkout(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         User user = (User) request.getSession().getAttribute("user");
         if(user==null)
-            return "redirect:/login.jsp";
+            return "redirect: login.jsp";
+
+        if(addressService.getAddressList(user.getId()).size()<=0){
+            request.setAttribute("msg","请先设置收货地址");
+            request.setAttribute("jump","addressservlet?method=list");
+            return "forward:message.jsp";
+        };
+
 
         List<Cart> checkList = new ArrayList<>();
 
 
-        //不指定cid默认支付信息包含购物车所有商品
+        //case1 不指定cid默认支付信息包含购物车所有商品
         if(StringUtils.isEmpty(request.getParameter("cid"))){
             checkList = cartService.getCartList(user.getId());
             if(checkList.size()==0){
-                request.setAttribute("msg","请求有误");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", "您的购物车好像空空如也");
+                return "forward:message.jsp";
             }
             request.setAttribute("checkList",checkList);
             request.setAttribute("total",cartService.getTotalPrice(checkList));
 
         }
-        //单件
+        //case2 单件
         else{
             int cid;
             try{
                 cid=Integer.parseInt(request.getParameter("cid"));
             }catch(NumberFormatException e){
                 e.printStackTrace();
-                request.setAttribute("msg","请求参数格式错误");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
             }
             Cart cart = cartService.getCartById(cid);
             if(cart==null){
-                request.setAttribute("msg","请求参数错误");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
             }
             checkList.add(cart);
             request.setAttribute("cid",cid);
@@ -81,20 +86,20 @@ public class OrderServlet extends  BaseServlet{
         if(addressList!=null&&addressList.size()>0)
             request.setAttribute("addressList",addressList);
 
-        return "forward:/checkout.jsp";
+        return "forward:checkout.jsp";
     }
 
     //所有订单信息预览
     public String list(HttpServletRequest request, HttpServletResponse respons) throws SQLException {
         User user = (User) request.getSession().getAttribute("user");
         if(user==null)
-            return "redirect:/login.jsp";
+            return "redirect: login.jsp";
 
         List<Order> orderList = orderService.getOrderList(user.getId());
         if(orderList!=null)
             request.setAttribute("orderList",orderList);
         System.out.println("orderList: "+orderList);
-        return "forward:/orders.jsp";
+        return "forward:orders.jsp";
 
     }
 
@@ -103,24 +108,25 @@ public class OrderServlet extends  BaseServlet{
 
         User user = (User) request.getSession().getAttribute("user");
         if(user==null)
-            return "redirect:/login";
+            return "redirect: login";
 
         //获取用户所有订单信息
         List<Order> orderList = orderService.getOrderList(user.getId());
 
         String oid = request.getParameter("oid");
         if(StringUtil.isEmpty(oid)){
-            request.setAttribute("msg","请求参数缺失");
-            return "forward:/message.jsp";
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_INCOMPLETE);
+            return "forward:message.jsp";
         }
         Order order = orderService.getOrder(oid);
         if(order==null){
-            request.setAttribute("msg","请求参数有误");
-            return "forward:/message.jsp";
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+            return "forward:message.jsp";
         }
+        //非法查看他人订单给信息
         if(!orderList.contains(order)){
-            request.setAttribute("msg","违规操作");
-            return "forward:/message.jsp";
+            request.setAttribute("msg", Constant.REQUEST_VIOLATE);
+            return "forward:message.jsp";
         }
         order.setOrderDetails(orderDetailService.getOrderDetailList(oid));
 
@@ -128,7 +134,7 @@ public class OrderServlet extends  BaseServlet{
         //System.out.println("order详细："+order);
 
 
-        return "forward:/view-order.jsp";
+        return "forward:view-order.jsp";
     }
 
 
@@ -140,27 +146,27 @@ public class OrderServlet extends  BaseServlet{
     public String confirm(HttpServletRequest request, HttpServletResponse respons) throws SQLException {
         User user = (User) request.getSession().getAttribute("user");
         if(user==null)
-            return "redirect:/login.jsp";
+            return "redirect: login.jsp";
 
-        //1、订单已生成
+        //case 1、订单已生成
         if(!StringUtil.isEmpty(request.getParameter("oid"))){
             Order order = orderService.getOrder(request.getParameter("oid"));
             if(order==null){
-                request.setAttribute("msg","请求参数错误");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
             }
 
             switch (order.getStatus()){
-                case 5:
+                case Constant.ORDER_STATUS_OVERDUE:
+                case Constant.ORDER_STATUS_REFUND:
                     request.setAttribute("msg","订单已过期");
                     break;
-                case 1:
-                case 2:
-                case 3:
-                case 4:
+                case Constant.ORDER_STATUS_TO_DELIVER:
+                case Constant.ORDER_STATUS_DELIVERING:
+                case Constant.ORDER_STATUS_SIGNED:
                     request.setAttribute("msg","该订单已支付");
                     break;
-                case 0:
+                case Constant.ORDER_STATUS_NOT_PAY:
                     //1.1、支付
                     int payResult = pay(user, order.getTotal(), order.getId());
                     switch (payResult){
@@ -169,45 +175,43 @@ public class OrderServlet extends  BaseServlet{
                             break;
                         case 1:
                             request.setAttribute("msg","支付成功");
-                            orderService.updateOrderStatus(order.getId(),1);
-                            orderService.updatePayTime(order.getId());
                             //更新用户信息
                             request.getSession().setAttribute("user",userService.getUser(user.getEmail(),user.getPassword()));
-                            request.setAttribute("jump","/orderservlet?method=detail&oid="+order.getId());
+                            request.setAttribute("jump","orderservlet?method=detail&oid="+order.getId());
                             break;
                         case 2:
                             request.setAttribute("msg","余额不足，支付失败");
-                            request.setAttribute("jump","/orderservlet?method=detail&oid="+order.getId());
+                            request.setAttribute("jump","orderservlet?method=detail&oid="+order.getId());
                             break;
                     }
                     break;
             }
-            return "forward:/message.jsp";
+            return "forward:message.jsp";
 
         }
 
 
 
-        //2、订单还未生成
+        //case 2、订单还未生成
 
         List<Cart> cartList = new ArrayList<>();
 
         if(StringUtils.isEmpty(request.getParameter("aid"))){
-            request.setAttribute("msg","请求参数缺失");
-            return "forward:/message.jsp";
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_INCOMPLETE);
+            return "forward:message.jsp";
         }
         int aid,cid;
         try {
             aid = Integer.parseInt(request.getParameter("aid"));
         }catch (NumberFormatException e){
             e.printStackTrace();
-            request.setAttribute("msg","请求参数有误");
-            return "forward:/message.jsp";
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+            return "forward:message.jsp";
         }
         Address address = addressService.getAddress(aid);
         if(address==null){
-            request.setAttribute("msg","请求资源有误");
-            return "forward:/message.jsp";
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+            return "forward:message.jsp";
         }
 
         //2.1、若不指定cid默认支付购物车所有商品
@@ -215,8 +219,8 @@ public class OrderServlet extends  BaseServlet{
             cartList = cartService.getCartList(user.getId());
 
             if(cartList.size()==0){
-                request.setAttribute("msg","请求资源有误");
-                return "forward:/message.jsp";
+                request.setAttribute("msg","您的购物车好像空空如也");
+                return "forward:message.jsp";
             }
         }
         //2.2、若指定商品号
@@ -225,14 +229,14 @@ public class OrderServlet extends  BaseServlet{
                 cid = Integer.parseInt(request.getParameter("cid"));
             }catch (NumberFormatException e){
                 e.printStackTrace();
-                request.setAttribute("msg","请求参数有误");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
             }
 
             Cart cart = cartService.getCartById(cid);
             if(cart==null){
-                request.setAttribute("msg","请求资源有误");
-                return "forward:/message.jsp";
+                request.setAttribute("msg", Constant.REQUEST_RESOURCES_NOT_EXIT);
+                return "forward:message.jsp";
             }
             cartList.add(cart);
         }
@@ -243,7 +247,6 @@ public class OrderServlet extends  BaseServlet{
         //2.3、生成订单
         if (genrateOrder(oid,cartList,address,user.getId())){
 
-            //todo 移除购物车信息
 
 
             //2.4支付
@@ -254,10 +257,7 @@ public class OrderServlet extends  BaseServlet{
                     break;
                 case 1:
                     request.setAttribute("msg","支付成功");
-                    //todo 支付和更新paytime合并
-                    orderService.updateOrderStatus(oid,1);
-                    orderService.updatePayTime(oid);
-                    request.setAttribute("jump","/orderservlet?method=detail&oid="+oid);
+                    request.setAttribute("jump","orderservlet?method=detail&oid="+oid);
                     //更新用户信息
                     request.getSession().setAttribute("user",userService.getUser(user.getEmail(),user.getPassword()));
                     break;
@@ -271,13 +271,13 @@ public class OrderServlet extends  BaseServlet{
                             e.printStackTrace();
                         }
                     },oid).start();
-                    request.setAttribute("jump","/orderservlet?method=detail&oid="+oid);
+                    request.setAttribute("jump","orderservlet?method=detail&oid="+oid);
                     break;
             }
-            return "forward:/message.jsp";
+            return "forward:message.jsp";
         }
         request.setAttribute("msg","生成订单失败");
-        return "forward:/message.jsp";
+        return "forward:message.jsp";
 
     }
 
@@ -295,9 +295,13 @@ public class OrderServlet extends  BaseServlet{
         //支付成功
         DruidUtils.startTX();
         try {
-            if(userService.pay(user,total)>0)
-                //更新订单状态
-                orderService.updateOrderStatus(oid,1);
+            if(userService.pay(user,total)>0) {
+                //更新订单状态和支付时间
+                orderService.updateOrderStatus(oid, Constant.ORDER_STATUS_TO_DELIVER);
+                orderService.updatePayTime(oid);
+                //todo 增加商品销量
+            }
+
             else
                 return 2;
 
@@ -329,12 +333,15 @@ public class OrderServlet extends  BaseServlet{
         System.out.println("total:" +cartService.getTotalPrice(cartList));
         Order order = new Order(oid,uid,cartService.getTotalPrice(cartList),
                 address.getRegion()+" "+address.getDetail(),
-                address.getName(),address.getPhone(),0, LocalDateTime.now());
+                address.getName(),address.getPhone(), Constant.ORDER_STATUS_NOT_PAY, LocalDateTime.now());
 
         DruidUtils.startTX();
         try {
             orderService.insertOrder(order);
             orderDetailService.insertOrderDetails(cartList,oid);
+            //移除购物车信息
+            if(cartService.deleteFromCart(cartList)==0)
+                System.out.println("删除购物车信息出错");
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -366,8 +373,8 @@ public class OrderServlet extends  BaseServlet{
         while (delayQueue.size()>0){
             Order take = delayQueue.take();
             //倒计时结束订单状态仍未未支付则设置订单状态逾期
-            if(orderService.getOrder(take.getId()).getStatus()==0) {
-                orderService.updateOrderStatus(take.getId(), 5);
+            if(orderService.getOrder(take.getId()).getStatus()== Constant.ORDER_STATUS_NOT_PAY) {
+                orderService.updateOrderStatus(take.getId(), Constant.ORDER_STATUS_OVERDUE);
                 System.out.println("订单" + take.getId() + "已逾期");
             }
         }
