@@ -417,7 +417,7 @@
                                       <div class="elementor-widget-container">
                                         <div class="single-service">
                                           <div class="service-icon">
-                                            <img src="https://demo.shrimpthemes.com/1/parlo/wp-content/uploads/2019/03/service_1.png"
+                                            <img src="resources/images/delivery.png"
                                                  class="attachment-full size-full"
                                                  alt="" loading="lazy"
                                                  width="63" height="73">
@@ -446,7 +446,7 @@
                                       <div class="elementor-widget-container">
                                         <div class="single-service">
                                           <div class="service-icon">
-                                            <img src="https://demo.shrimpthemes.com/1/parlo/wp-content/uploads/2019/03/service_2.png"
+                                            <img src="resources/images/service.png"
                                                  class="attachment-full size-full"
                                                  alt="" loading="lazy"
                                                  width="63" height="73">
@@ -474,7 +474,7 @@
                                       <div class="elementor-widget-container">
                                         <div class="single-service">
                                           <div class="service-icon">
-                                            <img src="https://demo.shrimpthemes.com/1/parlo/wp-content/uploads/2019/03/service_1.png"
+                                            <img src="resources/images/pay.png"
                                                  class="attachment-full size-full"
                                                  alt="" loading="lazy"
                                                  width="63" height="73">
