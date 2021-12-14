@@ -32,7 +32,7 @@
 
 
     <link rel="stylesheet" href="resources/css/woocommerce.css">
-
+    <link rel="stylesheet" href="resources/css/load.css">
 
 
     <link rel='stylesheet' id='woocommerce-layout-css' href='resources/css/woocommerce-layout.css' type='text/css'
@@ -73,6 +73,8 @@
         function pay() {
             var aid=jQuery("[name='level']").val();
             var cid=jQuery("[name='cid']").text();
+            jQuery("[id='loading']").show();
+
             jQuery(location).attr('href', 'orderservlet?method=confirm&aid='+aid+(cid==""?"":("&cid="+cid)))
         }
 
@@ -126,7 +128,17 @@
 
                                 <div class="entry-content">
                                     <div class="woocommerce">
-                                        <section class="woocommerce-order-details" style="width:80%;margin: auto; ">
+                                        <section class="woocommerce-order-details" style="width:80%;margin: auto;position: relative;">
+
+                                            <!-- loading -->
+                                            <div class="spinner" id="loading">
+                                                <div class="rect1"></div>
+                                                <div class="rect2"></div>
+                                                <div class="rect3"></div>
+                                                <div class="rect4"></div>
+                                                <div class="rect5"></div>
+                                            </div>
+
 
                                             <div class="checkout-area">
                                                 <div>

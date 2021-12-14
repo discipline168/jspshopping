@@ -75,19 +75,20 @@ public class UserServlet extends BaseServlet {
 
 
     //注册
-    public String register(HttpServletRequest request, HttpServletResponse response) throws InvocationTargetException, IllegalAccessException, SQLException {
+    public String register(HttpServletRequest request, HttpServletResponse response) throws InvocationTargetException, IllegalAccessException, SQLException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
 
         String vcode= request.getParameter("vcode");
         if (StringUtils.isEmpty(vcode) || !vcode.equalsIgnoreCase((String) request.getSession().getAttribute("vcode"))) {
-            request.setAttribute("registerMsg", "验证码有误");
-            return "forward:register.jsp";
+            response.getWriter().write("验证码有误");
+            return null;
         }
 
 
         //后端判断邮箱唯一性
         if(userService.getUserByEmail(request.getParameter("email"))!=null){
-            request.setAttribute("registerMsg", "注册失败");
-            return "forward:register.jsp";
+            response.getWriter().write("注册失败，该邮箱已被注册且激活");
+            return null;
         }
         User  user = new User();
         user.setEmail(request.getParameter("email"));
@@ -96,8 +97,8 @@ public class UserServlet extends BaseServlet {
         user.setPassword(Md5Utils.md5(request.getParameter("password")));
 
         if(StringUtils.isEmpty(user.getEmail())||StringUtils.isEmpty(user.getUsername())||StringUtils.isEmpty(user.getPassword())){
-            request.setAttribute("registerMsg", "请确保注册信息完整");
-            return "forward:register.jsp";
+            response.getWriter().write("请确保注册信息完整");
+            return null;
         }
 
 
@@ -110,21 +111,25 @@ public class UserServlet extends BaseServlet {
         }
 
         if (result <= 0) {
-            request.setAttribute("registerMsg", "注册失败");
-            return "forward:register.jsp";
+            response.getWriter().write("注册失败");
+            return null;
         }
 
-        request.setAttribute("msg", "注册成功，请前往邮箱进行验证");
-        return "forward:message.jsp";
+
+        response.getWriter().write("success");
+        /*request.setAttribute("msg", "注册成功，请前往邮箱进行验证");
+        return "forward:message.jsp";*/
+        return null;
     }
 
     //登录
-    public String login(HttpServletRequest request, HttpServletResponse response) {
+    public String login(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
 
         String vcode= request.getParameter("vcode");
         if (StringUtils.isEmpty(vcode) || !vcode.equalsIgnoreCase((String) request.getSession().getAttribute("vcode"))) {
-            request.setAttribute("loginMsg", "验证码有误");
-            return "forward:login.jsp";
+            response.getWriter().write("验证码有误");
+            return null;
         }
 
         User user = null;
@@ -136,27 +141,29 @@ public class UserServlet extends BaseServlet {
         }
 
         if (user == null) {
-            request.getSession().setAttribute("loginMsg", "邮箱或密码错误");
-            return "forward:login.jsp";
+            response.getWriter().write("邮箱或密码错误");
+            return null;
         }
         if(user.getFlag()==0){
-            request.getSession().setAttribute("loginMsg", "此邮箱尚未激活，请前往邮箱进行激活");
-            return "forward:login.jsp";
+            response.getWriter().write("此邮箱尚未激活，请前往邮箱进行激活");
+            return null;
         }
         request.getSession().setAttribute("user", user);
 
         //自动登录
-        String disciplinepro = request.getParameter("rememberme");
+        String rememberme = request.getParameter("rememberme");
 
 
-        if (disciplinepro != null) {
+        if ("true".equals(rememberme)) {
             Cookie cookie = new Cookie("disciplinepro", user.getEmail() + "#" + user.getPassword());
             //设置cookie生命周期为7天
             cookie.setMaxAge(60 * 60 * 24 * 7);
             response.addCookie(cookie);
         }
+        response.getWriter().write("success");
 
-        return "redirect:account.jsp";
+
+        return null;
     }
 
 

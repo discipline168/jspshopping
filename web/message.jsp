@@ -68,10 +68,14 @@
         <div class="page-title-area" >
             <div class="ht-container">
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md" style="margin-top: 10rem;margin-bottom: 12rem;">
-                    <div class="breadcrumb-content">
+                    <div class="breadcrumb-content" style="text-align: center">
                         <ul>
-                            <li style="font-size: 3rem;">${msg}</li>
-
+                            <c:if test="${empty msg}">
+                                <li style="font-size: 2rem;">注册成功！请前往您的邮箱地址进行激活</li>
+                            </c:if>
+                            <c:if test="${not empty msg}">
+                                <li style="font-size: 2rem;">${msg}</li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>

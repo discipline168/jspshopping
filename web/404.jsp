@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>discipl!ne pro &#8211; 信息</title>
+    <title>discipl!ne pro &#8211; 404</title>
     <meta name='robots' content='noindex, nofollow' />
 
 
@@ -58,10 +58,10 @@
         <div class="page-title-area" >
             <div class="ht-container">
                 <div class="ht-col-md-12 ht-col-sx-12 ht-center-md" style="margin-top: 10rem;margin-bottom: 12rem;">
-                    <div class="breadcrumb-content">
+                    <div class="breadcrumb-content"  style="text-align: center">
                         <img src="resources/images/404.png" width="100px" height="100px">
-                        <ul>
-                            <li style="font-size: 3rem;">请求资源不存在</li>
+                        <ul style="margin-top: 1rem">
+                            <li style="font-size: 2rem;">请求资源不存在</li>
                         </ul>
                     </div>
                 </div>

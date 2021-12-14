@@ -83,9 +83,14 @@
                         jQuery("[name='cartSuccess']").slideDown(500);
                         //定位锚点
                         var _targetTop = jQuery("[name='cartSuccess']").offset().top-50;
-                        jQuery("html,body").animate({scrollTop:_targetTop},300);
+                        //jQuery("html,body").animate({scrollTop:_targetTop},300);
+                        jQuery("html,body").animate({scrollTop:0},300);
                         //延迟3秒消失
                         jQuery("[name='cartSuccess']").delay(3000).slideUp(500);
+
+
+                        refreshMiniCart();
+
 
                     }else if(data=="nouser"){
                         jQuery(location).attr('href', 'login.jsp')
@@ -97,6 +102,21 @@
                 }
             })
         }
+
+
+        //异步刷新nav minicart信息
+        function refreshMiniCart() {
+            jQuery.ajax({
+                url: "cartservlet?method=refreshMiniCart",
+                type: "GET",
+                success: function (data) {
+                    console.log("refresh success");
+                    jQuery("[id='nav']").html(data);
+                }
+            })
+        }
+
+
     </script>
 
 
@@ -115,7 +135,8 @@
     <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
 
     <!-- 导航 -->
-    <%@include file="commons/header.jsp"%>
+    <div id="nav"><%@include file="commons/header.jsp"%></div>
+
     <div id="content" class="site-content">
 
 

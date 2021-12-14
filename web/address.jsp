@@ -28,6 +28,7 @@
           type='text/css' media='all' />
     <link rel='stylesheet' id='elementor-frontend-css' href='resources/css/frontend.min.css' type='text/css'
           media='all' />
+    <link rel="stylesheet" href="resources/css/load.css">
 
     <link rel='stylesheet' id='elementor-post-11-css' href='resources/css/post-11.css' type='text/css' media='all' />
 
@@ -85,6 +86,8 @@
             }
             //新增
             if (id == null) {
+                jQuery("[id='loading']").show();
+
                 jQuery.ajax({
                     url: "addressservlet?method=insert",
                     data: {
@@ -96,6 +99,7 @@
                     },
                     type: "POST",
                     success: function (data) {
+                        jQuery("[id='loading']").hide(0);
                         if (data == "success") {
                             console.log('新增地址信息成功');
                             jQuery(location).attr('href', 'addressservlet?method=list')
@@ -112,6 +116,8 @@
             }
             //修改
             else{
+                jQuery("[id='loading']").show();
+
                 jQuery.ajax({
                     url: "addressservlet?method=update",
                     data: {
@@ -124,6 +130,8 @@
                     },
                     type: "POST",
                     success: function (data) {
+                        jQuery("[id='loading']").hide(0);
+
                         if (data == "success") {
                             console.log('修改地址信息id-'+id+'成功');
                             jQuery(location).attr('href', 'addressservlet?method=list')
@@ -200,7 +208,16 @@
                                         <div class="woocommerce-MyAccount-content">
                                             <div class="woocommerce-notices-wrapper"></div>
 
-                                            <form method="post">
+                                            <form method="post" style="position: relative;">
+
+                                                <!-- loading -->
+                                                <div class="spinner" id="loading">
+                                                    <div class="rect1"></div>
+                                                    <div class="rect2"></div>
+                                                    <div class="rect3"></div>
+                                                    <div class="rect4"></div>
+                                                    <div class="rect5"></div>
+                                                </div>
 
                                                 <h3>地址</h3>
                                                 <div class="woocommerce-address-fields">

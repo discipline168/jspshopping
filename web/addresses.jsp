@@ -31,6 +31,7 @@
 
 
     <link rel="stylesheet" href="resources/css/woocommerce.css">
+    <link rel="stylesheet" href="resources/css/load.css">
 
 
 
@@ -63,6 +64,8 @@
         console.log('limit:'+limit)
         //移除地址信息
         function removeItem(id) {
+            jQuery("[id='loading']").show();
+
             jQuery.ajax({
                 url: "addressservlet?method=delete",
                 data: {
@@ -70,9 +73,10 @@
                 },
                 type: "POST",
                 success: function (data) {
+                    jQuery("[id='loading']").hide(0);
                     if(data=="success"){
                         console.log('删除地址信息 id-'+id+'成功');
-                        jQuery("[id='address-item-"+id+"']").slideUp(500);
+                        jQuery("[id='address-item-"+id+"']").slideUp(0);
                         flagAdd();
                     }
                     else{
@@ -136,10 +140,16 @@
                                         <%@include file="commons/leftNav.jsp"%>
 
 
-                                        <div class="woocommerce-MyAccount-content">
-                                            <div class="woocommerce-notices-wrapper"></div>
+                                        <div class="woocommerce-MyAccount-content"  style="position: relative;">
 
-
+                                            <!-- loading -->
+                                            <div class="spinner" id="loading">
+                                                <div class="rect1"></div>
+                                                <div class="rect2"></div>
+                                                <div class="rect3"></div>
+                                                <div class="rect4"></div>
+                                                <div class="rect5"></div>
+                                            </div>
 
 
                                             <c:if test="${empty addressList}">

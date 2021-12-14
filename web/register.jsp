@@ -34,12 +34,13 @@
 
     <link rel='stylesheet' id='woocommerce-layout-css' href='resources/css/woocommerce-layout.css' type='text/css'
           media='all' />
+    <link rel="stylesheet" href="resources/css/load.css">
+
     <script type='text/javascript'
             src='resources/js/jquery.min.js'></script>
 
     <script type='text/javascript'>
         jQuery(function () {
-
 
             //更新验证码
             jQuery("#validatecode").click(function () {
@@ -49,6 +50,14 @@
 
             //验证邮箱唯一性
             jQuery("#email").blur(function(){
+
+
+                if(this.value!=''){
+                    if(!testEmail(this.value)){
+                        jQuery('#emailMsg').text("邮箱格式错误 ×").css("color","red");
+                        return false;
+                    }
+                }
                 if(this.value!=""){
                     jQuery.get('userservlet?method=checkEmailUnique',"email="+this.value,function(data){
                         console.log(data)
@@ -62,35 +71,64 @@
 
             });
 
-
-
-
         });
 
-        //注册
-        // function register_verify(){
-        //
-        //     jQuery.ajax({
-        //         url: "/userservlet?method=register",
-        //         data: {
-        //             "username": jQuery("[name='username']").val(),
-        //             "email": jQuery("[name='email']").val(),
-        //             "password": jQuery("[name='password']").val(),
-        //             "validatecode": jQuery("[name='validatecode']").val(),
-        //         },
-        //         type: "POST",
-        //         success: function (data) {
-        //             if(data=="success"){
-        //                 jQuery(location).attr('href', '/account.jsp');
-        //             }else{
-        //                 msg.text(data);
-        //                 return false;
-        //             }
-        //
-        //
-        //         }
-        //     })
-        // };
+        //验证邮箱格式
+        function testEmail(email) {
+            let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+
+            if(!reg.test(email))
+                return false;
+            else
+                return true;
+        }
+
+
+        function doRegister () {
+
+            let username = jQuery("[name='username']").val();
+            let email = jQuery("[name='email']").val();
+            let password = jQuery("[name='password']").val();
+            let vcode = jQuery("[name='vcode']").val();
+
+
+            if(email==''||password==''||vcode==''){
+                jQuery("[id='msg']").text("请填写完整信息！");
+                return false;
+            }
+
+            let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+
+            if(!reg.test(email)) {
+                jQuery('.msg').text("邮箱格式有误！");
+                return false;
+            }
+            jQuery("[id='loading']").show();
+
+            jQuery.ajax({
+                url: "userservlet?method=register",
+                data: {
+                    "username": username,
+                    "email": email,
+                    "password": password,
+                    "vcode": vcode,
+                },
+                type: "POST",
+                success: function (data) {
+                    jQuery("[id='loading']").hide(0);
+                    if(data=="success"){
+                        jQuery(location).attr('href', 'message.jsp')
+                    }else{
+                        jQuery("[id='msg']").text(data);
+                    }
+
+                }
+            })
+
+
+        }
+
+
     </script>
 
 </head>
@@ -104,7 +142,6 @@
 
     <!-- 头部导航 -->
     <%@include file="commons/header.jsp"%>
-
 
     <div id="content" class="site-content">
 
@@ -146,53 +183,52 @@
                                             <div class="u-column2 col-2">
 
 
-                                                <form method="post"
-                                                      action="userservlet?method=register"
-                                                      class="woocommerce-form woocommerce-form-register register">
+                                                <form class="woocommerce-form woocommerce-form-register register" style="position: relative;">
 
 
-                                                    <p
-                                                            class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                    <!-- loading -->
+                                                    <div class="spinner" id="loading">
+                                                        <div class="rect1"></div>
+                                                        <div class="rect2"></div>
+                                                        <div class="rect3"></div>
+                                                        <div class="rect4"></div>
+                                                        <div class="rect5"></div>
+                                                    </div>
+
+
+                                                    <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                         <label>用户名</label>
                                                         <input
                                                                 class="woocommerce-Input woocommerce-Input--text input-text"
-                                                                type="text" name="username"
-                                                                autocomplete="current-password" required />
+                                                                type="text" name="username"  required />
                                                     </p>
 
 
-                                                    <p
-                                                            class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                    <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                         <label id="emailMsg">邮箱地址</label>
                                                         <input type="email"
                                                                class="woocommerce-Input woocommerce-Input--text input-text"
-                                                               name="email"  autocomplete="email" id="email"
-                                                               value="" required /> </p>
+                                                               name="email"  autocomplete="email" id="email"  required /> </p>
 
-                                                    <p
-                                                            class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                    <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                         <label>密码</label>
                                                         <input
                                                                 class="woocommerce-Input woocommerce-Input--text input-text"
-                                                                type="password" name="password"
-                                                                autocomplete="current-password" required/>
+                                                                type="password" name="password" required/>
                                                     </p>
 
 
-                                                    <p
-                                                            class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                    <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                         <label>验证码</label>
                                                         <input
                                                                 class="woocommerce-Input woocommerce-Input--text input-text"
-                                                                type="text" name="vcode"
-                                                                autocomplete="current-password" style="width: 60%; float: left" required/>
+                                                                type="text" name="vcode"  style="width: 60%; float: left" required/>
                                                         <a><img src="userservlet?method=code" style="margin-left: 6px;" id="validatecode" ></a>
                                                     </p>
 
 
-                                                    <p
-                                                            class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                                        <span style="color: red;" id="msg">${registerMsg}</span>
+                                                    <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                        <span style="color: red;height: 20px;display: block;" id="msg"></span>
 
                                                     </p>
 
@@ -207,9 +243,9 @@
                                                         <input type="hidden" id="woocommerce-register-nonce"
                                                                name="woocommerce-register-nonce" />
                                                         <input type="hidden" name="_wp_http_referer" />
-                                                        <button
+                                                        <button type="button"
                                                                 class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit"
-                                                                name="register" value="Register"  id="register_btn">注册</button>
+                                                                name="register" onclick="doRegister()" id="register_btn">注册</button>
                                                     </p>
 
 

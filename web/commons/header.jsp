@@ -39,6 +39,9 @@
         background-size: 25px;
     }
 </style>
+<script type='text/javascript' src='resources/js/main.js'></script>
+<script type='text/javascript' src='resources/js/jquery.min.js'></script>
+
 <header id="masthead" class="site-header">
 
 

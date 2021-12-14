@@ -33,6 +33,7 @@
 
 
     <link rel="stylesheet" href="resources/css/woocommerce.css">
+    <link rel="stylesheet" href="resources/css/load.css">
 
 
 
@@ -62,6 +63,8 @@
         var flag=0;
         //更新购物车数量
         function quantityChange(id) {
+            jQuery("[id='loading']").show();
+
             jQuery.ajax({
                 url: "cartservlet?method=changeQuantity",
                 data: {
@@ -70,8 +73,11 @@
                 },
                 type: "POST",
                 success: function (data) {
+                    jQuery("[id='loading']").hide(0);
+
                     if(data=="success"){
                         console.log('更新购物车 id-'+id+'成功');
+                        refreshMiniCart();
                     }
                     else{
                         alert(data);
@@ -83,6 +89,7 @@
 
         //移除购物车信息
         function removeItem(id) {
+            jQuery("[id='loading']").show();
             jQuery.ajax({
                 url: "cartservlet?method=deleteFromCart",
                 data: {
@@ -90,10 +97,12 @@
                 },
                 type: "POST",
                 success: function (data) {
+                    jQuery("[id='loading']").hide(0);
                     if(data=="success"){
                         console.log('删除购物车信息 id-'+id+'成功');
-                        jQuery("[id='cart-item-"+id+"']").slideUp(500);
+                        jQuery("[id='cart-item-"+id+"']").slideUp(0);
                         flagAdd();
+                        refreshMiniCart();
                     }
                     else{
                         alert(data);
@@ -102,6 +111,18 @@
                 }
             })
 
+        }
+
+        //异步刷新nav minicart信息
+        function refreshMiniCart() {
+            jQuery.ajax({
+                url: "cartservlet?method=refreshMiniCart",
+                type: "GET",
+                success: function (data) {
+                    console.log("refresh success");
+                    jQuery("[id='nav']").html(data);
+                }
+            })
         }
 
 
@@ -120,10 +141,9 @@
         class="page-template-default page page-id-48 wp-custom-logo theme-parlo woocommerce-cart woocommerce-page woocommerce-no-js woolentor_current_theme_parlo woocommerce-active elementor-default elementor-kit-915">
 
 <div id="page" class="site">
-    <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
 
     <!-- 导航 -->
-    <%@include file="commons/header.jsp"%>
+    <div id="nav"><%@include file="commons/header.jsp"%></div>
 
     <div id="content" class="site-content">
 
@@ -174,13 +194,23 @@
                                    <div class="entry-content">
                                        <div class="woocommerce">
                                            <div class="woocommerce-notices-wrapper"></div>
-                                           <form class="woocommerce-cart-form"
-                                                 action="https://demo.shrimpthemes.com/1/parlo/cart/" method="post">
+                                           <form class="woocommerce-cart-form" style="position: relative;">
                                                <div class="table-responsive cart-table-content">
                                                    <h3 class="cart-page-title">您购物车的商品</h3>
-                                                   <table
-                                                           class="shop_table shop_table_responsive cart woocommerce-cart-form__contents"
+                                                   <table  class="shop_table shop_table_responsive cart woocommerce-cart-form__contents"
                                                            cellspacing="0">
+
+
+                                                       <!-- loading -->
+                                                       <div class="spinner" id="loading">
+                                                           <div class="rect1"></div>
+                                                           <div class="rect2"></div>
+                                                           <div class="rect3"></div>
+                                                           <div class="rect4"></div>
+                                                           <div class="rect5"></div>
+                                                       </div>
+
+
                                                        <thead>
                                                        <tr>
                                                            <th class="product-remove d-none">操作</th>

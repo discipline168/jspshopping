@@ -34,7 +34,7 @@
           media='all' />
 
     <link rel='stylesheet' id='elementor-post-11-css' href='resources/css/post-11.css' type='text/css' media='all' />
-
+    <link rel="stylesheet" href="resources/css/load.css">
 
     <link rel='stylesheet' id='woocommerce-layout-css' href='resources/css/woocommerce-layout.css' type='text/css'
           media='all' />
@@ -43,6 +43,8 @@
     <script>
         //使用代金券
         function applyCoupon() {
+            jQuery("[id='loading']").show();
+
             jQuery.ajax({
                 url: "userservlet?method=coupon",
                 data: {
@@ -50,6 +52,8 @@
                 },
                 type: "POST",
                 success: function (data) {
+                    jQuery("[id='loading']").hide(0);
+
                     if(data=="success"){
                         window.location.reload();
                     }
@@ -121,7 +125,18 @@
                                         <%@include file="commons/leftNav.jsp"%>
 
 
-                                        <div class="woocommerce-MyAccount-content">
+                                        <div class="woocommerce-MyAccount-content"  style="position: relative;">
+
+
+                                            <!-- loading -->
+                                            <div class="spinner" id="loading">
+                                                <div class="rect1"></div>
+                                                <div class="rect2"></div>
+                                                <div class="rect3"></div>
+                                                <div class="rect4"></div>
+                                                <div class="rect5"></div>
+                                            </div>
+
 
                                             <c:if test="${empty user}">
                                                 <p>

@@ -30,6 +30,7 @@
           media='all' />
 
     <link rel='stylesheet' id='elementor-post-11-css' href='resources/css/post-11.css' type='text/css' media='all' />
+    <link rel="stylesheet" href="resources/css/load.css">
 
 
     <link rel='stylesheet' id='woocommerce-layout-css' href='resources/css/woocommerce-layout.css' type='text/css'
@@ -38,8 +39,9 @@
             src='resources/js/jquery.min.js'></script>
 
     <script type='text/javascript'>
-        jQuery(function () {
 
+
+        jQuery(function () {
 
             //更新验证码
             jQuery("#validatecode").click(function () {
@@ -48,6 +50,66 @@
 
 
         });
+
+        function doLogin () {
+
+            jQuery("[id='msg']").text('');
+
+
+            let email = jQuery("[name='email']").val();
+            let password = jQuery("[name='password']").val();
+            let vcode = jQuery("[name='vcode']").val();
+            let rememberme = jQuery("[name='rememberme']").prop('checked');
+
+
+            if(email==''||password==''||vcode==''){
+                jQuery("[id='msg']").text("请填写完整信息！");
+                return false;
+            }
+
+
+
+            if(!testEmail(email)) {
+                jQuery("[id='msg']").text("邮箱格式有误！");
+                return false;
+            }
+
+
+            jQuery("[id='loading']").show();
+
+            jQuery.ajax({
+                url: "userservlet?method=login",
+                data: {
+                    "email": email,
+                    "password": password,
+                    "vcode": vcode,
+                    "rememberme": rememberme,
+                },
+                type: "POST",
+                success: function (data) {
+                    jQuery("[id='loading']").hide(0);
+                    if(data=="success"){
+                        jQuery(location).attr('href', 'account.jsp');
+                    }else{
+                        jQuery("[id='msg']").text(data);
+                    }
+
+                }
+            })
+
+
+        };
+
+
+        //验证邮箱格式
+        function testEmail(email) {
+            let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+
+            if(!reg.test(email))
+                return false;
+            else
+                return true;
+        }
 
     </script>
 
@@ -104,44 +166,43 @@
                                         <div class="u-column2 col-2">
 
 
-                                            <form method="post"
-                                                  action="userservlet?method=login"
+                                            <form method="post" style="position: relative;"
                                                   class="woocommerce-form woocommerce-form-register register">
 
+                                                <!-- loading -->
+                                                <div class="spinner" id="loading">
+                                                    <div class="rect1"></div>
+                                                    <div class="rect2"></div>
+                                                    <div class="rect3"></div>
+                                                    <div class="rect4"></div>
+                                                    <div class="rect5"></div>
+                                                </div>
 
-
-                                                <p
-                                                        class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                <p  class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                     <label>邮箱地址</label>
                                                     <input type="email"
                                                            class="woocommerce-Input woocommerce-Input--text input-text"
-                                                           name="email"  autocomplete="email" id="email" required
-                                                           value="" /> </p>
+                                                           name="email"  id="email" required /> </p>
 
-                                                <p
-                                                        class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                     <label>密码</label>
                                                     <input
                                                             class="woocommerce-Input woocommerce-Input--text input-text"
-                                                            type="password" name="password" required
-                                                            autocomplete="current-password" />
+                                                            type="password" name="password" required  />
                                                 </p>
 
 
-                                                <p
-                                                        class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                     <label>验证码</label>
                                                     <input
                                                             class="woocommerce-Input woocommerce-Input--text input-text"
-                                                            type="text" name="vcode"
-                                                            autocomplete="current-password" style="width: 60%; float: left"/>
+                                                            type="text" name="vcode" style="width: 60%; float: left"/>
                                                     <a><img src="userservlet?method=code" style="margin-left: 6px;" id="validatecode" ></a>
                                                 </p>
 
 
-                                                <p
-                                                        class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                                    <span style="color: red;" id="msg">${loginMsg}</span>
+                                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                    <span style="color: red;height: 20px;display: block;" id="msg" ></span>
 
                                                 </p>
 
@@ -155,10 +216,10 @@
                                                         <input
                                                                 class="woocommerce-form__input woocommerce-form__input-checkbox"
                                                                 name="rememberme" type="checkbox" id="rememberme"
-                                                                value="forever" /> <span>记住我</span>
+                                                                value="rememberme" /> <span>记住我</span>
                                                     </label>
 
-                                                    <button
+                                                    <button type="button" onclick="doLogin()"
                                                             class="woocommerce-Button woocommerce-button button"
                                                             name="register" value="Register"  id="register_btn">登录</button>
                                                 </p>

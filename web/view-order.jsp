@@ -32,7 +32,7 @@
 
 
     <link rel="stylesheet" href="resources/css/woocommerce.css">
-
+    <link rel="stylesheet" href="resources/css/load.css">
 
 
     <link rel='stylesheet' id='woocommerce-layout-css' href='resources/css/woocommerce-layout.css' type='text/css'
@@ -79,6 +79,7 @@
         }
 
         function pay() {
+            jQuery("[id='loading']").show();
             jQuery(location).attr('href', 'orderservlet?method=confirm&oid=${order.id}')
         }
 
@@ -119,7 +120,17 @@
                         <div class="ht-col-xs-12">
 
 
-                            <article id="post-49" class="post-49 page type-page status-publish hentry">
+                            <article id="post-49" class="post-49 page type-page status-publish hentry" style="position: relative;">
+
+                                <!-- loading -->
+                                <div class="spinner" id="loading">
+                                    <div class="rect1"></div>
+                                    <div class="rect2"></div>
+                                    <div class="rect3"></div>
+                                    <div class="rect4"></div>
+                                    <div class="rect5"></div>
+                                </div>
+
                                 <div class="entry-content">
                                     <div class="woocommerce">
                                         <div class="woocommerce-order">
