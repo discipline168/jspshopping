@@ -159,7 +159,16 @@
     <!-- 导航 -->
     <%@include file="commons/header.jsp"%>
 
-
+    <!-- loading -->
+    <div class="spinner" id="loading">
+        <div class="spinner-inner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
 
     <div id="content" class="site-content">
 
@@ -208,16 +217,7 @@
                                         <div class="woocommerce-MyAccount-content">
                                             <div class="woocommerce-notices-wrapper"></div>
 
-                                            <form method="post" style="position: relative;">
-
-                                                <!-- loading -->
-                                                <div class="spinner" id="loading">
-                                                    <div class="rect1"></div>
-                                                    <div class="rect2"></div>
-                                                    <div class="rect3"></div>
-                                                    <div class="rect4"></div>
-                                                    <div class="rect5"></div>
-                                                </div>
+                                            <form method="post">
 
                                                 <h3>地址</h3>
                                                 <div class="woocommerce-address-fields">

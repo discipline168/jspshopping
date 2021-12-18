@@ -93,6 +93,17 @@
     <!-- 导航 -->
     <%@include file="commons/header.jsp"%>
 
+
+    <div class="spinner" id="loading">
+        <div class="spinner-inner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+
     <div id="content" class="site-content">
 
 
@@ -128,17 +139,7 @@
 
                                 <div class="entry-content">
                                     <div class="woocommerce">
-                                        <section class="woocommerce-order-details" style="width:80%;margin: auto;position: relative;">
-
-                                            <!-- loading -->
-                                            <div class="spinner" id="loading">
-                                                <div class="rect1"></div>
-                                                <div class="rect2"></div>
-                                                <div class="rect3"></div>
-                                                <div class="rect4"></div>
-                                                <div class="rect5"></div>
-                                            </div>
-
+                                        <section class="woocommerce-order-details" style="width:80%;margin: auto;">
 
                                             <div class="checkout-area">
                                                 <div>

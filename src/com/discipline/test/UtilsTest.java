@@ -1,6 +1,7 @@
 package com.discipline.test;
 
 
+import com.discipline.java.utils.QiniuCloudUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.text.DateFormat;
@@ -82,6 +83,13 @@ public class UtilsTest {
         String  date1=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(localDateTime);
         System.out.println(date1);
 
+    }
+
+
+
+    @org.junit.Test
+    public void upload() throws Exception {
+        System.out.println("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD" .substring("data:image/jpeg;base64," .length()));
     }
 
 }

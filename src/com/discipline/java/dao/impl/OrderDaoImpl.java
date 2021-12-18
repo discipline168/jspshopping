@@ -6,9 +6,10 @@ import com.discipline.java.utils.DruidUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
@@ -50,4 +51,50 @@ public class OrderDaoImpl implements OrderDao {
                 "UPDATE tb_order SET payTime = ? WHERE id = ?",
                 LocalDateTime.now(),id);
     }
+
+    @Override
+    public Double getTodaySales() throws SQLException {
+        return queryRunner.query("SELECT SUM(total) FROM tb_order WHERE DATE(payTime)=CURRENT_DATE",
+                new ScalarHandler<>());
+    }
+
+    @Override
+    public Double getWeekSales() throws SQLException {
+        return queryRunner.query("SELECT SUM(total) FROM tb_order where DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY) <= DATE(payTime)",
+                new ScalarHandler<>());
+    }
+
+    @Override
+    public Double getMonthSales() throws SQLException {
+        return queryRunner.query("SELECT SUM(total) FROM tb_order WHERE DATE_FORMAT( payTime, '%Y%m' ) = DATE_FORMAT( CURRENT_DATE , '%Y%m' )",
+                new ScalarHandler<>());
+    }
+
+    @Override
+    public Double getYearSales() throws SQLException {
+        return queryRunner.query("SELECT SUM(total) FROM tb_order WHERE YEAR(payTime)=YEAR(CURRENT_DATE)",
+                new ScalarHandler<>());
+    }
+
+    @Override
+    public Double getSalesByDate(String date) throws SQLException {
+        return queryRunner.query("SELECT SUM(total) FROM tb_order WHERE DATE(payTime)=DATE( ? )",
+                new ScalarHandler<>(),
+                date);
+    }
+
+    @Override
+    public Long getTodayOrderNum() throws SQLException {
+        return queryRunner.query("SELECT COUNT(*) FROM tb_order WHERE DATE(orderTime)=CURRENT_DATE",
+                new ScalarHandler<>());
+    }
+
+    @Override
+    public Long getToDeliverOrderNum() throws SQLException {
+        return queryRunner.query("SELECT COUNT(*) FROM tb_order WHERE `status` =1",
+                new ScalarHandler<>());
+    }
+
+
+
 }

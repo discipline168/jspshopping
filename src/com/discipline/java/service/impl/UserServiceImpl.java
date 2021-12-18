@@ -71,10 +71,10 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
+    /*@Override
     public int updateBalance(int uid, double balance) throws SQLException {
         return userDao.updateBalance(uid,balance);
-    }
+    }*/
 
     @Override
     public int applyCoupon(int uid) throws SQLException {
@@ -88,5 +88,10 @@ public class UserServiceImpl implements UserService {
         }
         DruidUtils.endTx();
         return result;
+    }
+
+    @Override
+    public Long getUserNum() throws SQLException {
+        return userDao.getUserNum();
     }
 }

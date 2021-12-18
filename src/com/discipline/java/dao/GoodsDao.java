@@ -9,9 +9,10 @@ import java.util.List;
 public interface GoodsDao {
 
 
+    //分页获取在售商品信息
     List<Goods> getGoodsListByPage(int page, int size, int categoryId) throws SQLException;
 
-    List<Goods> getALLGoodsListByPage(int page, int size) throws SQLException;
+    List<Goods> getALLGoodsListByPage(int page, int size, int categoryId) throws SQLException;
 
     Goods getGoodsById(int id) throws SQLException;
 
@@ -21,4 +22,8 @@ public interface GoodsDao {
     List<Goods> getRecommendedGoodsList(int id,int categoryId) throws  SQLException;
 
     long getGoodsSum(int categoryId) throws SQLException;
+
+    int insertGoods(Goods goods)throws SQLException;
+
+    int updateGoods(Goods goods)throws SQLException;
 }

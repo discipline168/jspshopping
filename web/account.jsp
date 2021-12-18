@@ -80,8 +80,17 @@
     <!-- 头部导航 -->
     <%@include file="commons/header.jsp"%>
 
-    
 
+    <!-- loading -->
+    <div class="spinner" id="loading">
+        <div class="spinner-inner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
 
     <div id="content" class="site-content">
 
@@ -125,18 +134,7 @@
                                         <%@include file="commons/leftNav.jsp"%>
 
 
-                                        <div class="woocommerce-MyAccount-content"  style="position: relative;">
-
-
-                                            <!-- loading -->
-                                            <div class="spinner" id="loading">
-                                                <div class="rect1"></div>
-                                                <div class="rect2"></div>
-                                                <div class="rect3"></div>
-                                                <div class="rect4"></div>
-                                                <div class="rect5"></div>
-                                            </div>
-
+                                        <div class="woocommerce-MyAccount-content">
 
                                             <c:if test="${empty user}">
                                                 <p>

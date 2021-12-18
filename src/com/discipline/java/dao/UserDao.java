@@ -20,4 +20,6 @@ public interface UserDao {
 
     int applyCoupon(int uid)throws SQLException;
 
+    Long getUserNum()throws SQLException;
+
 }

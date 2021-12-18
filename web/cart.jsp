@@ -145,6 +145,17 @@
     <!-- 导航 -->
     <div id="nav"><%@include file="commons/header.jsp"%></div>
 
+    <!-- loading -->
+    <div class="spinner" id="loading">
+        <div class="spinner-inner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+
     <div id="content" class="site-content">
 
         <!-- 面包屑导航 -->
@@ -194,21 +205,11 @@
                                    <div class="entry-content">
                                        <div class="woocommerce">
                                            <div class="woocommerce-notices-wrapper"></div>
-                                           <form class="woocommerce-cart-form" style="position: relative;">
+                                           <form class="woocommerce-cart-form">
                                                <div class="table-responsive cart-table-content">
                                                    <h3 class="cart-page-title">您购物车的商品</h3>
                                                    <table  class="shop_table shop_table_responsive cart woocommerce-cart-form__contents"
                                                            cellspacing="0">
-
-
-                                                       <!-- loading -->
-                                                       <div class="spinner" id="loading">
-                                                           <div class="rect1"></div>
-                                                           <div class="rect2"></div>
-                                                           <div class="rect3"></div>
-                                                           <div class="rect4"></div>
-                                                           <div class="rect5"></div>
-                                                       </div>
 
 
                                                        <thead>

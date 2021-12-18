@@ -1,13 +1,14 @@
 package com.discipline.java.service.impl;
-
 import com.discipline.java.bean.Order;
 import com.discipline.java.dao.OrderDao;
 import com.discipline.java.dao.impl.OrderDaoImpl;
 import com.discipline.java.service.OrderService;
 import com.discipline.java.utils.OrderUtils;
-
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao=new OrderDaoImpl();
@@ -52,5 +53,39 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int updatePayTime(String id) throws SQLException {
         return orderDao.updatePayTime(id);
+    }
+
+    @Override
+    public Map<String, Double> getSales() throws SQLException {
+        Map<String, Double> map = new HashMap<>();
+        map.put("today",orderDao.getTodaySales());
+        map.put("week",orderDao.getWeekSales());
+        map.put("month",orderDao.getMonthSales());
+        map.put("year",orderDao.getYearSales());
+
+        return map;
+    }
+
+    @Override
+    public Long getTodayOrderNum() throws SQLException {
+        return orderDao.getTodayOrderNum();
+    }
+
+    @Override
+    public Long getToDeliverOrderNum() throws SQLException {
+        return orderDao.getToDeliverOrderNum();
+    }
+
+    @Override
+    public Map<String,Double> getPast7DaysSales() throws SQLException {
+        Map<String, Double> map = new TreeMap<>();
+        Double sale;
+
+        for (String date:OrderUtils.getPast7Days()){
+            sale = orderDao.getSalesByDate(date);
+            map.put(date,sale==null?0:sale);
+        }
+
+        return map;
     }
 }

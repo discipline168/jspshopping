@@ -21,5 +21,6 @@ public class Goods {
     private int sale;
     private String  others;
     private String sizes;
+    private int status;
 
 }

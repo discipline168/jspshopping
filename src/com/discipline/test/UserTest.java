@@ -45,4 +45,11 @@ public class UserTest {
         System.out.println(s);
     }
 
+
+
+    @org.junit.Test
+    public void test02() throws IOException, SQLException {
+        System.out.println(userDao.getUserNum());
+    }
+
 }

@@ -8,6 +8,8 @@ public interface GoodsService {
 
     List<Goods> getGoodsListByPage(int page, int size, int categoryId) throws SQLException;
 
+    List<Goods> getAllGoodsListByPage(int page, int size, int categoryId) throws SQLException;
+
     Goods getGoodsById(int id) throws SQLException;
 
     List<Goods> getIndexGoodsList(int categoryId) throws SQLException;
@@ -15,5 +17,9 @@ public interface GoodsService {
     List<Goods> getRecommendedGoodsList(int id,int categoryId) throws  SQLException;
 
     long getGoodsSum(int categoryId) throws  SQLException;
+
+    int insertGoods(Goods goods)throws SQLException;
+
+    int updateGoods(Goods goods)throws SQLException;
 
 }

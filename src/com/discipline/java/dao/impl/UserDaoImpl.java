@@ -5,6 +5,7 @@ import com.discipline.java.dao.UserDao;
 import com.discipline.java.utils.DruidUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.SQLException;
 
@@ -69,5 +70,11 @@ public class UserDaoImpl implements UserDao {
         return queryRunner.update(DruidUtils.getConnection(),
                 "UPDATE tb_user SET balance =  balance + 666 WHERE id = ?",
                 uid);
+    }
+
+    @Override
+    public Long getUserNum() throws SQLException {
+        return queryRunner.query("SELECT COUNT(*) FROM tb_user WHERE flag=1 AND role =0",
+                new ScalarHandler<>());
     }
 }

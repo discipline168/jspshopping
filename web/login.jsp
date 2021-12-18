@@ -125,6 +125,17 @@
     <!-- 头部导航 -->
     <%@include file="commons/header.jsp"%>
 
+    <!-- loading -->
+    <div class="spinner" id="loading">
+        <div class="spinner-inner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+
 
     <div id="content" class="site-content">
 
@@ -166,17 +177,9 @@
                                         <div class="u-column2 col-2">
 
 
-                                            <form method="post" style="position: relative;"
+                                            <form method="post"
                                                   class="woocommerce-form woocommerce-form-register register">
 
-                                                <!-- loading -->
-                                                <div class="spinner" id="loading">
-                                                    <div class="rect1"></div>
-                                                    <div class="rect2"></div>
-                                                    <div class="rect3"></div>
-                                                    <div class="rect4"></div>
-                                                    <div class="rect5"></div>
-                                                </div>
 
                                                 <p  class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                     <label>邮箱地址</label>

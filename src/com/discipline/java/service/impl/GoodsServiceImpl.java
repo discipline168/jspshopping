@@ -20,6 +20,11 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public List<Goods> getAllGoodsListByPage(int page, int size, int categoryId) throws SQLException {
+        return goodsDao.getALLGoodsListByPage(page,size,categoryId);
+    }
+
+    @Override
     public Goods getGoodsById(int id) throws SQLException {
         return goodsDao.getGoodsById(id);
     }
@@ -37,5 +42,15 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public long getGoodsSum(int categoryId) throws SQLException {
         return goodsDao.getGoodsSum(categoryId);
+    }
+
+    @Override
+    public int insertGoods(Goods goods) throws SQLException {
+        return goodsDao.insertGoods(goods);
+    }
+
+    @Override
+    public int updateGoods(Goods goods) throws SQLException {
+        return goodsDao.updateGoods(goods);
     }
 }

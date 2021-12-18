@@ -1,6 +1,5 @@
 package com.discipline.java.controller;
 
-import com.alipay.service.schema.util.StringUtil;
 import com.discipline.java.bean.*;
 import com.discipline.java.service.*;
 import com.discipline.java.service.impl.*;
@@ -114,7 +113,7 @@ public class OrderServlet extends  BaseServlet{
         List<Order> orderList = orderService.getOrderList(user.getId());
 
         String oid = request.getParameter("oid");
-        if(StringUtil.isEmpty(oid)){
+        if(StringUtils.isEmpty(oid)){
             request.setAttribute("msg", Constant.REQUEST_PARAMETER_INCOMPLETE);
             return "forward:message.jsp";
         }
@@ -149,7 +148,7 @@ public class OrderServlet extends  BaseServlet{
             return "redirect: login.jsp";
 
         //case 1、订单已生成
-        if(!StringUtil.isEmpty(request.getParameter("oid"))){
+        if(!StringUtils.isEmpty(request.getParameter("oid"))){
             Order order = orderService.getOrder(request.getParameter("oid"));
             if(order==null){
                 request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);

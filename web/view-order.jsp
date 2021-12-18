@@ -96,6 +96,18 @@
 
     <%@include file="commons/header.jsp"%>
 
+
+    <!-- loading -->
+    <div class="spinner" id="loading">
+        <div class="spinner-inner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+
     <div id="content" class="site-content">
         <div class="page-title-area">
             <div class="ht-container">
@@ -120,16 +132,7 @@
                         <div class="ht-col-xs-12">
 
 
-                            <article id="post-49" class="post-49 page type-page status-publish hentry" style="position: relative;">
-
-                                <!-- loading -->
-                                <div class="spinner" id="loading">
-                                    <div class="rect1"></div>
-                                    <div class="rect2"></div>
-                                    <div class="rect3"></div>
-                                    <div class="rect4"></div>
-                                    <div class="rect5"></div>
-                                </div>
+                            <article id="post-49" class="post-49 page type-page status-publish hentry">
 
                                 <div class="entry-content">
                                     <div class="woocommerce">
