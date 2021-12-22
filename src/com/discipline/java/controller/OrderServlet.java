@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.DelayQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @WebServlet("/orderservlet")
 public class OrderServlet extends  BaseServlet{
@@ -48,9 +50,21 @@ public class OrderServlet extends  BaseServlet{
         //case1 不指定cid默认支付信息包含购物车所有商品
         if(StringUtils.isEmpty(request.getParameter("cid"))){
             checkList = cartService.getCartList(user.getId());
+
             if(checkList.size()==0){
                 request.setAttribute("msg", "您的购物车好像空空如也");
+                request.setAttribute("jump","cartservlet?method=list");
                 return "forward:message.jsp";
+            }else {
+                //过滤已下架的商品
+                checkList=checkList.stream()
+                        .filter(c->c.getGoods().getStatus()==Constant.GOODS_STATUS_ON_SALE)
+                        .collect(Collectors.toList());
+                if(checkList.size()==0) {
+                    request.setAttribute("msg", "您购物车里的商品均已下架，无法进行购买");
+                    request.setAttribute("jump","cartservlet?method=list");
+                    return "forward:message.jsp";
+                }
             }
             request.setAttribute("checkList",checkList);
             request.setAttribute("total",cartService.getTotalPrice(checkList));
@@ -66,10 +80,17 @@ public class OrderServlet extends  BaseServlet{
                 request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
                 return "forward:message.jsp";
             }
+
             Cart cart = cartService.getCartById(cid);
             if(cart==null){
                 request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
                 return "forward:message.jsp";
+            }else{
+                if(cart.getGoods().getStatus()==Constant.GOODS_STATUS_NOT_SALE){
+                    request.setAttribute("msg", "该商品已下架，无法进行购买");
+                    request.setAttribute("jump","cartservlet?method=list");
+                    return "forward:message.jsp";
+                }
             }
             checkList.add(cart);
             request.setAttribute("cid",cid);
@@ -101,6 +122,8 @@ public class OrderServlet extends  BaseServlet{
         return "forward:orders.jsp";
 
     }
+
+
 
     //订单详细
     public String detail(HttpServletRequest request, HttpServletResponse response)throws SQLException{
@@ -135,6 +158,8 @@ public class OrderServlet extends  BaseServlet{
 
         return "forward:view-order.jsp";
     }
+
+
 
 
     /**
@@ -219,8 +244,20 @@ public class OrderServlet extends  BaseServlet{
 
             if(cartList.size()==0){
                 request.setAttribute("msg","您的购物车好像空空如也");
+                request.setAttribute("jump","cartservlet?method=list");
                 return "forward:message.jsp";
+            }else {
+                //过滤已下架的商品
+                cartList=cartList.stream()
+                        .filter(c->c.getGoods().getStatus()==Constant.GOODS_STATUS_ON_SALE)
+                        .collect(Collectors.toList());
+                if(cartList.size()==0) {
+                    request.setAttribute("msg", "您购物车里的商品均已下架，无法进行购买");
+                    request.setAttribute("jump","cartservlet?method=list");
+                    return "forward:message.jsp";
+                }
             }
+
         }
         //2.2、若指定商品号
         else{
@@ -235,6 +272,10 @@ public class OrderServlet extends  BaseServlet{
             Cart cart = cartService.getCartById(cid);
             if(cart==null){
                 request.setAttribute("msg", Constant.REQUEST_RESOURCES_NOT_EXIT);
+                return "forward:message.jsp";
+            }
+            if(cart.getGoods().getStatus()==Constant.GOODS_STATUS_NOT_SALE){
+                request.setAttribute("msg", "该商品已下架，无法进行购买");
                 return "forward:message.jsp";
             }
             cartList.add(cart);
@@ -269,7 +310,7 @@ public class OrderServlet extends  BaseServlet{
                         } catch (InterruptedException | SQLException e) {
                             e.printStackTrace();
                         }
-                    },oid).start();
+                    },"overdue-oid-"+oid).start();
                     request.setAttribute("jump","orderservlet?method=detail&oid="+oid);
                     break;
             }
@@ -291,27 +332,50 @@ public class OrderServlet extends  BaseServlet{
     public int pay(User user,double total,String oid) throws SQLException {
         if(orderService.getOrder(oid)==null)
             return 0;
-        //支付成功
-        DruidUtils.startTX();
-        try {
-            if(userService.pay(user,total)>0) {
-                //更新订单状态和支付时间
-                orderService.updateOrderStatus(oid, Constant.ORDER_STATUS_TO_DELIVER);
-                orderService.updatePayTime(oid);
-                //todo 增加商品销量
+        //如果延迟队列里有值则将userService资源上锁
+        if (delayQueue.size()>0){
+            synchronized (orderService){
+                try {
+                    System.out.println("支付方法--获取到userService资源锁");
+                    if(orderService.getOrder(oid).getStatus()==Constant.ORDER_STATUS_NOT_PAY){
+                        if (userService.pay(user,total)>0) {
+                            //更新订单状态和支付时间
+                            orderService.updateOrderStatus(oid, Constant.ORDER_STATUS_TO_DELIVER);
+                            System.out.println("用户-"+user.getId()+"支付成功，已修改订单-"+oid+"状态");
+                            //todo 增加商品销量
+                            return 1;
+                        }else {
+                            System.out.println("用户-"+user.getId()+"账户余额不足，支付订单-"+oid+"失败");
+                            return 2;
+                        }
+                    }else {
+                        System.out.println("用户-"+user.getId()+"支付失败，订单-"+oid+"已逾期");
+                    }
+
+                }catch (SQLException e){
+                    e.printStackTrace();
+                    return 0;
+                }
+                System.out.println("支付方法--释放userService资源锁\n");
             }
-
-            else
-                return 2;
-
-        }catch (SQLException e){
-            e.printStackTrace();
-            DruidUtils.rollbackTX();
-            return 0;
+        }else{
+            if(orderService.getOrder(oid).getStatus()==Constant.ORDER_STATUS_NOT_PAY){
+                if (userService.pay(user,total)>0) {
+                    //更新订单状态和支付时间
+                    orderService.updateOrderStatus(oid, Constant.ORDER_STATUS_TO_DELIVER);
+                    System.out.println("用户-"+user.getId()+"支付成功，已修改订单-"+oid+"状态");
+                    //todo 增加商品销量
+                    return 1;
+                }else {
+                    System.out.println("用户-"+user.getId()+"账户余额不足，支付订单-"+oid+"失败");
+                    return 2;
+                }
+            }else {
+                System.out.println("用户-"+user.getId()+"支付失败，订单-"+oid+"已逾期");
+            }
         }
-        DruidUtils.endTx();
 
-        return 1;
+        return 0;
     }
 
 
@@ -371,11 +435,26 @@ public class OrderServlet extends  BaseServlet{
 
         while (delayQueue.size()>0){
             Order take = delayQueue.take();
-            //倒计时结束订单状态仍未未支付则设置订单状态逾期
-            if(orderService.getOrder(take.getId()).getStatus()== Constant.ORDER_STATUS_NOT_PAY) {
-                orderService.updateOrderStatus(take.getId(), Constant.ORDER_STATUS_OVERDUE);
-                System.out.println("订单" + take.getId() + "已逾期");
+
+            //业务逻辑资源类加锁
+            synchronized (orderService) {
+                try {
+                    System.out.println(Thread.currentThread().getName()+"--获取到userService资源锁");
+                    //倒计时结束订单状态仍未未支付则设置订单状态逾期
+                    if (orderService.getOrder(take.getId()).getStatus() == Constant.ORDER_STATUS_NOT_PAY) {
+                        System.out.println("订单" + take.getId() + "已经逾期，正在修改订单状态");
+                        //测试休眠
+                        //TimeUnit.SECONDS.sleep(3);
+                        orderService.updateOrderStatus(take.getId(), Constant.ORDER_STATUS_OVERDUE);
+                        System.out.println("订单" + take.getId() + "已逾期");
+                        System.out.println("Thread.currentThread().getName()"+"--释放orderService资源锁\n");
+
+                    }
+                }catch (SQLException  e) {
+                    e.printStackTrace();
+                }
             }
+
         }
 
     }

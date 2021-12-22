@@ -8,11 +8,13 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
+
     private QueryRunner queryRunner=new QueryRunner(DruidUtils.getDataSource());
 
     @Override
@@ -20,6 +22,21 @@ public class OrderDaoImpl implements OrderDao {
         return queryRunner.query("SELECT * FROM tb_order WHERE uid = ? ORDER BY orderTime DESC",
                 new BeanListHandler<>(Order.class),
                 uid);
+    }
+
+    @Override
+    public List<Order> getAllOrderListByPage(int page, int size, int status) throws SQLException {
+        if(status==-1)
+            //查找全部订单信息
+            return queryRunner.query("SELECT * FROM tb_order ORDER BY orderTime DESC LIMIT ?, ?",
+                    new BeanListHandler<>(Order.class),
+                    (page-1)*size,
+                    size);
+        return queryRunner.query("SELECT * FROM tb_order WHERE status = ? ORDER BY orderTime DESC LIMIT ?, ?",
+                new BeanListHandler<>(Order.class),
+                status,
+                (page-1)*size,
+                size);
     }
 
     @Override
@@ -53,31 +70,31 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Double getTodaySales() throws SQLException {
+    public BigDecimal getTodaySales() throws SQLException {
         return queryRunner.query("SELECT SUM(total) FROM tb_order WHERE DATE(payTime)=CURRENT_DATE",
                 new ScalarHandler<>());
     }
 
     @Override
-    public Double getWeekSales() throws SQLException {
+    public BigDecimal getWeekSales() throws SQLException {
         return queryRunner.query("SELECT SUM(total) FROM tb_order where DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY) <= DATE(payTime)",
                 new ScalarHandler<>());
     }
 
     @Override
-    public Double getMonthSales() throws SQLException {
+    public BigDecimal getMonthSales() throws SQLException {
         return queryRunner.query("SELECT SUM(total) FROM tb_order WHERE DATE_FORMAT( payTime, '%Y%m' ) = DATE_FORMAT( CURRENT_DATE , '%Y%m' )",
                 new ScalarHandler<>());
     }
 
     @Override
-    public Double getYearSales() throws SQLException {
+    public BigDecimal getYearSales() throws SQLException {
         return queryRunner.query("SELECT SUM(total) FROM tb_order WHERE YEAR(payTime)=YEAR(CURRENT_DATE)",
                 new ScalarHandler<>());
     }
 
     @Override
-    public Double getSalesByDate(String date) throws SQLException {
+    public BigDecimal getSalesByDate(String date) throws SQLException {
         return queryRunner.query("SELECT SUM(total) FROM tb_order WHERE DATE(payTime)=DATE( ? )",
                 new ScalarHandler<>(),
                 date);
@@ -95,6 +112,21 @@ public class OrderDaoImpl implements OrderDao {
                 new ScalarHandler<>());
     }
 
+    @Override
+    public int deliver(String oid,String lid) throws SQLException {
+        return queryRunner.update(DruidUtils.getConnection(),
+                "UPDATE tb_order SET lid = ? WHERE id = ?",
+                lid,oid);
+    }
+
+    @Override
+    public long getAllOrderSum(int status) throws SQLException {
+        if(status==-1)
+            return queryRunner.query("SELECT COUNT(*) FROM tb_order",
+                    new ScalarHandler<>());
+        return queryRunner.query("SELECT COUNT(*) FROM tb_order WHERE `status` = ?",
+                new ScalarHandler<>(),status);
+    }
 
 
 }

@@ -1,10 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
-  User: cheese
+  User: discipline
   Date: 2021/12/17
   Time: 13:26
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.discipline.java.bean.User" %>
+<%
+    User user=(User)request.getSession().getAttribute("user");
+    request.setAttribute("administrator",user);
+%>
 <style>
     .menu-icon {
         background-image: url(../resources/images/menu.png);
@@ -43,13 +48,39 @@
                                 <li class="menu-item menu-item-type-post_type menu-item-object-page nocls"><a
                                         href="admin?method=dashboard" class="">总览
                                 </a></li>
-                                <li class="menu-item menu-item-type-post_type menu-item-object-page">
-                                    <a href="admin?method=goods" class=""> 商品管理 </a>
 
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children ">
+                                    <a href="admin?method=goods" class=""> 商品管理
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom ">
+                                            <a href="admin?method=goods&categoryid=1"
+                                               class=""><span> 运动服饰管理</span> </a></li>
+                                        <li class="menu-item menu-item-type-post_type menu-item-object-page ">
+                                            <a href="admin?method=goods&categoryid=2"
+                                               class=""><span>运动用品管理</span> </a></li>
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom ">
+                                            <a href="admin?method=goods&categoryid=3"
+                                               class=""><span>运动补给管理</span> </a></li>
+                                    </ul>
                                 </li>
-                                <li class="menu-item menu-item-type-post_type menu-item-object-page">
-                                    <a href="admin?method=goods" class=""> 订单管理 </a>
 
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children ">
+                                    <a href="admin?method=orders" class=""> 订单管理
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom ">
+                                            <a href="admin?method=orders"
+                                               class=""><span>全部订单</span> </a></li>
+                                        <li class="menu-item menu-item-type-post_type menu-item-object-page ">
+                                            <a href="admin?method=orders&status=1"
+                                               class=""><span>待发货订单</span> </a></li>
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom ">
+                                            <a href="admin?method=orders&status=5"
+                                               class=""><span>已逾期订单</span> </a></li>
+                                    </ul>
                                 </li>
                                 <li class="menu-item menu-item-type-post_type menu-item-object-page nocls"><a
                                         href="https://demo.shrimpthemes.com/1/parlo/about-us/" class="">用户
@@ -71,27 +102,12 @@
                                 </a>
                                 <div class="header-quick-menu parlo-dropdown-menu">
                                     <div id="nav_menu-5" class="single-header-quick-menu widget_nav_menu">
-                                        <h4 class="widget-title">欢迎您！管理员 <strong>administrator</strong></h4>
+                                        <h4 class="widget-title">欢迎您！管理员 <strong>${administrator.username}</strong></h4>
                                         <div class="menu-account-container">
                                             <ul id="menu-account" class="menu">
-                                                <li
-                                                        lass="menu-item menu-item-type-post_type menu-item-object-page">
-                                                    <a href="dashboard.jsp">总览</a>
+                                                <li lass="menu-item menu-item-type-post_type menu-item-object-page">
+                                                    <a href="userservlet?method=logout">登出</a>
                                                 </li>
-                                                <li
-                                                        lass="menu-item menu-item-type-post_type menu-item-object-page">
-                                                    <a href="orderservlet?method=list">订单管理</a>
-                                                </li>
-                                                <li
-                                                        class="menu-item menu-item-type-post_type menu-item-object-page">
-                                                    <a href="cartservlet?method=list">商品管理</a>
-                                                </li>
-                                                <li
-                                                        class="menu-item menu-item-type-post_type menu-item-object-page">
-                                                    <a href="addressservlet?method=list">用户管理</a>
-                                                </li>
-
-
                                             </ul>
                                         </div>
                                     </div> <span class="parlo-dropdown-close" margin:="" 25px;="">
@@ -149,20 +165,38 @@
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-11 current_page_item menu-item-has-children menu-item-434">
                             <a href="admin?method=dashboard" aria-current="page">总览</a>
                         </li>
-                        <li class="menu-item menu-item-type-post_type menu-item-object-pag">
-                            <span class="menu-expand"><i></i></span>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-672">
                             <a href="goodsservlet?method=shop">商品管理</a>
+                            <ul class="sub-menu">
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                                    <a href="admin?method=goods&categoryid=1">运动服饰管理</a></li>
+                                </li>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                                    <a href="admin?method=goods&categoryid=2">运动用品管理</a></li>
+
+                                </li>
+                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                                    <a href="admin?method=goods&categoryid=3">运动补给管理</a></li>
+                                </li>
+                            </ul>
                         </li>
 
-                        <li class="menu-item menu-item-type-post_type menu-item-object-pag">
-                            <span class="menu-expand"><i></i></span>
-                            <a href="goodsservlet?method=shop">订单管理</a>
-                        </li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-672">
+                            <a href="admin?method=orders">订单管理</a>
+                            <ul class="sub-menu">
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                                    <a href="admin?method=orders">全部订单</a></li>
+                                </li>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                                    <a href="admin?method=orders&status=1">待发货订单</a></li>
 
-                        <li
-                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children ">
-                            <a href="about.jsp">用户管理</a>
+                                </li>
+                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                                    <a href="admin?method=orders&status=5">已逾期订单</a></li>
+                                </li>
+                            </ul>
                         </li>
+                        
 
                     </ul>
                 </nav>

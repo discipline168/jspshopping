@@ -21,11 +21,11 @@ public class GoodsDaoImpl implements GoodsDao {
         //默认查询全部种类商品
         if(categoryId==0)
             return queryRunner.query(
-                    "SELECT * FROM tb_goods WHERE status= 1 LIMIT ?, ?",
+                    "SELECT * FROM tb_goods WHERE status= 1 ORDER BY id DESC LIMIT ?, ?",
                     new BeanListHandler<Goods>(Goods.class),
                     (page-1)*size,size);
         return queryRunner.query(
-                "SELECT * FROM tb_goods WHERE status= 1 AND categoryid = ? LIMIT ?, ?",
+                "SELECT * FROM tb_goods WHERE status= 1 AND categoryid = ? ORDER BY id DESC LIMIT ?, ?",
                 new BeanListHandler<Goods>(Goods.class),
                 categoryId,(page-1)*size,size);
     }
@@ -54,7 +54,7 @@ public class GoodsDaoImpl implements GoodsDao {
 
     @Override
     public List<Goods> getIndexGoodsList(int categoryId) throws SQLException {
-        return queryRunner.query("SELECT * FROM tb_goods WHERE categoryid = ? ORDER BY sale DESC LIMIT 0,4",
+        return queryRunner.query("SELECT * FROM tb_goods WHERE categoryid = ? AND status= 1 ORDER BY sale DESC LIMIT 0,4",
                 new BeanListHandler<Goods>(Goods.class), categoryId);
     }
 

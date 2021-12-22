@@ -210,11 +210,23 @@
                                     </div>
                                     <div class="ht-col-md-6 ht-col-sm-6 ht-col-xs-12">
                                         <div class="summary entry-summary product-details-content">
-                                            <h1 class="product_title entry-title">${goods.name}</h1>
-                                            <p class="price"><span
-                                                    class="woocommerce-Price-amount amount"><bdi><span
-                                                    class="woocommerce-Price-currencySymbol">&#165;</span>${goods.price*goods.discount}</bdi></span>
-                                            </p>
+                                            <c:if test="${goods.status==1}">
+                                                <h1 class="product_title entry-title">${goods.name}</h1>
+                                            </c:if>
+                                            <c:if test="${goods.status==0}">
+                                                <h1 class="product_title entry-title" style="color: gray">${goods.name}</h1>
+                                            </c:if>
+                                            <c:if test="${goods.status==1}">
+                                                <p class="price"><span
+                                                        class="woocommerce-Price-amount amount"><bdi><span
+                                                        class="woocommerce-Price-currencySymbol">&#165;</span>${goods.price*goods.discount}</bdi></span>
+                                                </p>
+                                            </c:if>
+                                            <c:if test="${goods.status==0}">
+                                                <p class="price"><span
+                                                        class="woocommerce-Price-amount amount"><bdi>该商品已下架</bdi></span>
+                                                </p>
+                                            </c:if>
                                             <div class="woocommerce-product-details__short-description">
                                                 <p>${goods.description}</p>
                                             </div>
@@ -252,10 +264,12 @@
                                                            placeholder="" inputmode="numeric" />
                                                 </div>
 
+                                                <c:if test="${goods.status==1}">
+                                                    <button style="width: 150px;" type="button"  onclick="addToCart()" value="59"
+                                                            class="single_add_to_cart_button button alt">加入购物车</button>
+                                                </c:if>
 
 
-                                                <button style="width: 150px;" type="button"  onclick="addToCart()" value="59"
-                                                        class="single_add_to_cart_button button alt">加入购物车</button>
 
                                             </form>
 

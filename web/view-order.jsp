@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: cheese
+  User: discipline
   Date: 2021/11/22
   Time: 13:34
 --%>
@@ -70,10 +70,10 @@
                 var seconds = parseInt(time / 1000 % 60);
 
                 if(minute>=0&&seconds>=0){
-                    jQuery("[class='timespan']").html("还剩余 "+minute + "分钟" + seconds + "秒");
+                    jQuery("[class='timespan']").html("还剩余 "+minute + "分钟" + seconds + "秒").css('color','red');
                 }
                 if (minute == 0 && seconds == 0) {
-                    setInterval(window.location.reload(),1500)
+                    setInterval(window.location.reload(),2000)
                 }
             }, 1000);
         }
@@ -141,13 +141,13 @@
                                                 <p  lass="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received">
                                                     <c:if test="${order.status==1}">您的订单正在准备发货</c:if>
                                                     <c:if test="${order.status==2}">您的订单已发货</c:if>
-                                                    <c:if test="${order.status==3}">您的订单已到达</c:if>
-                                                    <c:if test="${order.status==5}">您的订单已过期</c:if>
+                                                    <c:if test="${order.status==3}">您的订单已送达</c:if>
+                                                    <c:if test="${order.status==5}">您的订单已逾期</c:if>
                                                 </p>
                                             </c:if>
 
                                             <c:if test="${order.status==0}">
-                                                <p  lass="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received">
+                                                <p  lass="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received" style="color: red;">
                                                     您尚未完成支付，请尽快支付
                                                     <span class="timespan" style="font-size: 15px; margin-left: 20px;color: gray"></span>
                                                 </p>
@@ -182,6 +182,11 @@
                                                         class="woocommerce-Price-amount amount"><bdi><span
                                                         class="woocommerce-Price-currencySymbol">&#165;</span>${order.total}</bdi></span></strong>
                                                 </li>
+                                                <c:if test="${not empty order.lid}">
+                                                    <li class="woocommerce-order-overview__email email">
+                                                        物流订单号: <strong>${order.lid}</strong>
+                                                    </li>
+                                                </c:if>
 
 
                                             </ul>

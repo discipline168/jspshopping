@@ -26,6 +26,9 @@
                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-11 current_page_item ">
                                 <a href="about.jsp" aria-current="page">关于</a>
                             </li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-11 current_page_item ">
+                                <a href="admin?method=dashboard" aria-current="page">后台管理</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

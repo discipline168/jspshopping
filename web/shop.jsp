@@ -163,13 +163,13 @@
                             <c:if test="${currentpPage>1}">
 
                             <li><a class="page-numbers"
-                                   href="goodsservlet?method=shop&categoryid=${category.id!=null?category.id:0}&page=${currentpPage-1}"><</a></li>
+                                   href="goodsservlet?method=shop&categoryid=${category.id!=null?category.id:0}&page=${currentpPage-1}">&lt;</a></li>
                             </c:if>
                             <li><span aria-current="page" class="page-numbers current">${currentpPage}</span></li>
 
                             <c:if test="${currentpPage<pages}">
                             <li><a class="next page-numbers"
-                                   href="goodsservlet?method=shop&categoryid=${category.id!=null?category.id:0}&page=${currentpPage+1}">><i
+                                   href="goodsservlet?method=shop&categoryid=${category.id!=null?category.id:0}&page=${currentpPage+1}">&gt;<i
                                     class="fa fa-angle-right"></i></a></li>
                             </c:if>
 

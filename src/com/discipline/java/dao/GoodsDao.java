@@ -9,9 +9,9 @@ import java.util.List;
 public interface GoodsDao {
 
 
-    //分页获取在售商品信息
+    //分页获取"在售"商品信息
     List<Goods> getGoodsListByPage(int page, int size, int categoryId) throws SQLException;
-
+    //分页获取所有商品信息[admin]
     List<Goods> getALLGoodsListByPage(int page, int size, int categoryId) throws SQLException;
 
     Goods getGoodsById(int id) throws SQLException;

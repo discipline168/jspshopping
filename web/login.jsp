@@ -113,6 +113,17 @@
 
     </script>
 
+    <style>
+        .m-box{
+            width: 40%;margin: auto;
+        }
+        @media all and (orientation : portrait) {
+            .m-box{
+                width: 80%;margin: auto;
+            }
+        }
+    </style>
+
 </head>
 
 
@@ -167,7 +178,7 @@
                         <div class="ht-col-xs-12">
 
 
-                            <article id="post-50" class="post-50 page type-page status-publish hentry" style="width: 50%;margin: auto;">
+                            <article id="post-50" class="post-50 page type-page status-publish hentry m-box">
                                 <h1 class="entry-title">我的</h1>
 
                                 <div class="entry-content">
@@ -195,13 +206,13 @@
                                                 </p>
 
 
-                                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                <div class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                     <label>验证码</label>
                                                     <input
                                                             class="woocommerce-Input woocommerce-Input--text input-text"
-                                                            type="text" name="vcode" style="width: 60%; float: left"/>
-                                                    <a><img src="userservlet?method=code" style="margin-left: 6px;" id="validatecode" ></a>
-                                                </p>
+                                                            type="text" name="vcode" style="width: 50%; float: left"/>
+                                                    <div style="float: right;"><a><img src="userservlet?method=code" style="margin-left: 6px;" id="validatecode" ></a></di>
+                                                </div>
 
 
                                                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">

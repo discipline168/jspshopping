@@ -51,7 +51,6 @@ public class GoodsServlet extends BaseServlet {
 
         //获取商品种类信息
         goods.setCategory(categoryService.getCategoryById(goods.getCategoryid()));
-        System.out.println(goods.getCategory());
         request.setAttribute("goods",goods);
 
 
@@ -129,7 +128,6 @@ public class GoodsServlet extends BaseServlet {
 
         //todo 页数为8（暂定）
         List<Goods> shopGoods = goodsService.getGoodsListByPage(page,8,categoryid);
-        System.out.println(shopGoods);
 
         if(shopGoods.size()==0||shopGoods==null){
             request.setAttribute("msg", Constant.REQUEST_RESOURCES_NOT_EXIT);

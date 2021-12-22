@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: cheese
+  User: discipline
   Date: 2021/12/17
   Time: 13:29
 --%>
@@ -43,12 +43,6 @@
     <script type='text/javascript' src='../resources/js/jquery.min.js' id='jquery-core-js'></script>
 
 
-
-
-
-
-
-
 </head>
 
 <body
@@ -60,18 +54,24 @@
     <!-- 导航 -->
    <%@include file="../commons/aheader.jsp"%>
 
-    <!-- loading -->
-    <div class="spinner" id="loading">
-        <div class="spinner-inner">
-            <div class="rect1"></div>
-            <div class="rect2"></div>
-            <div class="rect3"></div>
-            <div class="rect4"></div>
-            <div class="rect5"></div>
-        </div>
-    </div>
 
     <div id="content" class="site-content">
+
+        <div class="page-title-area">
+            <div class="ht-container">
+                <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
+                    <div class="breadcrumb-content">
+                        <ul>
+                            <li><a href="admin?method=dashboard">总览</a></li>
+                            <li><a href="admin?method=goods">商品管理</a></li>
+                            <c:if test="${not empty category}">
+                                <li>${category.name}管理</li>
+                            </c:if>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="primary" class="shop-area parlopage-padding">
             <main id="main" class="site-main" role="main">

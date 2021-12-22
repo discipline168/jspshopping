@@ -1,94 +1,68 @@
 <%--
   Created by IntelliJ IDEA.
-  User: cheese
+  User: discipline
   Date: 2021/12/10
   Time: 14:20
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!doctype html>
-<html lang="en-US">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>discipl!ne pro &#8211; 404</title>
-    <meta name='robots' content='noindex, nofollow' />
-
-
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
-          media='all' />
-
-    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
-          media='all' />
-
-
-    <link rel='stylesheet' id='parlo-style-css' href='resources/css/style.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-frontend-legacy-css' href='resources/css/frontend-legacy.min.css'
-          type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-frontend-css' href='resources/css/frontend.min.css' type='text/css'
-          media='all' />
-
-    <link rel='stylesheet' id='elementor-post-11-css' href='resources/css/post-11.css' type='text/css' media='all' />
-
-
-    <link rel='stylesheet' id='woocommerce-layout-css' href='resources/css/woocommerce-layout.css' type='text/css'
-          media='all' />
-    <script type='text/javascript'
-            src='resources/js/jquery.min.js'></script>
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>discipl!ne pro 404</title>
 </head>
+<style>
+    .error {
+        margin: auto;
+        width: 800px;
+        height: 500px;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .error-1{
+        float: left;
+        width: 50%;
+        text-align: center;
+    }
+    .error-gif{
+        width:100px;height: 300px;float: left;
+    }
 
+    @media all and (orientation : portrait) {
+        .error-gif{
+            display: none;
+        }
+    }
+</style>
 
-<body
-        class="page-template-default page page-id-50 wp-custom-logo theme-parlo woocommerce-account woocommerce-page woocommerce-no-js woolentor_current_theme_parlo woocommerce-active elementor-default elementor-kit-915">
-
-<div id="page" class="site">
-
-
-    <!-- 头部导航 -->
-    <%@include file="commons/header.jsp"%>
-
-
-    <div id="content" class="site-content">
-
-
-
-        <div class="page-title-area" >
-            <div class="ht-container">
-                <div class="ht-col-md-12 ht-col-sx-12 ht-center-md" style="margin-top: 10rem;margin-bottom: 12rem;">
-                    <div class="breadcrumb-content"  style="text-align: center">
-                        <img src="resources/images/404.png" width="100px" height="100px">
-                        <ul style="margin-top: 1rem">
-                            <li style="font-size: 2rem;">请求资源不存在</li>
-                        </ul>
-                    </div>
-                </div>
+<body>
+<section class="section">
+    <div class="error">
+        <div class="error-1">
+            <h1 style="font-size: 7em;font-weight: 700;">404!</h1>
+            <div style="font-size: 2em;">
+                请求资源不存在
             </div>
+            <div style="margin-top: 200px;">
+                Copyright &copy; <a href="${pageContext.request.contextPath}/">discipl!ne pro</a>
+            </div>
+
+        </div>
+        <div class="error-gif">
+            <img src="resources/images/404.gif" alt="">
         </div>
 
 
 
     </div>
 
-
-
-    <!-- 底部导航 -->
-    <%@include file="commons/footer.jsp"%>
-</div><!-- #page -->
-
-<div class="woocommerce" id="htwlquick-viewmodal">
-    <div class="htwl-modal-dialog product">
-        <div class="htwl-modal-content"><button type="button" class="htcloseqv"><span
-                class="sli sli-close"></span></button>
-            <div class="htwl-modal-body"></div>
-        </div>
-    </div>
-</div>
-
-<script type='text/javascript' src='resources/js/main.js'></script>
-
+</section>
 
 </body>
 

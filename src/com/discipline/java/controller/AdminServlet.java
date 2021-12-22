@@ -2,17 +2,14 @@ package com.discipline.java.controller;
 
 import com.discipline.java.bean.Category;
 import com.discipline.java.bean.Goods;
-import com.discipline.java.service.CategoryService;
-import com.discipline.java.service.GoodsService;
-import com.discipline.java.service.OrderService;
-import com.discipline.java.service.UserService;
-import com.discipline.java.service.impl.CategoryServiceImpl;
-import com.discipline.java.service.impl.GoodsServiceImpl;
-import com.discipline.java.service.impl.OrderServiceImpl;
-import com.discipline.java.service.impl.UserServiceImpl;
+import com.discipline.java.bean.Order;
+import com.discipline.java.bean.User;
+import com.discipline.java.service.*;
+import com.discipline.java.service.impl.*;
 import com.discipline.java.utils.Constant;
 import com.discipline.java.utils.QiniuCloudUtil;
 import com.sun.org.apache.bcel.internal.generic.NEW;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.RequestContext;
@@ -28,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -38,11 +36,45 @@ public class AdminServlet extends BaseServlet {
     private CategoryService categoryService = new CategoryServiceImpl();
     private OrderService orderService = new OrderServiceImpl();
     private UserService userService = new UserServiceImpl();
+    private OrderDetailService orderDetailService=new OrderDetailServiceImpl();
     private QiniuCloudUtil qiniuCloudUtil=new QiniuCloudUtil();
 
 
+    public String dashboard(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+
+        //获取注册用户数
+        request.setAttribute("userNum", userService.getUserNum());
+
+        //获取今日订单数
+        request.setAttribute("todayOrderNum", orderService.getTodayOrderNum());
+
+        //获取代发货订单数
+        request.setAttribute("toDeliverOrderNum", orderService.getToDeliverOrderNum());
+
+
+        //获取订单销售额
+        Map<String, BigDecimal> sales = orderService.getSales();
+        request.setAttribute("today", sales.get("today")==null?0:sales.get("today"));
+        request.setAttribute("week", sales.get("week")==null?0:sales.get("week"));
+        request.setAttribute("month", sales.get("month")==null?0:sales.get("month"));
+        request.setAttribute("year", sales.get("year")==null?0:sales.get("year"));
+
+
+        Map<String, BigDecimal> map = orderService.getPast7DaysSales();
+        Object[] arr1 = map.keySet().toArray();
+        Object[] arr2 = map.values().toArray();
+
+
+        request.setAttribute("arr1", parasObjectArrayToString(arr1));
+        request.setAttribute("arr2", parasObjectArrayToString(arr2));
+
+
+        return "forward:admin/dashboard.jsp";
+    }
+
+    //商品管理-商品信息展示
     public String goods(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        int categoryid = 0, page;
+        int categoryid , page;
 
         if (request.getParameter("page") == null) {
             page = 1;
@@ -58,6 +90,27 @@ public class AdminServlet extends BaseServlet {
 
             if (page == 0)
                 page = 1;
+        }
+
+        if(request.getParameter("categoryid")==null){
+            categoryid=0;
+        }else{
+            try {
+                categoryid = Integer.parseInt(request.getParameter("categoryid"));
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
+            }
+
+            Category category = categoryService.getCategoryById(categoryid);
+
+            if(category==null&&categoryid!=0){
+                request.setAttribute("msg", Constant.REQUEST_RESOURCES_NOT_EXIT);
+                return "forward:message.jsp";
+            }
+
+            request.setAttribute("category",category);
         }
 
         request.setAttribute("currentpPage", page);
@@ -88,43 +141,11 @@ public class AdminServlet extends BaseServlet {
     }
 
 
-    public String dashboard(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-
-        //获取注册用户数
-        request.setAttribute("userNum", userService.getUserNum());
-
-        //获取今日订单数
-        request.setAttribute("todayOrderNum", orderService.getTodayOrderNum());
-
-        //获取代发货订单数
-        request.setAttribute("toDeliverOrderNum", orderService.getToDeliverOrderNum());
-
-
-        //获取订单销售额
-        Map<String, Double> sales = orderService.getSales();
-        request.setAttribute("today", sales.get("today")==null?0:sales.get("today"));
-        request.setAttribute("week", sales.get("week")==null?0:sales.get("week"));
-        request.setAttribute("month", sales.get("month")==null?0:sales.get("month"));
-        request.setAttribute("year", sales.get("year")==null?0:sales.get("year"));
-
-
-        Map<String, Double> map = orderService.getPast7DaysSales();
-        Object[] arr1 = map.keySet().toArray();
-        Object[] arr2 = map.values().toArray();
-
-
-        request.setAttribute("arr1", parasObjectArrayToString(arr1));
-        request.setAttribute("arr2", parasObjectArrayToString(arr2));
-
-
-        return "forward:admin/dashboard.jsp";
-    }
-
 
     /**
      * @Author discipline
      * @Date 18:47 2021/12/17
-     * @Description pre 编辑/新增商品信息
+     * @Description 商品管理-前往编辑或新增商品信息页面
      **/
     public String editGoods(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
@@ -157,26 +178,11 @@ public class AdminServlet extends BaseServlet {
         return "forward:admin/edit-goods.jsp";
     }
 
-    //将数组转换成 ['?','?','?'...] 格式字符串
-    public String parasObjectArrayToString(Object[] objects) {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("[");
-        for (int i = 0; i < objects.length; i++) {
-            buffer.append("'");
-            buffer.append(objects[i]);
-            buffer.append("'");
-            if (i != objects.length - 1)
-                buffer.append(",");
-        }
-        buffer.append("]");
-        return String.valueOf(buffer);
-    }
-
 
     /**
      * @Author discipline
      * @Date 18:57 2021/12/17
-     * @Description 上传图片至七牛云oss
+     * @Description 商品管理-上传图片至七牛云oss
      **/
     public String uploadPic(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -198,7 +204,8 @@ public class AdminServlet extends BaseServlet {
     }
 
 
-    //新增或编辑商品
+
+    //商品管理-新增或编辑商品
     public String insertOrUpdateGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         response.setContentType("text/html;charset=UTF-8");
@@ -276,15 +283,109 @@ public class AdminServlet extends BaseServlet {
 
 
 
+    //订单管理-展示订单信息
+    public String orders(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    public String getUpToken(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int status, page;
+
+        if(request.getParameter("status")==null){
+            status=-1;
+        }else {
+            try {
+                status = Integer.parseInt(request.getParameter("status"));
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
+            }
+        }
+        request.setAttribute("status",status);
+
+
+        if (request.getParameter("page") == null) {
+            page = 1;
+        } else {
+
+            try {
+                page = Integer.parseInt(request.getParameter("page"));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+                return "forward:message.jsp";
+            }
+
+            if (page == 0)
+                page = 1;
+        }
+
+        request.setAttribute("currentpPage", page);
+
+        //页数为8
+        List<Order> orderList = orderService.getAllOrderListByPage(page, 8, status);
+        request.setAttribute("orderList", orderList);
+
+        long sum = orderService.getAllOrderSum(status);
+        request.setAttribute("pages",sum/8+(sum%8==0?0:1));
+
+        return "forward:admin/orders.jsp";
+    }
+
+
+    //订单管理-发货
+    public String deliver (HttpServletRequest request, HttpServletResponse response) throws Exception{
 
         response.setContentType("text/html;charset=UTF-8");
 
-        response.getWriter().write(qiniuCloudUtil.getUpToken());
+        String oid = request.getParameter("oid");
+        String lid = request.getParameter("lid");
+        if(StringUtils.isEmpty(oid)||StringUtils.isEmpty(lid)) {
+            response.getWriter().write(Constant.REQUEST_PARAMETER_INCOMPLETE);
+            return null;
+        }
+
+        if(orderService.deliver(oid, lid)>0)
+            response.getWriter().write("success");
+        else
+            response.getWriter().write("发货失败");
 
         return null;
     }
 
 
+    //订单管理-订单详细
+    public String detail(HttpServletRequest request, HttpServletResponse response)throws SQLException{
+
+        String oid = request.getParameter("oid");
+        if(StringUtils.isEmpty(oid)){
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_INCOMPLETE);
+            return "forward:message.jsp";
+        }
+        Order order = orderService.getOrder(oid);
+        if(order==null){
+            request.setAttribute("msg", Constant.REQUEST_PARAMETER_ERROR);
+            return "forward:message.jsp";
+        }
+
+        order.setOrderDetails(orderDetailService.getOrderDetailList(oid));
+
+        request.setAttribute("order",order);
+
+        return "forward:admin/view-order.jsp";
+    }
+
+
+    //将数组转换成 ['?','?','?'...] 格式字符串
+    public String parasObjectArrayToString(Object[] objects) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("[");
+        for (int i = 0; i < objects.length; i++) {
+            buffer.append("'");
+            buffer.append(objects[i]);
+            buffer.append("'");
+            if (i != objects.length - 1)
+                buffer.append(",");
+        }
+        buffer.append("]");
+        return String.valueOf(buffer);
+    }
 }

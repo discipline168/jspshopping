@@ -19,6 +19,7 @@ public class Order implements Delayed {
     private String name;
     private String phone;
     private int status;
+    private String lid;
 
     //todo 实体类使用Date类型使用查询映射字段会报转换错误
     private LocalDateTime orderTime;

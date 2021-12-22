@@ -135,7 +135,7 @@ public class CartServlet extends BaseServlet {
 
 
     public String refreshMiniCart(HttpServletRequest request,HttpServletResponse response)  {
-        System.out.println("refresh");
+        //System.out.println("refresh");
         return "forward:commons/header.jsp";
     }
 

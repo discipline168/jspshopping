@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: cheese
+  User: discipline
   Date: 2021/11/25
   Time: 15:48
 --%>
@@ -80,7 +80,7 @@
                                                         <div class="elementor-widget-container">
                                                             <h2 class="elementor-heading-title elementor-size-default"
                                                                 style="text-align: center;margin-bottom: 30px;">
-                                                                WELCOME TO DISCIPL!NE</h2>
+                                                                WELCOME TO DISCIPL!NE </h2>
                                                         </div>
                                                     </div>
 
@@ -97,7 +97,7 @@
                                                         <div class="elementor-widget-container">
                                                             <p
                                                                     class="elementor-heading-title elementor-size-default">
-                                                                用户注册激活登入、商品的展示、添加删除清空购物车，结算购物车商品；暂无后台管理
+                                                                用户注册激活登入、商品的展示、添加删除清空购物车，结算购物车商品；后台管理-总览、订单管理、商品管理
                                                             </p>
                                                         </div>
                                                     </div>
@@ -113,7 +113,7 @@
                                                             class="elementor-element elementor-widget elementor-widget-heading">
                                                         <div class="elementor-widget-container">
                                                             <p class="elementor-heading-title elementor-size-default">
-                                                                前端是网上找的模板，修改了些样式拿来用了。整体项目后端就是crud乏味枯燥
+                                                                前端是网上找的模板，修改部分些样式
                                                             </p>
                                                             <BR>
                                                             <p class="elementor-heading-title elementor-size-default">

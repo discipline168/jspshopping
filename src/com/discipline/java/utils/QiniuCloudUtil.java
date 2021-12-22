@@ -48,7 +48,6 @@ public class QiniuCloudUtil {
     public String put64image(String file64,String length,String key) throws Exception {
 
 
-
         System.out.println("file64: "+file64);
         System.out.println("length(): "+length);
 
@@ -65,10 +64,12 @@ public class QiniuCloudUtil {
         OkHttpClient client = new OkHttpClient();
         okhttp3.Response response = client.newCall(request).execute();
         System.out.println(response);
-        //如果不需要添加图片样式，使用以下方式
-        //return DOMAIN + key;
-        return DOMAIN + key +"?"+ style;
-
+        if(response.toString().contains("code=200"))
+            //如果不需要添加图片样式，使用以下方式
+            //return DOMAIN + key;
+            return DOMAIN + key +"?"+ style;
+        else
+            return "error";
     }
 
 

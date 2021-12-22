@@ -248,8 +248,12 @@
                                                                        sizes="(max-width: 300px) 100vw, 300px" /></a>
                                                                </td>
 
-                                                               <td class="product-name" data-title="商品"><a
-                                                                       href="goodsservlet?method=detail&id=${cart.gid}">${cart.goods.name}</a></td>
+                                                               <td class="product-name" data-title="商品名称"><a
+                                                                       href="goodsservlet?method=detail&id=${cart.gid}">${cart.goods.name}</a>
+                                                               <c:if test="${cart.goods.status==0}">
+                                                                   <span style="margin-left: 10px;color: red;">（已下架）</span>
+                                                               </c:if>
+                                                               </td>
 
                                                                <td class="product-price" data-title="价格">
 																	<span class="woocommerce-Price-amount amount"><bdi><span
@@ -272,12 +276,14 @@
 
 
                                                                <td  data-title="支付">
-                                                                   <a href="orderservlet?method=checkout&cid=${cart.id}"
-                                                                      data-product_id="59"
-                                                                      data-product_sku="woo-sunglasses">
-                                                                       <img style="width: 30px;"
-                                                                            src="resources/images/pay.png" >
-                                                                   </a>
+                                                                   <c:if test="${cart.goods.status==1}">
+                                                                       <a href="orderservlet?method=checkout&cid=${cart.id}"
+                                                                          data-product_id="59"
+                                                                          data-product_sku="woo-sunglasses">
+                                                                           <img style="width: 30px;"
+                                                                                src="resources/images/pay.png" >
+                                                                       </a>
+                                                                   </c:if>
                                                                </td>
                                                            </tr>
                                                        </c:forEach>

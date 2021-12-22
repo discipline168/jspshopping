@@ -324,10 +324,10 @@
 
                                                         <p class="woocommerce-mini-cart__buttons buttons">
                                                             <a
-                                                                    href="/cartservlet?method=list"
+                                                                    href="cartservlet?method=list"
                                                                     class="button wc-forward">查看购物车</a>
                                                             <a
-                                                                    href="/orderservlet?method=checkout"
+                                                                    href="orderservlet?method=checkout"
                                                                     class="button checkout wc-forward">结算</a>
                                                         </p>
                                                     </c:if>

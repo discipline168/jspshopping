@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: cheese
+  User: discipline
   Date: 2021/12/17
   Time: 13:30
 --%>
@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>discipl!ne pro 后台管理 &#8211; 商品<c:if test="${not empty goods}">编辑</c:if><c:if test="${not empty goods}">新增</c:if></title>
+    <title>discipl!ne pro 后台管理 &#8211; 商品<c:if test="${not empty goods}">编辑</c:if><c:if test="${empty goods}">新增</c:if></title>
     <meta name='robots' content='noindex, nofollow' />
 
 
@@ -138,7 +138,7 @@
             jQuery.ajax({
                 url: "admin?method=insertOrUpdateGoods",
                 data: {
-                    "id": jQuery("[name='gid']").val()==null?0:jQuery("[name='gid']").val(),
+                    "id": jQuery("[name='gid']").val()==''?0:jQuery("[name='gid']").val(),
                     "name": jQuery("[name='gname']").val(),
                     "categoryid": jQuery("[name='categoryid']").val(),
                     "price": jQuery("[name='price']").val(),
@@ -205,6 +205,24 @@
     </div>
 
     <div id="content" class="site-content">
+
+        <div class="page-title-area">
+            <div class="ht-container">
+                <div class="ht-col-md-12 ht-col-sx-12 ht-center-md">
+                    <div class="breadcrumb-content">
+                        <ul>
+                            <li><a href="admin?method=dashboard">总览</a></li>
+                            <li><a href="admin?method=goods">商品管理</a></li>
+                            <li>
+                                <c:if test="${not empty goods}">商品编辑 - ${goods.name}</c:if>
+                                <c:if test="${empty goods}">商品新增</c:if>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="primary">
             <main id="main" class="site-main">
 
@@ -219,7 +237,8 @@
 
                                         <div class="woocommerce-notices-wrapper" name="updateSuccess" style="display: none">
                                             <div class="woocommerce-message" role="alert">
-                                                更新商品信息成功
+                                                <a href="goodsservlet?method=detail&id=${goods.id}" tabindex="1"
+                                                   class="button wc-forward">查看商品详情</a>更新商品信息成功
                                             </div>
                                         </div>
 
@@ -276,6 +295,12 @@
                                                                         <option value="1"> 运动服饰</option>
                                                                         <option value="2"> 运动用品</option>
                                                                         <option value="3" selected="true"> 运动补给</option>
+                                                                    </c:if>
+
+                                                                    <c:if test="${empty goods}">
+                                                                        <option value="1" selected="true"> 运动服饰</option>
+                                                                        <option value="2"> 运动用品</option>
+                                                                        <option value="3"> 运动补给</option>
                                                                     </c:if>
 
                                                                 </select>
@@ -613,10 +638,10 @@
 
 
     function insertClothesSize() {
-        jQuery("[name='size']").val("S,M,L,XL,XXL,3XL");
+        jQuery("[name='sizes']").val("S,M,L,XL,XXL,3XL");
     }
     function insertShoesSize() {
-        jQuery("[name='size']").val("36,36.5,37,38,39,40,40.5,41,42,42.5,43,44,45,46.47,48");
+        jQuery("[name='sizes']").val("36,36.5,37,38,39,40,40.5,41,42,42.5,43,44,45,46.47,48");
     }
 
 

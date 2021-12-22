@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: cheese
+  User: discipline
   Date: 2021/12/17
   Time: 13:25
 --%>
@@ -133,7 +133,8 @@
                                                                 <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1"
                                                                      style="text-align: center;">
                                                                     <h2 class="mt-5 mb-4 display-6 lh-1 fw-bold">
-                                                                        代发货数：${toDeliverOrderNum}</h2>
+                                                                        <a href="admin?method=orders&status=1" style="color: white;">代发货数：${toDeliverOrderNum}</a>
+                                                                    </h2>
 
                                                                 </div>
                                                             </div>
@@ -199,10 +200,7 @@
 
     </div><!-- #content -->
 
-
-
-    <input id="dates" type="text">
-
+    <div style="width: 100%;height: 50px;"></div>
 
 
 </div><!-- #page -->
