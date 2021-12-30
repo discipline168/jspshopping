@@ -54,6 +54,8 @@ public class UserServiceImpl implements UserService {
         //删除此前冗余的相同邮箱但未激活的账号数据
         if(result>0){
             userDao.deleteDuplicateEmails(Base64Utils.decode(email));
+        }else{
+            DruidUtils.rollbackTX();
         }
         DruidUtils.endTx();
         //base64解密

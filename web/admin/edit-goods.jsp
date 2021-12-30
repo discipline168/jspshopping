@@ -16,37 +16,37 @@
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='../resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='../resources/css/htflexboxgrid.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css'
           media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='../resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
-    <link rel='stylesheet' id='elementor-frontend-legacy-css' href='../resources/css/frontend-legacy.min.css'
+    <link rel='stylesheet' id='elementor-frontend-legacy-css' href='resources/css/frontend-legacy.min.css'
           type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-frontend-css' href='../resources/css/frontend.min.css' type='text/css'
+    <link rel='stylesheet' id='elementor-frontend-css' href='resources/css/frontend.min.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='elementor-post-11-css' href='../resources/css/post-11.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-post-11-css' href='resources/css/post-11.css' type='text/css' media='all' />
 
 
-    <link rel="stylesheet" href="../resources/css/woocommerce.css">
-    <link rel="stylesheet" href="../resources/css/load.css">
+    <link rel="stylesheet" href="resources/css/woocommerce.css">
+    <link rel="stylesheet" href="resources/css/load.css">
 
 
-    <link rel='stylesheet' id='woocommerce-layout-css' href='../resources/css/woocommerce-layout.css' type='text/css'
+    <link rel='stylesheet' id='woocommerce-layout-css' href='resources/css/woocommerce-layout.css' type='text/css'
           media='all' />
 
-    <script type='text/javascript' src='../resources/js/jquery.min.js' id='jquery-core-js'></script>
+    <script type='text/javascript' src='resources/js/jquery.min.js' id='jquery-core-js'></script>
 
 
 
 
 
-    <link rel='stylesheet' id='parlo-style-css' href='../resources/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='parlo-style-css' href='resources/css/style.css' type='text/css' media='all' />
 
     <style id='woocommerce-inline-inline-css' type='text/css'>
         .woocommerce form .form-row .required {
@@ -177,8 +177,8 @@
 
     </script>
 
-    <script type='text/javascript' src='../resources/js/main.js'></script>
-    <script type='text/javascript' src='../resources/js/jquery.min.js'></script>
+    <script type='text/javascript' src='resources/js/main.js'></script>
+    <script type='text/javascript' src='resources/js/jquery.min.js'></script>
 
 
 </head>
@@ -315,7 +315,7 @@
                                                                     <c:if test="${not empty goods.picture}">
                                                                         <div class="picDiv">
                                                                             <img src="${goods.picture}" class="m-pic" loading="lazy">
-                                                                            <a class="remove" name="remove-btn"><i><img src="../resources/images/delete.png"></i></a>
+                                                                            <a class="remove" name="remove-btn"><i><img src="resources/images/delete.png"></i></a>
                                                                         </div>
                                                                     </c:if>
                                                                 </div>
@@ -325,7 +325,7 @@
                                                                 <div id="upload_btn">
 
                                                                     <a><img style="width: 40px; height: 40px;position:absolute; top: 30%; right: 30%;"
-                                                                            src="../resources/images/upload.png"
+                                                                            src="resources/images/upload.png"
                                                                             alt="上传图片" loading="lazy"></a>
                                                                 </div>
 
@@ -354,7 +354,7 @@
                                                                                 <img src="${picture}"
                                                                                      class="m-pic" alt="" loading="lazy">
                                                                                 <a class="remove" name="remove-btn">
-                                                                                    <i><img src="../resources/images/delete.png"></i>
+                                                                                    <i><img src="resources/images/delete.png"></i>
                                                                                 </a>
                                                                             </div>
                                                                         </c:forEach>
@@ -369,7 +369,7 @@
 
                                                                     <a href="#"><img id="show"
                                                                                      style="width: 40px; height: 40px;position:absolute; top: 30%; right: 30%;"
-                                                                                     src="../resources/images/upload.png"
+                                                                                     src="resources/images/upload.png"
                                                                                      alt="上传图片" loading="lazy">
                                                                     </a>
                                                                 </div>
@@ -503,9 +503,9 @@
 
 
 
-<script type='text/javascript' src='../resources/js/cart.min.js' id='wc-cart-js'></script>
+<script type='text/javascript' src='resources/js/cart.min.js' id='wc-cart-js'></script>
 
-<script type='text/javascript' src='../resources/js/main.js'></script>
+<script type='text/javascript' src='resources/js/main.js'></script>
 
 
 <script>
@@ -555,7 +555,7 @@
                         alert("图片上传失败");
                     }else {
                         jQuery('#pic').append("<div class='picDiv'><img  src='" + data + "' class='m-pic' loading='lazy'> " +
-                            "<a class='remove' name='remove-btn' ><i><img src='../resources/images/delete.png'></i></a></div>");
+                            "<a class='remove' name='remove-btn' ><i><img src='resources/images/delete.png'></i></a></div>");
                         picJudge();
 
                         //jQuery新增元素原先设置事件会失效，需动态绑定删除事件
@@ -616,7 +616,7 @@
                         alert("图片上传失败");
                     }else {
                         jQuery('#otherPics').append("<div class='otherPicDiv'><img  src='" + data + "' class='m-pic' loading='lazy'>"
-                            + " <a class='remove' name='remove-btn' ><i><img src='../resources/images/delete.png'></i></a></div>");
+                            + " <a class='remove' name='remove-btn' ><i><img src='resources/images/delete.png'></i></a></div>");
                         otherPicJudge();
 
                         //jQuery新增元素原先设置事件会失效，需动态绑定删除事件

@@ -15,33 +15,33 @@
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='../resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='../resources/css/htflexboxgrid.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='../resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
 
-    <link rel='stylesheet' id='elementor-frontend-legacy-css' href='../resources/css/frontend-legacy.min.css'
+    <link rel='stylesheet' id='elementor-frontend-legacy-css' href='resources/css/frontend-legacy.min.css'
           type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-frontend-css' href='../resources/css/frontend.min.css' type='text/css'
+    <link rel='stylesheet' id='elementor-frontend-css' href='resources/css/frontend.min.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='elementor-post-11-css' href='../resources/css/post-11.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-post-11-css' href='resources/css/post-11.css' type='text/css' media='all' />
 
 
-    <link rel="stylesheet" href="../resources/css/woocommerce.css">
-    <link rel="stylesheet" href="../resources/css/load.css">
+    <link rel="stylesheet" href="resources/css/woocommerce.css">
+    <link rel="stylesheet" href="resources/css/load.css">
 
 
-    <link rel='stylesheet' id='woocommerce-layout-css' href='../resources/css/woocommerce-layout.css' type='text/css'
+    <link rel='stylesheet' id='woocommerce-layout-css' href='resources/css/woocommerce-layout.css' type='text/css'
           media='all' />
 
-    <script type='text/javascript' src='../resources/js/jquery.min.js' id='jquery-core-js'></script>
+    <script type='text/javascript' src='resources/js/jquery.min.js' id='jquery-core-js'></script>
 
-    <link rel='stylesheet' id='parlo-style-css' href='../resources/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='parlo-style-css' href='resources/css/style.css' type='text/css' media='all' />
 
 
     <script>
@@ -273,7 +273,7 @@
 </div><!-- #page -->
 
 
-<script type='text/javascript' src='../resources/js/main.js'></script>
+<script type='text/javascript' src='resources/js/main.js'></script>
 
 
 </body>

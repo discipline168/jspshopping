@@ -14,33 +14,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>discipl!ne pro 后台管理 &#8211; 商品管理</title>
+    <title>discipl!ne pro 后台管理 &#8211; 商品管理 &#8211; <c:if test="${not empty category}">${category.name}</li>
+    </c:if></title>
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='../resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='../resources/css/htflexboxgrid.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css'
           media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='../resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
-    <link rel='stylesheet' id='parlo-style-css' href='../resources/css/style.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-frontend-legacy-css' href='../resources/css/frontend-legacy.min.css'
+    <link rel='stylesheet' id='parlo-style-css' href='resources/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-frontend-legacy-css' href='resources/css/frontend-legacy.min.css'
           type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-frontend-css' href='../resources/css/frontend.min.css' type='text/css'
+    <link rel='stylesheet' id='elementor-frontend-css' href='resources/css/frontend.min.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='elementor-post-11-css' href='../resources/css/post-11.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-post-11-css' href='resources/css/post-11.css' type='text/css' media='all' />
 
-    <link rel="stylesheet" id="woocommerce-smallscreen-css" href="../resources/css/woocommerce-smallscreen.css"
+    <link rel="stylesheet" id="woocommerce-smallscreen-css" href="resources/css/woocommerce-smallscreen.css"
           type="text/css" media="only screen and (max-width: 768px)">
 
 
 
-    <script type='text/javascript' src='../resources/js/jquery.min.js' id='jquery-core-js'></script>
+    <script type='text/javascript' src='resources/js/jquery.min.js' id='jquery-core-js'></script>
 
 
 </head>
@@ -65,7 +66,7 @@
                             <li><a href="admin?method=dashboard">总览</a></li>
                             <li><a href="admin?method=goods">商品管理</a></li>
                             <c:if test="${not empty category}">
-                                <li>${category.name}管理</li>
+                                <li>${category.name}</li>
                             </c:if>
                         </ul>
                     </div>
@@ -157,7 +158,7 @@
                                                                            data-product_id="59"
                                                                            data-product_sku="woo-sunglasses">
                                                                             <img style="width: 30px;"
-                                                                                 src="../resources/images/edit.png">
+                                                                                 src="resources/images/edit.png">
                                                                         </a>
                                                                     </td>
                                                                 </tr>
@@ -211,13 +212,13 @@
                             <c:if test="${currentpPage>1}">
 
                                 <li><a class="page-numbers"
-                                       href="admin?method=goods&categoryid=${category.id!=null?category.id:0}&page=${currentpPage-1}"><</a></li>
+                                       href="admin?method=goods&categoryid=${category.id!=null?category.id:0}&page=${currentpPage-1}">&lt;</a></li>
                             </c:if>
                             <li><span aria-current="page" class="page-numbers current">${currentpPage}</span></li>
 
                             <c:if test="${currentpPage<pages}">
                                 <li><a class="next page-numbers"
-                                       href="admin?method=goods&categoryid=${category.id!=null?category.id:0}&page=${currentpPage+1}">><i
+                                       href="admin?method=goods&categoryid=${category.id!=null?category.id:0}&page=${currentpPage+1}">&gt;<i
                                         class="fa fa-angle-right"></i></a></li>
                             </c:if>
 
@@ -239,12 +240,12 @@
 
 
 
-<script type='text/javascript' src='../resources/js/main.js'></script>
+<script type='text/javascript' src='resources/js/main.js'></script>
 
 
 
 
-<script type='text/javascript' src='../resources/js/woolentor-widgets-active.js'
+<script type='text/javascript' src='resources/js/woolentor-widgets-active.js'
         id='woolentor-widgets-scripts-js'></script>
 
 </body>

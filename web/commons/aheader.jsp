@@ -12,7 +12,7 @@
 %>
 <style>
     .menu-icon {
-        background-image: url(../resources/images/menu.png);
+        background-image: url(resources/images/menu.png);
         background-position: center center;
         width: 25px;
         display: inline-block;
@@ -31,7 +31,7 @@
                 <div class="ht-col-md-2">
                     <div class="site-branding">
                         <a href="${pageContext.request.contextPath}/" class="custom-logo-link" rel="home" aria-current="page"><img
-                                src="../resources/images/logo.png" class="custom-logo" alt="disciplinepro">
+                                src="resources/images/logo.png" class="custom-logo" alt="disciplinepro">
 
                         </a>
                     </div><!-- .site-branding -->
@@ -56,13 +56,13 @@
                                     <ul class="sub-menu">
                                         <li class="menu-item menu-item-type-custom menu-item-object-custom ">
                                             <a href="admin?method=goods&categoryid=1"
-                                               class=""><span> 运动服饰管理</span> </a></li>
+                                               class=""><span> 运动服饰</span> </a></li>
                                         <li class="menu-item menu-item-type-post_type menu-item-object-page ">
                                             <a href="admin?method=goods&categoryid=2"
-                                               class=""><span>运动用品管理</span> </a></li>
+                                               class=""><span>运动用品</span> </a></li>
                                         <li class="menu-item menu-item-type-custom menu-item-object-custom ">
                                             <a href="admin?method=goods&categoryid=3"
-                                               class=""><span>运动补给管理</span> </a></li>
+                                               class=""><span>运动补给</span> </a></li>
                                     </ul>
                                 </li>
 
@@ -82,9 +82,7 @@
                                                class=""><span>已逾期订单</span> </a></li>
                                     </ul>
                                 </li>
-                                <li class="menu-item menu-item-type-post_type menu-item-object-page nocls"><a
-                                        href="https://demo.shrimpthemes.com/1/parlo/about-us/" class="">用户
-                                </a></li>
+
 
                             </ul>
                         </nav><!-- #site-navigation -->
@@ -111,7 +109,7 @@
                                             </ul>
                                         </div>
                                     </div> <span class="parlo-dropdown-close" margin:="" 25px;="">
-                                                <img src="../resources/images/delete.png" style="width: 20px;">
+                                                <img src="resources/images/delete.png" style="width: 20px;">
                                             </span>
                                 </div>
                             </li>
@@ -134,7 +132,7 @@
                 <div class="ht-col-md-6 ht-col-xs-6">
                     <div class="mobile-logo">
                         <a href="${pageContext.request.contextPath}/" class="custom-logo-link" rel="home" aria-current="page"><img
-                                src="../resources/images/logo.png" class="custom-logo" alt="disciplinepro"></a>
+                                src="resources/images/logo.png" class="custom-logo" alt="disciplinepro"></a>
                     </div>
                 </div>
                 <div class="ht-col-md-6 ht-col-xs-6 ht-d-flex ht-end-xs">
@@ -155,7 +153,7 @@
     <!-- 适配移动端menu -->
     <div class="offcanvas-mobile-menu" id="offcanvas-mobile-menu">
         <a href="javascript:void(0)" id="offcanvas-menu-close-trigger">
-            <img src="../resources/images/delete.png" style="width: 20px;">
+            <img src="resources/images/delete.png" style="width: 20px;">
         </a>
 
         <div class="offcanvas-wrapper">
@@ -166,7 +164,7 @@
                             <a href="admin?method=dashboard" aria-current="page">总览</a>
                         </li>
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-672">
-                            <a href="goodsservlet?method=shop">商品管理</a>
+                            <a href="admin?method=goods">商品管理</a>
                             <ul class="sub-menu">
                                 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
                                     <a href="admin?method=goods&categoryid=1">运动服饰管理</a></li>

@@ -17,30 +17,30 @@
     <meta name='robots' content='noindex, nofollow' />
 
 
-    <link rel='stylesheet' id='simple-line-icons-wl-css' href='../resources/css/simple-line-icons.css' type='text/css'
+    <link rel='stylesheet' id='simple-line-icons-wl-css' href='resources/css/simple-line-icons.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='htflexboxgrid-css' href='../resources/css/htflexboxgrid.css' type='text/css'
+    <link rel='stylesheet' id='htflexboxgrid-css' href='resources/css/htflexboxgrid.css' type='text/css'
           media='all' />
-    <link rel='stylesheet' id='woolentor-widgets-css' href='../resources/css/woolentor-widgets.css' type='text/css'
+    <link rel='stylesheet' id='woolentor-widgets-css' href='resources/css/woolentor-widgets.css' type='text/css'
           media='all' />
 
 
-    <link rel='stylesheet' id='parlo-style-css' href='../resources/css/style.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-frontend-legacy-css' href='../resources/css/frontend-legacy.min.css'
+    <link rel='stylesheet' id='parlo-style-css' href='resources/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-frontend-legacy-css' href='resources/css/frontend-legacy.min.css'
           type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-frontend-css' href='../resources/css/frontend.min.css' type='text/css'
+    <link rel='stylesheet' id='elementor-frontend-css' href='resources/css/frontend.min.css' type='text/css'
           media='all' />
 
-    <link rel='stylesheet' id='elementor-post-11-css' href='../resources/css/post-11.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-post-11-css' href='resources/css/post-11.css' type='text/css' media='all' />
 
 
-    <link rel="stylesheet" id="woocommerce-smallscreen-css" href="../resources/css/woocommerce-smallscreen.css"
+    <link rel="stylesheet" id="woocommerce-smallscreen-css" href="resources/css/woocommerce-smallscreen.css"
           type="text/css" media="only screen and (max-width: 768px)">
-    <link rel="stylesheet" href="../resources/css/load.css">
+    <link rel="stylesheet" href="resources/css/load.css">
 
 
-    <script type='text/javascript' src='../resources/js/jquery.min.js' id='jquery-core-js'></script>
+    <script type='text/javascript' src='resources/js/jquery.min.js' id='jquery-core-js'></script>
 
 
 
@@ -95,7 +95,7 @@
                     jQuery("[id='loading']").hide(0);
                     if(data=='success'){
                         jQuery("[name='status-"+jQuery("[name='oid']").val()+"']").text('已发货');
-                        jQuery("[name='button-"+jQuery("[name='oid']")).hide(0);
+                        jQuery("[name='button-"+jQuery("[name='oid']").val()+"']").hide(0);
                     }else{
                         alert(data);
                     }
@@ -128,7 +128,7 @@
     <div name="dialog">
         <div style="position: relative;">
             <a href="#" onclick="dialogClose()">
-                <img src="../resources/images/delete.png"
+                <img src="resources/images/delete.png"
                      style="position: absolute;width: 20px;height: 20px;top: 10px; right:10px;">
             </a>
         </div>
@@ -182,9 +182,9 @@
                             <div class="ht-row">
                                 <div class="ht-col-xs-12">
 
-                                    <article id="post-50" class="post-50 page type-page status-publish hentry">
+                                    <article class="post-50 page type-page status-publish hentry">
 
-                                        <c:if test="${empty orderList}}">
+                                        <c:if test="${empty orderList}">
                                             <div class="entry-content">
                                                 <div class="woocommerce">
                                                     <div class="woocommerce-notices-wrapper"></div>
@@ -212,7 +212,7 @@
                                                             <thead>
                                                             <tr>
                                                                 <th>订单号</th>
-                                                                <th>用户id</th>
+                                                                <th>用户ID</th>
                                                                 <th>下单时间</th>
                                                                 <th>状态</th>
                                                                 <th>总价</th>
@@ -322,9 +322,9 @@
 
 
 
-<script type='text/javascript' src='../resources/js/main.js'></script>
+<script type='text/javascript' src='resources/js/main.js'></script>
 
-<script type='text/javascript' src='../resources/js/woolentor-widgets-active.js'
+<script type='text/javascript' src='resources/js/woolentor-widgets-active.js'
         id='woolentor-widgets-scripts-js'></script>
 
 </body>

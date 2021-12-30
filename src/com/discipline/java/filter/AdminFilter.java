@@ -30,7 +30,7 @@ public class AdminFilter implements Filter {
                 response.sendRedirect("index.jsp");
 
         }else
-            response.sendRedirect("../login.jsp");
+            response.sendRedirect("login.jsp");
     }
 
     @Override

@@ -223,7 +223,7 @@ public class AdminServlet extends BaseServlet {
 
 
         if(StringUtils.isEmpty(id)||StringUtils.isEmpty(name)||StringUtils.isEmpty(price)||
-                StringUtils.isEmpty(categoryid)||StringUtils.isEmpty(picture)||StringUtils.isEmpty(sizes)){
+                StringUtils.isEmpty(categoryid)||StringUtils.isEmpty(picture)){
             response.getWriter().write(Constant.REQUEST_PARAMETER_INCOMPLETE);
             return null;
         }
